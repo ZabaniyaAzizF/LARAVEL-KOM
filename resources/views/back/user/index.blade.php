@@ -58,6 +58,7 @@
                                             <thead>
                                               <tr>
                                                 <th>No</th>
+                                                <th>foto_profile</th>
                                                 <th >Name</th>
                                                 <th >Email</th>
                                                 <th >Telepon</th>
@@ -72,6 +73,7 @@
                                                 @foreach ($users as $item)
                                               <tr>
                                                 <th>{{++$i}}</th>
+                                                <th><img src="{{ asset('storage/foto_profile/'.$item->foto_profile)}}" width="50px" alt=""></th>
                                                 <th>{{$item->name}}</th>
                                                 <td>{{$item->email}}</td>
                                                 <td>{{$item->telepon}}</td>

@@ -58,8 +58,14 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="p-2">
-                                                    <form class="form-horizontal" action="{{route('Users.store')}}" method="post" >
+                                                    <form class="form-horizontal" action="{{route('Users.store')}}" method="post" enctype="multipart/form-data">
                                                         @csrf
+                                                        <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="example-fileinput">Foto Profile</label>
+                                                            <div class="col-md-10">
+                                                                <input type="file" class="form-control" name="foto_profile" id="example-fileinput">
+                                                            </div>
+                                                        </div>
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
                                                             <div class="col-md-10">

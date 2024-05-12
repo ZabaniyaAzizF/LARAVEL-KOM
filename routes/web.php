@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/Users/update/{id}', [UsersController::class, 'update'])->name('Users.update');
     Route::delete('/Users/delete/{id}', [UsersController::class, 'delete'])->name('Users.delete');
     Route::get('/Profile/{id}', [UsersController::class, 'profile'] )->name('Profile');
+    Route::put('/Profile/update/{id}', [UsersController::class, 'updateProfile'])->name('Profile.update');
 
 
     // Data Siswa

@@ -61,6 +61,13 @@
                                                     <form class="form-horizontal" action="{{route('Users.update',['id' => $data->id]) }}" method="post" >
                                                         @csrf
                                                         @method('PUT')
+                                                        {{-- <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="example-fileinput">Foto Profile</label>
+                                                            <div class="col-md-10">
+                                                                <img src="{{ asset('storage/foto_profile/'.$data->foto_profile)}}" class="mb-3" width="100px" alt="">
+                                                                <input type="file" class="form-control" name="foto_profile" id="example-fileinput">
+                                                            </div>
+                                                        </div> --}}
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
                                                             <div class="col-md-10">
