@@ -67,12 +67,10 @@
                                               </tr>
                                             </thead>
                                             <tbody>
-                                                @php
-                                                    $i = 0; // atau $i = 1; tergantung pada keinginan Anda
-                                                @endphp
+                                                   <?php $i = $users->firstItem() ?>
                                                 @foreach ($users as $item)
                                               <tr>
-                                                <th>{{++$i}}</th>
+                                                <th>{{ $i }}</th>
                                                 <th><img src="{{ asset('storage/foto_profile/'.$item->foto_profile)}}" width="50px" alt=""></th>
                                                 <th>{{$item->name}}</th>
                                                 <td>{{$item->email}}</td>
@@ -106,10 +104,10 @@
                     </div>
                 </div>
             </div>
+                                                <?php ++$i ?>
                                               @endforeach
                                             </tbody>
                                           </table>
-
                                     </div> <!-- end card body-->
                                 </div> <!-- end card -->
                             </div><!-- end col-->
@@ -125,19 +123,3 @@
 <!-- Mirrored from myrathemes.com/dashtrap/tables-datatables by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 04:07:26 GMT -->
 </html>
 @endsection
-{{-- <div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="header-title">Static backdrop</h4>
-                <p class="sub-header">Examples of Static backdrop.</p>
-
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Launch static backdrop modal
-                </button>
-                
-                
-            </div>
-        </div>
-    </div> --}}

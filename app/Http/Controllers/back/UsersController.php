@@ -25,7 +25,7 @@ use Termwind\Components\Dd;
 class UsersController extends Controller
 {
     public function index() {
-        $users = User::get();
+        $users = User::orderBy('id', 'desc')->paginate();
         
         return view('back.user.index',[
             'users' => $users
@@ -58,7 +58,7 @@ class UsersController extends Controller
         $profile = $request->file('foto_profile');
         $filename = date('Y-m-d').$profile->getClientOriginalName();
         $path = 'foto_profile/'.$filename;
-
+ 
         Storage::disk('public')->put($path,file_get_contents($profile));
 
         // Mengambil data dari permintaan
@@ -85,7 +85,7 @@ class UsersController extends Controller
 
     public function edit(Request $request, $id){
         // Mengambil data pengguna
-        $data = User::find($id);
+        $data = User::find($id); 
         if (!$data) {
             return redirect()->back()->with('error', 'User not found');
         }
@@ -97,61 +97,52 @@ class UsersController extends Controller
     }
 
     public function update(Request $request, $id) {
-        // Validasi input termasuk file
-        $validator = Validator::make($request->all(), [
-            'nama'          => 'required',
-            'email'         => 'required|email',
-            'telepon'       => 'required',
-            'alamat'        => 'required',
-            'role'          => 'required',
-            'foto_profile'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Ubah menjadi nullable agar tidak wajib
-        ]);
-    
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
-        }
-    
         // Mengambil data pengguna yang akan diupdate
-        $user = User::find($id);
-        if (!$user) {
+        $data = User::find($id);
+        if (!$data) {
             return redirect()->back()->with('error', 'User not found');
         }
-    
+
         // Memperbarui data pengguna
-        $user->name = $request->nama;
-        $user->email = $request->email;
-        $user->alamat = $request->alamat;
-        $user->telepon = $request->telepon;
-    
+        $data->name = $request->nama;
+        $data->email = $request->email;
+        $data->alamat = $request->alamat;
+        $data->telepon = $request->telepon;
+
         // Jika kata sandi tidak kosong, update juga kata sandi
         if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
+            $data->password = Hash::make($request->password);
         }
-    
+
         // Menyimpan foto profil jika diunggah
-        if ($request->hasFile('foto_profile')) {
-            $profile = $request->file('foto_profile');
-            $filename = date('Y-m-d').$profile->getClientOriginalName();
-            $path = 'foto_profile/'.$filename;
-            Storage::disk('public')->put($path, file_get_contents($profile));
-            // Menghapus foto profil lama jika ada
-            if ($user->foto_profile) {
-                Storage::disk('public')->delete('foto_profile/'.$user->foto_profile);
-            }
-            $user->foto_profile = $filename;
+        $profile = $request->file('foto_profile');
+        if ($profile) {
+        // Delete previous photo if it exists
+        if ($data->foto_profile) {
+            Storage::disk('public')->delete('foto_profile/' . $data->foto_profile);
         }
     
-        $user->save();
-    
+        $filename = date('Y-m-d') . $profile->getClientOriginalName();
+        $path = 'foto_profile/' . $filename;
+
+        Storage::disk('public')->put($path, file_get_contents($profile));
+
+        $data->foto_profile = $filename;
+        }
+
+        // Save updated user data
+        $data->save();
+
         // Menetapkan peran jika ada perubahan peran
         if ($request->has('role')) {
-            $role = Role::where('name', $request->role)->first();
-            if ($role) {
-                $user->syncRoles([$role->name]); // Menghapus semua peran sebelumnya dan menetapkan peran baru
+        $role = Role::where('name', $request->role)->first();
+        if ($role) {
+            $data->syncRoles([$role->name]); // Menghapus semua peran sebelumnya dan menetapkan peran baru
             }
         }
-    
+
         return redirect()->route('Users');
+
     }
 
     public function delete(Request $request, $id){
@@ -182,58 +173,51 @@ class UsersController extends Controller
     }
 
     public function updateProfile(Request $request, $id) {
-        
-       // Validasi input termasuk file
-       $validator = Validator::make($request->all(), [
-        'nama'          => 'required',
-        'email'         => 'required|email',
-        'telepon'       => 'required',
-        'alamat'        => 'required',
-        'foto_profile'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Ubah menjadi nullable agar tidak wajib
-    ]);
-
-    if ($validator->fails()) {
-        return redirect()->back()->withInput()->withErrors($validator);
-    }
-
-    // Mengambil data pengguna yang akan diupdate
-    $user = User::find($id);
-    if (!$user) {
-        return redirect()->back()->with('error', 'User not found');
-    }
-
-    // Memperbarui data pengguna
-    $user->name = $request->nama;
-    $user->email = $request->email;
-    $user->alamat = $request->alamat;
-    $user->telepon = $request->telepon;
-
-    // Jika kata sandi tidak kosong, update juga kata sandi
-    if (!empty($request->password)) {
-        $user->password = Hash::make($request->password);
-    }
-
-    // Menyimpan foto profil jika diunggah
-    if ($request->hasFile('foto_profile')) {
-        $profile = $request->file('foto_profile');
-        $filename = date('Y-m-d').$profile->getClientOriginalName();
-        $path = 'foto_profile/'.$filename;
-        Storage::disk('public')->put($path, file_get_contents($profile));
-        // Menghapus foto profil lama jika ada
-        if ($user->foto_profile) {
-            Storage::disk('public')->delete('foto_profile/'.$user->foto_profile);
+        // Mengambil data pengguna yang akan diupdate
+        $data = User::find($id);
+        if (!$data) {
+            return redirect()->back()->with('error', 'User not found');
         }
-        $user->foto_profile = $filename;
-    }
 
-    $user->save();
+        // Memperbarui data pengguna
+        $data->name = $request->nama;
+        $data->email = $request->email;
+        $data->alamat = $request->alamat;
+        $data->telepon = $request->telepon;
 
-    $roles = Role::all();
-    return view('back.profile.index', [
-        'user' => $user, // Perbaiki 'users' menjadi 'user'
-        'roles' => $roles
-    ]);
+        // Jika kata sandi tidak kosong, update juga kata sandi
+        if (!empty($request->password)) {
+            $data->password = Hash::make($request->password);
+        }
 
+        // Menyimpan foto profil jika diunggah
+        $profile = $request->file('foto_profile');
+        if ($profile) {
+        // Delete previous photo if it exists
+        if ($data->foto_profile) {
+            Storage::disk('public')->delete('foto_profile/' . $data->foto_profile);
+        }
+    
+        $filename = date('Y-m-d') . $profile->getClientOriginalName();
+        $path = 'foto_profile/' . $filename;
+
+        Storage::disk('public')->put($path, file_get_contents($profile));
+
+        $data->foto_profile = $filename;
+        }
+
+        // Save updated user data
+        $data->save();
+
+        // Menetapkan peran jika ada perubahan peran
+        if ($request->has('role')) {
+        $role = Role::where('name', $request->role)->first();
+        if ($role) {
+            $data->syncRoles([$role->name]); // Menghapus semua peran sebelumnya dan menetapkan peran baru
+            }
+        }
+
+        return redirect()->route('Profile', ['id' => $data->id]);
     }
 
 }

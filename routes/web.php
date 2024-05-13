@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
 
     // Setting
     Route::get('/Setting', [SettingController::class, 'index'] )->name('Setting');
+    Route::put('/Setting/update/{id_setting}', [SettingController::class, 'update'])->name('Setting.update');
 
     // Transaksi
     Route::get('/Transaksi', [TransaksiController::class, 'index'] )->name('Transaksi');

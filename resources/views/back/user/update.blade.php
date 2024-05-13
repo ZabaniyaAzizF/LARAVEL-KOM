@@ -58,16 +58,16 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="p-2">
-                                                    <form class="form-horizontal" action="{{route('Users.update',['id' => $data->id]) }}" method="post" >
+                                                    <form class="form-horizontal" action="{{route('Users.update', $data->id) }}" method="post" enctype="multipart/form-data" >
                                                         @csrf
                                                         @method('PUT')
-                                                        {{-- <div class="mb-2 row">
+                                                        <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-fileinput">Foto Profile</label>
                                                             <div class="col-md-10">
                                                                 <img src="{{ asset('storage/foto_profile/'.$data->foto_profile)}}" class="mb-3" width="100px" alt="">
                                                                 <input type="file" class="form-control" name="foto_profile" id="example-fileinput">
                                                             </div>
-                                                        </div> --}}
+                                                        </div>
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
                                                             <div class="col-md-10">
