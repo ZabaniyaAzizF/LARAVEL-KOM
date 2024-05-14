@@ -32,6 +32,28 @@ class UsersController extends Controller
         ]);
     }
 
+    public function petugas()
+    {
+        $users = User::with('roles')->orderBy('id', 'desc')->paginate();
+        $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
+    
+        return view('back.petugas.index', [
+            'users' => $users,
+            'roles' => $roles
+        ]);
+    }
+
+    public function siswa()
+    {
+        $users = User::with('roles')->orderBy('id', 'desc')->paginate();
+        $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
+    
+        return view('back.siswa.index', [
+            'users' => $users,
+            'roles' => $roles
+        ]);
+    }
+
     public function create(){
         $role = Role::get();
         return view('back.user.create', [

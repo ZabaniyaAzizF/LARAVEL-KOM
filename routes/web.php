@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Data Siswa
-    Route::get('/Data-siswa', [DataSiswaController::class, 'index'] )->name('Data-siswa');
+    Route::get('/Data-siswa', [UsersController::class, 'siswa'] )->name('Data-siswa');
     Route::get('/Data-siswa/create', [DataSiswaController::class, 'create'])->name('Data-siswa.tambah');
     Route::post('/Data-siswa/store', [DataSiswaController::class, 'store'])->name('Data-siswa.store');
     Route::get('/Data-siswa/edit/{nis}', [DataSiswaController::class, 'edit'])->name('Data-siswa.edit');
@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/Data-siswa/delete/{nis}', [DataSiswaController::class, 'delete'])->name('Data-siswa.delete');
 
     // Data Petugas
-    Route::get('/Data-petugas', [DataPetugasController::class, 'index'] )->name('Data-petugas');
+    Route::get('/Data-petugas', [UsersController::class, 'petugas'] )->name('Data-petugas');
     Route::get('/Data-petugas/create', [DataPetugasController::class, 'create'])->name('Data-petugas.tambah');
     Route::post('/Data-petugas/store', [DataPetugasController::class, 'store'])->name('Data-petugas.store');
     Route::get('/Data-petugas/edit/{kode_petugas}', [DataPetugasController::class, 'edit'])->name('Data-petugas.edit');
