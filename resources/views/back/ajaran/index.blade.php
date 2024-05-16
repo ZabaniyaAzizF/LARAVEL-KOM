@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Data Kelas')
+@section('title', Auth::user()->name . ' - Tahun Ajaran')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -52,29 +52,29 @@
                                     <div class="card-body">
                                         <h4 class="header-title">Table Data Users</h4>
 
-                                        <a href="{{ route('Data-kelas.tambah')}}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
+                                        <a href="{{ route('Ajaran.tambah')}}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
 
                                         <table class="table" >
                                             <thead>
                                               <tr>
-                                                <th>kode Kelas</th>
-                                                <th >Kelas</th>
+                                                <th>kode Ajaran</th>
+                                                <th >Tahun Ajaran</th>
                                                 <th >Aksi</th>
                                               </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($kelas as $item)
+                                                @foreach ($ajaran as $item)
                                               <tr>
-                                                <th>{{$item->kode_kelas}}</th>
-                                                <th>{{$item->kelas}}</th>
+                                                <th>{{$item->kode_ajaran}}</th>
+                                                <th>{{$item->tahun_ajaran}}</th>
                                                 <td>
-                                                    <a href="{{ route('Data-kelas.edit',$item->kode_kelas)}}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
+                                                    <a href="{{ route('Ajaran.edit',$item->kode_ajaran)}}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                                     <br>
-                                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->kode_kelas }}" class="btn btn-danger shadow btn-xs sharp me-1">Hapus</a>
+                                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->kode_ajaran }}" class="btn btn-danger shadow btn-xs sharp me-1">Hapus</a>
                                                 </td>
                                               </tr>
                                               <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop{{ $item->kode_kelas }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="staticBackdrop{{ $item->kode_ajaran }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -82,10 +82,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->kelas }}</b> ?</p>
+                            <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->tahun_ajaran }}</b> ?</p>
                         </div>
                         <div class="modal-footer">
-                            <form action="{{ route('Data-kelas.delete',$item->kode_kelas)}}" method="POST">
+                            <form action="{{ route('Ajaran.delete',$item->kode_ajaran)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

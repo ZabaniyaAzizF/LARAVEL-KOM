@@ -3,7 +3,7 @@
 
 <!-- Mirrored from preview.colorlib.com/theme/imagine/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 May 2024 03:25:15 GMT -->
 <head>
-<title>imagine &mdash; Onepage Template by Colorlib</title>
+<title>Landingpage &mdash; Aplikasi Pembayaran SPP </title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
@@ -39,7 +39,6 @@
 <div class="container">
 <div class="row align-items-center">
 <div class="col-6 col-md-3 col-xl-4  d-block">
-<h1 class="mb-0 site-logo"><a href="index-2.html" class="text-black h2 mb-0">imagine<span class="text-primary">.</span> </a></h1>
 </div>
 <div class="col-12 col-md-9 col-xl-8 main-menu">
 <nav class="site-navigation position-relative text-right" role="navigation">
@@ -58,13 +57,11 @@
 <div class="container">
 <div class="row align-items-center justify-content-center">
 <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
-<img src="landingpage/images/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+{{-- <img src="landingpage/images/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute"> --}}
 <div class="row mb-4" data-aos="fade-up" data-aos-delay="200">
 <div class="col-lg-6 mr-auto">
-<h1>Make Your Business More Profitable</h1>
-<p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam assumenda ea quo cupiditate facere deleniti fuga officia.</p>
+<h1>Selamat Data Di Aplikasi Spp</h1>
 <div>
-<a href="#" class="btn btn-primary mr-2 mb-2">Get Started</a>
 </div>
 </div>
 </div>

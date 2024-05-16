@@ -1,18 +1,14 @@
 <div class="main-menu">
     <!-- Brand Logo -->
     <div class="logo-box">
+        <?php  $setting = App\Models\Setting::get()->first() ?>
         <!-- Brand Logo Light -->
         <a class='logo-light' href='{{ route('dashboard')}}'>
-            <img src="{{ asset('admin/images/logo-light.png') }}" alt="logo" class="logo-lg" height="28">
-            <img src="{{ asset('admin/images/logo-sm.png') }}" alt="small logo" class="logo-sm" height="28">
-        </a>
-
-        <!-- Brand Logo Dark -->
-        <a class='logo-dark' href='index-2.html'>
-            <img src="{{ asset('admin/images/logo-dark.png') }}" alt="dark logo" class="logo-lg" height="28">
-            <img src="{{ asset('admin/images/logo-sm.png') }}" alt="small logo" class="logo-sm" height="28">
-        </a>
+            <img src="{{ asset('storage/setting/'.$setting->path_logo)}}" class="mb-3" style="" width="70px" alt="">
+        </a><br>
     </div>
+
+    <h6 style="position: relative; right: -20px;">{{ $setting->nama }}</h6>
 
     <!--- Menu -->
     <div data-simplebar>
@@ -29,23 +25,16 @@
             </li>
 
             <li class="menu-item">
-                <a class='menu-link waves-effect waves-light' href="{{ route('Data-siswa') }}">
-                    <span class="menu-icon"><i class="bx bx-calendar"></i></span>
-                    <span class="menu-text"> Data Siswa </span>
-                </a>
-            </li>
-
-            <li class="menu-item">
-                <a href="{{ route('Data-petugas') }}"  class="menu-link waves-effect waves-light">
-                    <span class="menu-icon"><i class="bx bx-file"></i></span>
-                    <span class="menu-text"> Data Petugas </span>
-                </a>
-            </li>
-
-            <li class="menu-item">
                 <a href="{{ route('Data-kelas') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-layout"></i></span>
                     <span class="menu-text"> Data Kelas </span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="{{ route('Ajaran') }}"  class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-layout"></i></span>
+                    <span class="menu-text"> Tahun Ajaran </span>
                 </a>
             </li>
 

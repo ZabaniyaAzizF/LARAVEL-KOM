@@ -78,6 +78,16 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="simpleinput">NIS</label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" class="form-control" name="nis" value="{{ $data->nis }}" placeholder="Isi NIS Anda ">
+                                                                <small style="color: red;">* Jika Akun Ini Untuk Siswa</small>
+                                                                @error('nis')
+                                                                    <small>{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-email">Email</label>
                                                             <div class="col-md-10">
                                                                 <input type="email" name="email" class="form-control" value="{{ $data->email}}"  readonly>

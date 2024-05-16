@@ -24,6 +24,8 @@
                 <button class="button-toggle-menu">
                     <i class="mdi mdi-menu"></i>
                 </button>
+                <h4>Welcome | </h4>
+                <h4>{{ Auth::user()->name }}</h4>
             </div>
 
             <ul class="topbar-menu d-flex align-items-center gap-4">
@@ -34,7 +36,7 @@
                     </a>
                 </li>
 
-                <li class="dropdown">
+                {{-- <li class="dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="mdi mdi-magnify font-size-24"></i>
                     </a>
@@ -43,9 +45,9 @@
                             <input type="search" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
                         </form>
                     </div>
-                </li>
+                </li> --}}
                 
-                <li class="dropdown notification-list">
+                {{-- <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="mdi mdi-bell font-size-24"></i>
                         <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
@@ -173,18 +175,22 @@
                         </a>
 
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-link" id="theme-mode">
                     <i class="bx bx-moon font-size-24"></i>
                 </li>
 
+                <li class="nav-link" id="theme-mode">
+                    <a href="{{ route('logout')}}" class="bx bx-aperture font-size-24"></a>
+                </li>
+
+                <?php  $user = Auth::user() ?>
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" href="{{ route('Profile', ['id' => auth()->id()]) }}" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="{{ asset('admin/images/users/avatar-4.jpg') }}" alt="user-image" class="rounded-circle">
+                        <img src="{{ asset('storage/foto_profile/'.$user->foto_profile)}}" alt="user-image" class="rounded-circle">
                     </a>
                 </li>
-                <a href="{{ route('logout')}}" class="btn btn-danger">Log Out</a>
             </ul>
         </div>
     </div>

@@ -26,33 +26,37 @@ class UsersController extends Controller
 {
     public function index() {
         $users = User::orderBy('id', 'desc')->paginate();
+
+        // Mendapatkan semua role
+        $roles = Role::all();
         
         return view('back.user.index',[
-            'users' => $users
-        ]);
-    }
-
-    public function petugas()
-    {
-        $users = User::with('roles')->orderBy('id', 'desc')->paginate();
-        $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
-    
-        return view('back.petugas.index', [
             'users' => $users,
             'roles' => $roles
         ]);
     }
 
-    public function siswa()
-    {
-        $users = User::with('roles')->orderBy('id', 'desc')->paginate();
-        $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
+    // public function petugas()
+    // {
+    //     $users = User::with('roles')->orderBy('id', 'desc')->paginate();
+    //     $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
     
-        return view('back.siswa.index', [
-            'users' => $users,
-            'roles' => $roles
-        ]);
-    }
+    //     return view('back.petugas.index', [
+    //         'users' => $users,
+    //         'roles' => $roles
+    //     ]);
+    // }
+
+    // public function siswa()
+    // {
+    //     $users = User::with('roles')->orderBy('id', 'desc')->paginate();
+    //     $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
+    
+    //     return view('back.siswa.index', [
+    //         'users' => $users,
+    //         'roles' => $roles
+    //     ]);
+    // }
 
     public function create(){
         $role = Role::get();
@@ -65,6 +69,7 @@ class UsersController extends Controller
         // Validasi input termasuk file
         $validator = Validator::make($request->all(), [
             'nama'          => 'required',
+            'nis'           => 'nullable',
             'email'         => 'required|email',
             'password'      => 'required',
             'telepon'       => 'required',
@@ -86,6 +91,7 @@ class UsersController extends Controller
         // Mengambil data dari permintaan
         $data = [
             'name'              => $request->nama,
+            'nis'              => $request->nis,
             'email'             => $request->email,
             'alamat'            => $request->alamat,
             'telepon'           => $request->telepon,
@@ -127,6 +133,7 @@ class UsersController extends Controller
 
         // Memperbarui data pengguna
         $data->name = $request->nama;
+        $data->nis = $request->nis;
         $data->email = $request->email;
         $data->alamat = $request->alamat;
         $data->telepon = $request->telepon;

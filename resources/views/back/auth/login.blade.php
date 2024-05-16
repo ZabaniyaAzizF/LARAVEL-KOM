@@ -27,6 +27,10 @@
                 <div class="card">
                     <div class="card-body p-4">
 
+                        <?php  $setting = App\Models\Setting::get()->first() ?>
+                        
+                        <img src="{{ asset('storage/setting/'.$setting->path_logo)}}" class="mb-3" style="position: relative; right: -100px" width="100px" alt="">
+
                         <div class="text-center w-75 mx-auto auth-logo mb-4">
                             <h1>Log In</h1>
                         </div>

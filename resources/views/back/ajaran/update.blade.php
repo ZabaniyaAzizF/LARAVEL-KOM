@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Setting')
+@section('title', Auth::user()->name . ' - Dashboard')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -32,14 +32,14 @@
                         <div class="py-3 py-lg-4">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h4 class="page-title mb-0">Edit Data Users</h4>
+                                    <h4 class="page-title mb-0">Edit Data Ajaran</h4>
                                 </div>
                                 <div class="col-lg-6">
                                    <div class="d-none d-lg-block">
                                     <ol class="breadcrumb m-0 float-end">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Users</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Ajaran</a></li>
                                         <li class="breadcrumb-item active">Datatables</li>
-                                        <li class="breadcrumb-item active">Edit Data Users</li>
+                                        <li class="breadcrumb-item active">Edit Data Ajaran</li>
                                     </ol>
                                    </div>
                                 </div>
@@ -58,48 +58,23 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="p-2">
-                                                    <form class="form-horizontal" action="{{ route('Setting.update', $setting->id_setting) }}" method="POST" enctype="multipart/form-data" >
+                                                    <form class="form-horizontal" action="{{route('Ajaran.update', $data->kode_ajaran) }}" method="post" >
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-fileinput">Foto Profile</label>
+                                                            <label class="col-md-2 col-form-label" for="simpleinput">Kode Ajaran</label>
                                                             <div class="col-md-10">
-                                                                <img src="{{ asset('storage/setting/'.$setting->path_logo)}}" class="mb-3" width="100px" alt="">
-                                                                <input type="file" class="form-control" name="path_logo" id="example-fileinput">
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
-                                                            <div class="col-md-10">
-                                                                <input type="text" class="form-control" name="nama" value="{{ $setting->nama}}" placeholder="Isi Nama Anda">
-                                                                @error('nama')
+                                                                <input type="text" class="form-control" name="kode_ajaran" value="{{ $data->kode_ajaran}}" readonly>
+                                                                @error('kode_ajaran')
                                                                     <small>{{ $message }}</small>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Email</label>
+                                                            <label class="col-md-2 col-form-label" for="example-email">Tahun Ajaran</label>
                                                             <div class="col-md-10">
-                                                                <input type="email" name="email" class="form-control" value="{{ $setting->email}}"  readonly>
-                                                                @error('email')
-                                                                <small>{{ $message }}</small>
-                                                            @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Telepon</label>
-                                                            <div class="col-md-10">
-                                                                <input type="number" name="telepon" class="form-control" value="{{ $setting->telepon}}"  placeholder="Isi No Telepon Anda">
-                                                                @error('telepon')
-                                                                <small>{{ $message }}</small>
-                                                            @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Alamat</label>
-                                                            <div class="col-md-10">
-                                                                <input type="text" name="alamat" class="form-control" value="{{ $setting->alamat}}"  placeholder="Isi Alamat Rumah Anda">
-                                                                @error('alamat')
+                                                                <input type="text" name="tahun_ajaran" class="form-control" value="{{ $data->tahun_ajaran}}"  placeholder="Isi Nama Kelas">
+                                                                @error('tahun_ajaran')
                                                                 <small>{{ $message }}</small>
                                                             @enderror
                                                             </div>

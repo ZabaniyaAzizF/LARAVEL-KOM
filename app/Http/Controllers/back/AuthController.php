@@ -9,6 +9,7 @@ use Illuminate\{
     Support\Facades\Auth,
     Support\Facades\Hash
 };
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -40,7 +41,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('login');
+        return redirect()->route('landingpage');
     }
 
     public function register(){
