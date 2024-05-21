@@ -5,6 +5,7 @@ use App\Http\Controllers\back\AuthController;
 use App\Http\Controllers\back\AjaranController;
 use App\Http\Controllers\back\UsersController;
 use App\Http\Controllers\back\DataKelasController;
+use App\Http\Controllers\back\PembayaranController;
 use App\Http\Controllers\back\DataSiswaController;
 use App\Http\Controllers\back\DataPetugasController;
 use App\Http\Controllers\back\RegisterController;
@@ -74,7 +75,12 @@ Route::middleware('auth')->group(function () {
 
     // Transaksi
     Route::get('/Transaksi', [TransaksiController::class, 'index'] )->name('Transaksi');
-    Route::get('/Transaksi/store', [TransaksiController::class, 'store'] )->name('Transaksi.store');
+    Route::post('/Transaksi/store', [TransaksiController::class, 'store'])->name('Transaksi.store');
+
+    // Pembayaran
+    Route::get('/Pembayaran', [PembayaranController::class, 'index'])->name('Pembayaran');
+    Route::get('/Pembayaran/edit/{id_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit');
+    Route::put('/Pembayaran/update/{id_pembayaran}', [PembayaranController::class, 'update'])->name('Pembayaran.update');
 
     // History
     Route::get('/History', [TransaksiController::class, 'history'] )->name('History');

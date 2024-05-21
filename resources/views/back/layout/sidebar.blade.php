@@ -43,6 +43,13 @@
             <li class="menu-item">
                 <a href="{{ route('Transaksi') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-cookie"></i></span>
+                    <span class="menu-text"> Spp Bulanan </span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="{{ route('Pembayaran') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-cookie"></i></span>
                     <span class="menu-text"> Pembayaran </span>
                 </a>
             </li>

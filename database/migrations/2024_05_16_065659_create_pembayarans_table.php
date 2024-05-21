@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id('id_pembayaran');
             $table->string('spp_bulan');
-            $table->string('ajaran_kode');
-            $table->string('id')->index();
+            $table->string('ajaran_kode')->index();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key to users table
+            $table->string('nis', 10);
             $table->string('kelas_kode')->index();
+            $table->foreign('kelas_kode')->references('kode_kelas')->on('kelas')->onDelete('cascade'); // Foreign key to kelas table
             $table->string('jumlah');
-            $table->enum('jenis', ['cash', 'transfer'])->default('cash');
-            $table->string('subtotal');
-            $table->string('bukti');
+            $table->string('jenis', 10)->nullable();
+            $table->string('bukti')->nullable();
             $table->enum('status', ['lunas', 'belum lunas'])->default('lunas');
+            $table->string('petugas')->nullable();
             $table->timestamps();
         });
     }
