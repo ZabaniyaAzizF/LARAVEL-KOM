@@ -82,8 +82,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/Pembayaran/edit/{id_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit');
     Route::put('/Pembayaran/update/{id_pembayaran}', [PembayaranController::class, 'update'])->name('Pembayaran.update');
 
-    // History
-    Route::get('/History', [TransaksiController::class, 'history'] )->name('History');
+    // History  Pembayaran
+    Route::get('/History', [PembayaranController::class, 'history'] )->name('History');
+
+    // Tunggakan
+    Route::get('/Tunggakan', [PembayaranController::class, 'tunggakan'] )->name('Tunggakan');
 
 });
 

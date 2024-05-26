@@ -63,7 +63,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-2 row">
-                                                <div class="col-md-6 mt-1">
+                                                <div class="col-md-6 mt-4">
                                                     <label class="col-md-2 col-form-label" for="jenis">Metode Pembayaran</label>
                                                     <select class="form-control br-style" id="jenis" name="jenis">
                                                         <option value="">Pilih Metode Pembayaran</option>
@@ -75,8 +75,16 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-6 mt-4">
-                                                    <label class="col-md-2 col-form-label" for="petugas">Petugas</label>
-                                                    <input type="text" class="form-control" name="petugas" value="{{ $loggedInUser->name }}" readonly>
+                                                    <label class="col-md-2 col-form-label" for="ajaran_kode">Tahun Ajaran</label>
+                                                    <select class="form-control br-style" id="ajaran_kode" name="ajaran_kode">
+                                                        <option value="">Pilih Tahun Ajaran</option>
+                                                        @foreach($ajaranList as $ajaran)
+                                                            <option value="{{ $ajaran->kode_ajaran }}">{{ $ajaran->tahun_ajaran }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('ajaran_kode')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="mb-2 row">
@@ -95,8 +103,35 @@
                                                 <div class="col-md-6 mt-4">
                                                     <label class="col-md-2 col-form-label" for="nominal">Nominal</label>
                                                     <input type="text" class="form-control" name="nominal" value="" placeholder="Isi Nominal Pembayaran">
+                                                    @error('nominal')
+                                                    <small>{{ $message }}</small>
+                                                @enderror
                                                 </div>
                                             </div>
+                                            <div class="mb-2 row">
+                                                <div class="col-md-6 mt-4">
+                                                    <label class="col-md-2 col-form-label" for="bulan">Bulan</label>
+                                                    <select class="form-control br-style" id="bulan" name="bulan">
+                                                        <option value="">Pilih Bulan</option>
+                                                        <option value="Januari">Januari</option>
+                                                        <option value="Februari">Februari</option>
+                                                        <option value="Maret">Maret</option>
+                                                        <option value="April">April</option>
+                                                        <option value="Mei">Mei</option>
+                                                        <option value="Juni">Juni</option>
+                                                        <option value="Juli">Juli</option>
+                                                        <option value="Agustus">Agustus</option>
+                                                        <option value="September">September</option>
+                                                        <option value="Oktober">Oktober</option>
+                                                        <option value="November">November</option>
+                                                        <option value="Desember">Desember</option>
+                                                    </select>
+                                                    @error('bulan')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            
                                             <div class="mt-5">
                                                 <button class="btn btn-primary" type="submit"> Tambah </button>
                                             </div>

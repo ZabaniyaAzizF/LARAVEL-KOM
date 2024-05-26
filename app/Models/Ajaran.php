@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ajaran extends Model
 {
@@ -18,4 +19,9 @@ class Ajaran extends Model
         'kode_ajaran',
         'tahun_ajaran'
     ];
+
+    public function pembayaran(): HasMany
+    {
+        return $this->hasMany(Pembayaran::class, 'ajaran_kode', 'kode_ajaran');
+    }
 }

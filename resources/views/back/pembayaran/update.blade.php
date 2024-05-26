@@ -64,12 +64,12 @@
 
                                 <div class="mb-3">
                                     <label for="spp_bulan" class="form-label">Spp Bulan</label>
-                                    <input type="text" class="form-control" name="spp_bulan" id="spp_bulan" value="{{ $pembayaran->spp_bulan }}">
+                                    <input type="text" class="form-control" name="spp_bulan" id="spp_bulan" value="{{ old('spp_bulan', $pembayaran->spp_bulan) }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="ajaran_kode" class="form-label">Tahun Ajaran</label>
-                                    <input type="text" class="form-control" name="ajaran_kode" id="ajaran_kode" value="{{ $pembayaran->ajaran_kode }}" disabled>
+                                    <input type="text" class="form-control" name="ajaran_kode" id="ajaran_kode" value="{{ $pembayaran->ajaran->tahun_ajaran }}" disabled>
                                 </div>
 
                                 <div class="mb-3">
@@ -79,20 +79,27 @@
 
                                 <div class="mb-3">
                                     <label for="jumlah" class="form-label">Jumlah</label>
-                                    <input type="text" class="form-control" name="jumlah" id="jumlah" value="{{ $pembayaran->jumlah }}">
+                                    <input type="text" class="form-control" name="jumlah" id="jumlah" value="{{ old('jumlah', $pembayaran->jumlah) }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="jumlah" class="form-label">Nama Petugas</label>
-                                    <input type="text" class="form-control" name="petugas" value="{{ $loggedInUser->name }}">
+                                    <label for="petugas" class="form-label">Nama Petugas</label>
+                                    <input type="text" class="form-control" name="petugas" id="petugas" value="{{ old('petugas', $loggedInUser->name) }}" readonly>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="jenis" class="form-label">Metode Pembayaran</label>
+                                    <select class="form-control" id="jenis" name="jenis">
+                                        <option value="Transfer" {{ old('jenis', $pembayaran->jenis) == 'Transfer' ? 'selected' : '' }}>Transfer</option>
+                                        <option value="Cash" {{ old('jenis', $pembayaran->jenis) == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                    </select>
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status</label>
                                     <select class="form-control" name="status" id="status">
-                                        <option value="lunas" {{ $pembayaran->status == 'lunas' ? 'selected' : '' }}>Lunas</option>
-                                        <option value="belum lunas" {{ $pembayaran->status == 'belum lunas' ? 'selected' : '' }}>Belum Lunas</option>
+                                        <option value="lunas" {{ old('status', $pembayaran->status) == 'lunas' ? 'selected' : '' }}>Lunas</option>
+                                        <option value="belum lunas" {{ old('status', $pembayaran->status) == 'belum lunas' ? 'selected' : '' }}>Belum Lunas</option>
                                     </select>
                                 </div>
 

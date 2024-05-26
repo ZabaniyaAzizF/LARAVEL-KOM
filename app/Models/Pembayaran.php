@@ -35,8 +35,8 @@ class Pembayaran extends Model
         return $this->belongsTo(Kelas::class, 'kelas_kode', 'kode_kelas');
     }
 
-    // public function ajaran()
-    // {
-    //     return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran'); // Update 'kode' to 'kode_ajaran' or your actual column name
-    // }
+    public function ajaran()
+    {
+        return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran'); // Update 'kode' to 'kode_ajaran' or your actual column name
+    }
 }

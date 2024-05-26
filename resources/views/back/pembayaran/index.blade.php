@@ -79,7 +79,7 @@
                                         <td>{{ $item->user->name }}</td>
                                         <td>{{ $item->user->nis }}</td>
                                         <td>{{ $item->spp_bulan }}</td>
-                                        <td>{{ $item->ajaran_kode }}</td>
+                                        <td>{{ $item->ajaran->tahun_ajaran }}</td>
                                         <td>{{ $item->kelas->kelas }}</td>
                                         <td>{{ $item->jumlah }}</td>
                                         <td>

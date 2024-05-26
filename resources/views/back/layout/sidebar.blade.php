@@ -55,10 +55,21 @@
             </li>
 
             <li class="menu-item">
-                <a href="{{ route('History') }}"  class="menu-link waves-effect waves-light">
+                @role('siswa')
+                <a href="{{ route('History') }}" class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-briefcase-alt-2"></i></span>
-                    <span class="menu-text"> History </span>
+                    <span class="menu-text"> History Pembayaran </span>
                 </a>
+                @endrole
+            </li>
+
+            <li class="menu-item">
+                @role('siswa')
+                <a href="{{ route('Tunggakan') }}" class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-briefcase-alt-2"></i></span>
+                    <span class="menu-text"> Tunggakan SPP </span>
+                </a>
+                @endrole
             </li>
 
             <li class="menu-title">______________________________</li>

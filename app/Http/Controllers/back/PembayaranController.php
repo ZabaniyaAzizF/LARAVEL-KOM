@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ajaran;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
@@ -50,20 +51,93 @@ class PembayaranController extends Controller
     // Handle the update request
     public function update(Request $request, $id_pembayaran)
     {
+        // Debugging: Check request data
+        // dd($request->all());
+    
         $request->validate([
             'spp_bulan' => 'required|string|max:255',
             'jumlah' => 'required|string|max:255',
-            'status' => 'required|in:lunas,belum lunas'
+            'status' => 'required|in:lunas,belum lunas',
+            'jenis' => 'required|string|max:255'
         ]);
-
+    
+        // Debugging: Check if the record is found
         $pembayaran = Pembayaran::findOrFail($id_pembayaran);
+        // dd($pembayaran);
+    
         $pembayaran->spp_bulan = $request->input('spp_bulan');
         $pembayaran->jumlah = $request->input('jumlah');
         $pembayaran->status = $request->input('status');
+        $pembayaran->jenis = $request->input('jenis');
         $pembayaran->petugas = $request->input('petugas'); // Include this line to update the "petugas" field
+    
+        // Debugging: Check the updated model before saving
+        // dd($pembayaran);
+    
         $pembayaran->save();
-
+    
         return redirect()->route('Pembayaran')->with('success', 'Pembayaran updated successfully');
+    }
+    
+
+    public function history(Request $request)
+    {
+        // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        
+        // Mengambil data pembayaran yang terkait dengan pengguna yang sedang login dan memiliki status lunas
+        $query = Pembayaran::where('user_id', $userId)
+            ->where('status', 'lunas')
+            ->with('ajaran'); // Eager load the related Ajaran model
+    
+        // Terapkan filter jika ada dalam request
+        if ($request->filled('spp_bulan')) {
+            $query->where('spp_bulan', $request->input('spp_bulan'));
+        }
+    
+        if ($request->filled('tahun_ajaran')) {
+            $query->whereHas('ajaran', function($query) use ($request) {
+                $query->where('tahun_ajaran', $request->input('tahun_ajaran'));
+            });
+        }
+    
+        $pembayaran = $query->get();
+        
+        // Mengambil tahun ajaran yang tersedia
+        $academicYears = Ajaran::distinct()->pluck('tahun_ajaran');
+    
+        // Mengembalikan view history beserta data pembayaran yang telah diambil
+        return view('back.history.index', compact('pembayaran', 'academicYears'));
+    }
+
+    public function tunggakan(Request $request)
+    {
+        // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        
+        // Mengambil data pembayaran yang terkait dengan pengguna yang sedang login dan memiliki status lunas
+        $query = Pembayaran::where('user_id', $userId)
+            ->where('status', 'belum lunas')
+            ->with('ajaran'); // Eager load the related Ajaran model
+    
+        // Terapkan filter jika ada dalam request
+        if ($request->filled('spp_bulan')) {
+            $query->where('spp_bulan', $request->input('spp_bulan'));
+        }
+    
+        if ($request->filled('tahun_ajaran')) {
+            $query->whereHas('ajaran', function($query) use ($request) {
+                $query->where('tahun_ajaran', $request->input('tahun_ajaran'));
+            });
+        }
+    
+        $pembayaran = $query->get();
+        
+        // Mengambil tahun ajaran yang tersedia
+        $academicYears = Ajaran::distinct()->pluck('tahun_ajaran');
+    
+        // Mengembalikan view history beserta data pembayaran yang telah diambil
+        return view('back.history.index', compact('pembayaran', 'academicYears'));
     }
     
     
