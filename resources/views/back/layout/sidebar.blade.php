@@ -20,38 +20,45 @@
                 <a class='menu-link waves-effect waves-light' href='{{ route('dashboard')}}'>
                     <span class="menu-icon"><i class="bx bx-home-smile"></i></span>
                     <span class="menu-text"> Dashboards </span>
-                    <span class="badge bg-primary rounded ms-auto">01</span>
                 </a>
             </li>
 
             <li class="menu-item">
+                @role('admin|petugas')
                 <a href="{{ route('Data-kelas') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-layout"></i></span>
                     <span class="menu-text"> Data Kelas </span>
                 </a>
+                @endrole
             </li>
 
             <li class="menu-item">
+                @role('admin|petugas')
                 <a href="{{ route('Ajaran') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-layout"></i></span>
                     <span class="menu-text"> Tahun Ajaran </span>
                 </a>
+                @endrole
             </li>
 
             <li class="menu-title">Transaksi</li>
 
             <li class="menu-item">
+                @role('admin|petugas')
                 <a href="{{ route('Transaksi') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-cookie"></i></span>
                     <span class="menu-text"> Spp Bulanan </span>
                 </a>
+                @endrole
             </li>
 
             <li class="menu-item">
+                @role('admin|petugas')
                 <a href="{{ route('Pembayaran') }}" class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-cookie"></i></span>
                     <span class="menu-text"> Pembayaran </span>
                 </a>
+                @endrole
             </li>
 
             <li class="menu-item">
@@ -75,18 +82,21 @@
             <li class="menu-title">______________________________</li>
 
             <li class="menu-item">
+                @role('admin')
                 <a href="{{ route('Users') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-aperture"></i></span>
                     <span class="menu-text"> Users </span>
-
                 </a>
+                @endrole
             </li>
 
             <li class="menu-item">
+                @role('admin')
                 <a href="{{ route('Setting') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bxs-eraser"></i></span>
                     <span class="menu-text"> Setting </span>
                 </a>
+                @endrole
             </li>
         </ul>
     </div>
