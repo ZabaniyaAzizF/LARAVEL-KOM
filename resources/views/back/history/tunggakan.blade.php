@@ -49,7 +49,7 @@
 
                             <h4>Filter Data Pembayaran Siswa</h4>
                             <!-- Filter Form -->
-                            <form method="GET" action="{{ route('History') }}" class="mb-4">
+                            <form method="GET" action="{{ route('Tunggakan') }}" class="mb-4">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <select name="spp_bulan" class="form-control">

@@ -117,13 +117,13 @@
                                     </h2>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <span class="text-muted">57% <i
+                                    <span class="text-muted">57.86% <i
                                             class="mdi mdi-arrow-up text-success"></i></span>
                                 </div>
                             </div>
             
                             <div class="progress shadow-sm" style="height: 5px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 57%;">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;">
                                 </div>
                             </div>
                         </div>

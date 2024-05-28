@@ -63,8 +63,8 @@
                                                 </div>
                                             </div>
                                             <div class="mb-2 row">
-                                                <div class="col-md-6 mt-4">
-                                                    <label class="col-md-2 col-form-label" for="jenis">Metode Pembayaran</label>
+                                                <div class="col-md-6 mt-5">
+                                                    <label class="col-md-2 col-form-label" for="jenis">Pembayaran</label>
                                                     <select class="form-control br-style" id="jenis" name="jenis">
                                                         <option value="">Pilih Metode Pembayaran</option>
                                                         <option value="Transfer">Transfer</option>
@@ -74,7 +74,7 @@
                                                         <small>{{ $message }}</small>
                                                     @enderror
                                                 </div>
-                                                <div class="col-md-6 mt-4">
+                                                <div class="col-md-6 mt-5">
                                                     <label class="col-md-2 col-form-label" for="ajaran_kode">Tahun Ajaran</label>
                                                     <select class="form-control br-style" id="ajaran_kode" name="ajaran_kode">
                                                         <option value="">Pilih Tahun Ajaran</option>

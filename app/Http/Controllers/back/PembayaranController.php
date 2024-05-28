@@ -137,7 +137,7 @@ class PembayaranController extends Controller
         $academicYears = Ajaran::distinct()->pluck('tahun_ajaran');
     
         // Mengembalikan view history beserta data pembayaran yang telah diambil
-        return view('back.history.index', compact('pembayaran', 'academicYears'));
+        return view('back.history.tunggakan', compact('pembayaran', 'academicYears'));
     }
     
     
