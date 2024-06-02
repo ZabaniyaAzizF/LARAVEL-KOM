@@ -78,7 +78,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="jumlah" class="form-label">Jumlah</label>
+                                    <label for="jumlah" class="form-label">Nominal</label>
                                     <input type="text" class="form-control" name="jumlah" id="jumlah" value="{{ old('jumlah', $pembayaran->jumlah) }}">
                                 </div>
 

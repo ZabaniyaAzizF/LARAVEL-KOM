@@ -41,6 +41,15 @@
                 @endrole
             </li>
 
+            <li class="menu-item">
+                @role('admin|petugas')
+                <a href="{{ route('Tingkatan') }}"  class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-layout"></i></span>
+                    <span class="menu-text"> Tingkatan </span>
+                </a>
+                @endrole
+            </li>
+
             <li class="menu-title">Transaksi</li>
 
             <li class="menu-item">

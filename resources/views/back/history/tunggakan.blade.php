@@ -80,7 +80,7 @@
                                         <th>Spp Bulan</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Kelas</th>
-                                        <th>Jumlah</th>
+                                        <th>Nominal</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>

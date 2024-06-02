@@ -9,6 +9,8 @@ use App\Http\{
 };
 
 use App\Models\User;
+use App\Models\Kelas;
+use App\Models\Ajaran;
 use Exception;
 use Illuminate\{
     Support\Facades\Auth,
@@ -25,45 +27,28 @@ use Termwind\Components\Dd;
 class UsersController extends Controller
 {
     public function index() {
-        $users = User::orderBy('id', 'desc')->paginate();
-
+        $query = User::with(['ajaran', 'kelas']);
+    
         // Mendapatkan semua role
         $roles = Role::all();
+    
+        $users = $query->get();
         
         return view('back.user.index',[
             'users' => $users,
             'roles' => $roles
         ]);
     }
-
-    // public function petugas()
-    // {
-    //     $users = User::with('roles')->orderBy('id', 'desc')->paginate();
-    //     $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
     
-    //     return view('back.petugas.index', [
-    //         'users' => $users,
-    //         'roles' => $roles
-    //     ]);
-    // }
-
-    // public function siswa()
-    // {
-    //     $users = User::with('roles')->orderBy('id', 'desc')->paginate();
-    //     $roles = auth()->user()->getRoleNames(); // Get the roles of the authenticated user
-    
-    //     return view('back.siswa.index', [
-    //         'users' => $users,
-    //         'roles' => $roles
-    //     ]);
-    // }
 
     public function create(){
-        $role = Role::get();
-        return view('back.user.create', [
-            'roles' => $role
-        ]);
+        $classes = Kelas::all();
+        $academicYears = Ajaran::all();
+        $roles = Role::all();
+    
+        return view('back.user.create', compact('classes', 'academicYears', 'roles'));
     }
+    
 
     public function store(Request $request) {
         // Validasi input termasuk file
@@ -74,6 +59,8 @@ class UsersController extends Controller
             'password'      => 'required',
             'telepon'       => 'required',
             'alamat'        => 'required',
+            'kelas_kode'    => 'required',
+            'ajaran_kode'   => 'required',
             'role'          => 'required',
             'foto_profile'  => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
         ]);
@@ -95,6 +82,8 @@ class UsersController extends Controller
             'email'             => $request->email,
             'alamat'            => $request->alamat,
             'telepon'           => $request->telepon,
+            'kelas_kode'           => $request->kelas_kode,
+            'ajaran_kode'           => $request->ajaran_kode,
             'foto_profile'      => $filename,
             'password'          => Hash::make($request->password),
         ];
@@ -120,9 +109,17 @@ class UsersController extends Controller
     
         // Mengambil semua peran yang tersedia
         $roles = Role::all();
+        $classes = Kelas::all();
+        $academicYears = Ajaran::all();
     
-        return view('back.user.update', compact('data', 'roles'));
+        // Menentukan nilai yang dipilih sebelumnya
+        $selectedClass = $data->kelas_kode;
+        $selectedYear = $data->ajaran_kode;
+        $selectedRole = $data->role; // Atau sesuaikan dengan bagaimana Anda menyimpan peran pengguna
+    
+        return view('back.user.update', compact('data', 'roles', 'classes', 'academicYears', 'selectedClass', 'selectedYear', 'selectedRole'));
     }
+    
 
     public function update(Request $request, $id) {
         // Mengambil data pengguna yang akan diupdate
@@ -137,6 +134,9 @@ class UsersController extends Controller
         $data->email = $request->email;
         $data->alamat = $request->alamat;
         $data->telepon = $request->telepon;
+        $data->kelas_kode = $request->kelas_kode;
+        $data->ajaran_kode = $request->ajaran_kode;
+
 
         // Jika kata sandi tidak kosong, update juga kata sandi
         if (!empty($request->password)) {

@@ -4,6 +4,7 @@
 use App\Http\Controllers\back\AuthController;
 use App\Http\Controllers\back\AjaranController;
 use App\Http\Controllers\back\UsersController;
+use App\Http\Controllers\back\TingkatController;
 use App\Http\Controllers\back\DataKelasController;
 use App\Http\Controllers\back\PembayaranController;
 use App\Http\Controllers\back\DataSiswaController;
@@ -81,6 +82,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/Pembayaran', [PembayaranController::class, 'index'])->name('Pembayaran');
     Route::get('/Pembayaran/edit/{id_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit');
     Route::put('/Pembayaran/update/{id_pembayaran}', [PembayaranController::class, 'update'])->name('Pembayaran.update');
+
+    // History  Pembayaran
+    Route::get('/Tingkatan', [TingkatController::class, 'index'] )->name('Tingkatan');
+    Route::get('/Tingkatan/create', [TingkatController::class, 'create'] )->name('Tingkatan.tambah');
+    Route::post('/Tingkatan/store', [TingkatController::class, 'store'] )->name('Tingkatan.store');
+    Route::get('/Tingkatan/edit/{kode_tingkat}', [TingkatController::class, 'edit'] )->name('Tingkatan.edit');
+    Route::put('/Tingkatan/update/{kode_tingkat}', [TingkatController::class, 'update'] )->name('Tingkatan.update');
+    Route::delete('/Tingkatan/delete/{kode_tingkat}', [TingkatController::class, 'delete'] )->name('Tingkatan.delete');
 
     // History  Pembayaran
     Route::get('/History', [PembayaranController::class, 'history'] )->name('History');

@@ -20,14 +20,15 @@ class Kelas extends Model
         'kelas'
     ];
 
-    public function Siswa(): HasMany{
-        return $this->hasMany(siswa::class, 'kelas_kode', 'kode_kelas');
-     }
-
      // Define relationship with Pembayaran
     public function pembayaran(): HasMany
     {
         return $this->hasMany(Pembayaran::class, 'kelas_kode', 'kode_kelas');
+    }
+
+    public function user()
+    {
+        return $this->hasMany(User::class, 'kelas_kode', 'kode_kelas');
     }
 
 }

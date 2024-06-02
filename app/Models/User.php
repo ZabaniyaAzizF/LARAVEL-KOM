@@ -24,8 +24,11 @@ class User extends Authenticatable
         'foto_profile',
         'telepon',
         'alamat',
+        'ajaran_kode',
+        'kelas_kode',
         'email',
         'password',
+        'status',
     ];
 
     /**
@@ -52,4 +55,17 @@ class User extends Authenticatable
      {
          return $this->hasMany(Pembayaran::class, 'user_id');
      }
+
+    // Relation to Kelas
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_kode', 'kode_kelas');
+    }
+
+    // Relation to Ajaran
+    public function ajaran()
+    {
+        return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
 }

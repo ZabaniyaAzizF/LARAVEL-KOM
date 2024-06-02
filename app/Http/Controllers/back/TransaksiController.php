@@ -37,7 +37,7 @@ class TransaksiController extends Controller
             'nis' => 'required',
             'jenis' => 'nullable',
             'ajaran_kode' => 'required|exists:ajaran,kode_ajaran',
-            'bulan' => 'required', // Adjusted for month
+            'bulan' => 'required',  
             'nominal' => 'required|numeric',
         ]);
     

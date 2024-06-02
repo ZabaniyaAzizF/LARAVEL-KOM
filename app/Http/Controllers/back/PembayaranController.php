@@ -41,10 +41,7 @@ class PembayaranController extends Controller
         // Fetch class data from the 'kelas' table
         $kelasList = Kelas::all();
 
-        // Assuming you have a model named 'Siswa', fetch the data of all siswas
-        $siswas = Siswa::all();
-
-        return view('back.pembayaran.update', compact('pembayaran', 'loggedInUser', 'siswas', 'kelasList'));
+        return view('back.pembayaran.update', compact('pembayaran', 'loggedInUser', 'kelasList'));
     }
 
 

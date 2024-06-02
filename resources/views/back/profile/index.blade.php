@@ -116,7 +116,7 @@
                                                                 } elseif ($user->hasRole('petugas')) {
                                                                     $roleColor = 'primary';
                                                                 } elseif ($user->hasRole('siswa')) {
-                                                                    $roleColor = 'info';
+                                                                    $roleColor = 'warning';
                                                                 }
                                                                 @endphp
                                                                 

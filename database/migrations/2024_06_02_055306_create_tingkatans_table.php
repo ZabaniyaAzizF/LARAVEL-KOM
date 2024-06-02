@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswa', function (Blueprint $table) {
-            $table->id('id_siswa');
-            $table->string('kelas_kode',6)->index();
-            $table->string('nis',10);
-            $table->string('nama_siswa', 75);
-            $table->string('alamat');
-            $table->string('telepon', 13);
+        Schema::create('tingkatan', function (Blueprint $table) {
+            $table->string('kode_tingkat', 6)->primary();
+            $table->string('tingkatan', 4);
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siswa');
+        Schema::dropIfExists('tingkatan');
     }
 };

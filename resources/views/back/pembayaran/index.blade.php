@@ -45,7 +45,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title mb-5">Table Data Users</h4>
+                            <h4 class="header-title mb-5">Table Data Pembayaran SPP</h4>
 
                             <h4>Filter Data Pembayaran Siswa</h4>
                             <!-- Filter Form -->
@@ -68,7 +68,8 @@
                                         <th>Spp Bulan</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Kelas</th>
-                                        <th>Jumlah</th>
+                                        <th>Nominal</th>
+                                        <th>Metode Bayar</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -82,6 +83,7 @@
                                         <td>{{ $item->ajaran->tahun_ajaran }}</td>
                                         <td>{{ $item->kelas->kelas }}</td>
                                         <td>{{ $item->jumlah }}</td>
+                                        <td>{{ $item->jenis }}</td>
                                         <td>
                                             <div class="col-md-10">
                                                 @php

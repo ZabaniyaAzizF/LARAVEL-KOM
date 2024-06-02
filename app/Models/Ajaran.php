@@ -24,4 +24,11 @@ class Ajaran extends Model
     {
         return $this->hasMany(Pembayaran::class, 'ajaran_kode', 'kode_ajaran');
     }
+
+    // Relation to Students
+    public function user()
+    {
+        return $this->hasMany(User::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
 }

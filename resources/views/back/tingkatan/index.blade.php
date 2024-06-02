@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Data Users')
+@section('title', Auth::user()->name . ' - Tingkatan')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -12,6 +12,7 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
+
 </head>
 
 <body>
@@ -48,62 +49,29 @@
                         <div class="card-body">
                             <h4 class="header-title">Table Data Users</h4>
 
-                            <a href="{{ route('Users.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
+                            <a href="{{ route('Tingkatan.tambah')}}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
 
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>foto_profile</th>
-                                        <th>NIS</th>
-                                        <th>Email</th>
-                                        <th>Telepon</th>
-                                        <th>Alamat</th>
-                                        <th>Kelas</th>
-                                        <th>Tahun Ajaran</th>
-                                        <th>Role</th>
+                                        <th>kode Tingkat</th>
+                                        <th>Tingkatan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $item)
+                                    @foreach ($tingkatan as $item)
                                     <tr>
-                                        <th>{{ $item->name }}</th>
-                                        <th><img src="{{ asset('storage/foto_profile/'.$item->foto_profile) }}" width="50px" alt=""></th>
-                                        <th>{{ $item->nis }}</th>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->telepon }}</td>
-                                        <td>{{ $item->alamat }}</td>
-                                        <td>{{ $item->kelas ? $item->kelas->kelas : 'Tidak Punya Kelas' }}</td>
-                                        <td>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran' }}</td>
+                                        <th>{{ $item->kode_tingkat }}</th>
+                                        <th>{{ $item->tingkatan }}</th>
                                         <td>
-                                            <div class="col-md-10">
-                                                @php
-                                                $roleColor = 'secondary'; // Default color
-                                                
-                                                // Set color based on user's role
-                                                if ($item->hasRole('admin')) {
-                                                    $roleColor = 'success';
-                                                } elseif ($item->hasRole('petugas')) {
-                                                    $roleColor = 'primary';
-                                                } elseif ($item->hasRole('siswa')) {
-                                                    $roleColor = 'warning';
-                                                }
-                                                @endphp
-                                                
-                                                <span class="badge badge-outline rounded-pill bg-{{ $roleColor }}">
-                                                    {{ $item->getRoleNames()->isNotEmpty() ? $item->getRoleNames()->first() : 'Undefined Role' }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('Users.edit', $item->id) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
+                                            <a href="{{ route('Tingkatan.edit', $item->kode_tingkat) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                             <br>
-                                            <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->id }}" class="btn btn-danger shadow btn-xs sharp me-1">Hapus</a>
+                                            <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->kode_tingkat }}" class="btn btn-danger shadow btn-xs sharp me-1">Hapus</a>
                                         </td>
                                     </tr>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop{{ $item->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal fade" id="staticBackdrop{{ $item->kode_tingkat }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -111,10 +79,10 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Apakah Anda Yakin Ingin Menghapus Data Akun Ini Atas Nama <b style="color: rgb(0, 17, 255);">{{ $item->name }}</b> ?</p>
+                                                    <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->kelas }}</b>?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('Users.delete', $item->id) }}" method="POST">
+                                                    <form action="{{ route('Tingkatan.delete', $item->kode_tingkat) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -127,6 +95,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
                         </div> <!-- end card body-->
                     </div> <!-- end card -->
                 </div><!-- end col-->
@@ -137,8 +106,7 @@
             <!-- end Footer -->
         </div>
         <!-- END wrapper -->
-
-    </body>
+</body>
 
 </html>
 @endsection

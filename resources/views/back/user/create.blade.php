@@ -60,12 +60,14 @@
                                                 <div class="p-2">
                                                     <form class="form-horizontal" action="{{route('Users.store')}}" method="post" enctype="multipart/form-data">
                                                         @csrf
+                                                        
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-fileinput">Foto Profile</label>
                                                             <div class="col-md-10">
                                                                 <input type="file" class="form-control" name="foto_profile" id="example-fileinput">
                                                             </div>
                                                         </div>
+
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
                                                             <div class="col-md-10">
@@ -75,6 +77,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
+
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="simpleinput">NIS</label>
                                                             <div class="col-md-10">
@@ -85,6 +88,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
+
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-email">Email</label>
                                                             <div class="col-md-10">
@@ -94,6 +98,7 @@
                                                             @enderror
                                                             </div>
                                                         </div>
+
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-email">Telepon</label>
                                                             <div class="col-md-10">
@@ -103,6 +108,7 @@
                                                             @enderror
                                                             </div>
                                                         </div>
+
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-email">Alamat</label>
                                                             <div class="col-md-10">
@@ -112,17 +118,43 @@
                                                             @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Role</label>
-                                                            <div class="col-md-10">
-                                                                <select class="form-control br-style" id="role" name="role">
-                                                                    <option value="">Pilih Role</option>
-                                                                    @foreach($roles as $role)
-                                                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                                                    @endforeach
-                                                                </select>
+
+                                                            <div class="mb-2 row">
+                                                                <label class="col-md-2 col-form-label" for="kelas">Kelas</label>
+                                                                <div class="col-md-10">
+                                                                    <select class="form-control br-style " id="kelas" name="kelas_kode">
+                                                                        <option value="">Pilih Kelas</option>
+                                                                        @foreach($classes as $class)
+                                                                            <option value="{{ $class->kode_kelas }}">{{ $class->kelas }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
+
+                                                            <div class="mb-2 row">
+                                                                <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
+                                                                <div class="col-md-10">
+                                                                    <select class="form-control br-style" id="ajaran" name="ajaran_kode">
+                                                                        <option value="">Pilih Tahun Ajaran</option>
+                                                                        @foreach($academicYears as $year)
+                                                                            <option value="{{ $year->kode_ajaran }}">{{ $year->tahun_ajaran }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-2 row">
+                                                                <label class="col-md-2 col-form-label" for="example-email">Role</label>
+                                                                <div class="col-md-10">
+                                                                    <select class="form-control br-style" id="role" name="role">
+                                                                        <option value="">Pilih Kelas</option>
+                                                                        @foreach($roles as $role)
+                                                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-password">Password</label>
                                                             <div class="col-md-10">

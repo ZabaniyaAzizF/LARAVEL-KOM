@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('foto_profile', 100)->nullable();
             $table->string('telepon', 13)->nullable();
             $table->string('alamat', 80)->nullable();
+            $table->string('ajaran_kode')->index()->nullable();
+            $table->string('kelas_kode')->index()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->rememberToken();
             $table->timestamps();
         });
