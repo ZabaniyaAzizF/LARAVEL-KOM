@@ -47,9 +47,36 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">Table Data Users</h4>
-
-                            <a href="{{ route('Users.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
-
+                            <div>
+                                <a href="{{ route('Users.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
+                            </div>
+                            <form method="GET" action="{{ route('Users') }}">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="text" name="name" class="form-control" placeholder="Nama">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="kelas_kode" class="form-control">
+                                            <option value="">Pilih Kelas</option>
+                                            @foreach($kelas as $kelas)
+                                                <option value="{{ $kelas->kode_kelas }}">{{ $kelas->kelas }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="ajaran_kode" class="form-control">
+                                            <option value="">Pilih Tahun Ajaran</option>
+                                            @foreach($ajaran as $ajaran)
+                                                <option value="{{ $ajaran->kode_ajaran }}">{{ $ajaran->tahun_ajaran }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mt-4 mb-3">
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
                             <table class="table">
                                 <thead>
                                     <tr>

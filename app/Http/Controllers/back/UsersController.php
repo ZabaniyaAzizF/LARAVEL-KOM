@@ -26,19 +26,43 @@ use Termwind\Components\Dd;
 
 class UsersController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $query = User::with(['ajaran', 'kelas']);
-    
+        
         // Mendapatkan semua role
         $roles = Role::all();
     
+        // Mengambil nilai filter dari request
+        $name = $request->input('name');
+        $kelas_kode = $request->input('kelas_kode');
+        $ajaran_kode = $request->input('ajaran_kode');
+    
+        // Menambahkan kondisi filter ke dalam query
+        if ($name) {
+            $query->where('name', 'LIKE', "%$name%");
+        }
+        if ($kelas_kode) {
+            $query->where('kelas_kode', $kelas_kode);
+        }
+        if ($ajaran_kode) {
+            $query->where('ajaran_kode', $ajaran_kode);
+        }
+    
         $users = $query->get();
         
+        // Mengambil semua data kelas
+        $kelas = Kelas::all();
+        $ajaran = Ajaran::all();
+        
         return view('back.user.index',[
-            'users' => $users,
-            'roles' => $roles
+            'users'     => $users,
+            'roles'     => $roles,
+            'kelas'     => $kelas, // Mengirim variabel $kelas ke view
+            'ajaran'    => $ajaran
         ]);
     }
+    
+    
     
 
     public function create(){
