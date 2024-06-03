@@ -84,8 +84,8 @@
                                         <td>{{ $item->user->name }}</td>
                                         <td>{{ $item->user->nis }}</td>
                                         <td>{{ $item->spp_bulan }}</td>
-                                        <td>{{ $item->ajaran->tahun_ajaran }}</td>
-                                        <td>{{ $item->kelas->kelas }}</td>
+                                        <td>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran' }}</td>
+                                        <td>{{ $item->kelas ? $item->kelas->kelas : 'Tidak Punya Kelas' }}</td>
                                         <td>{{ $item->jumlah }}</td>
                                         <td>{{ $item->jenis }}</td>
                                         <td>

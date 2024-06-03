@@ -48,6 +48,11 @@
                             <h4 class="header-title mb-5">Table Data Pembayaran SPP Siswa</h4>
 
                             <h4>Filter Data Pembayaran Siswa</h4>
+
+                            <div>
+                                <a href="{{ route('Tunggakan.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>    
+                            </div>       
+
                             <!-- Filter Form -->
                             <form method="GET" action="{{ route('Tunggakan') }}" class="mb-4">
                                 <div class="row">
@@ -72,9 +77,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <div>
-                                <a href="{{ route('Users.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>    
-                            </div>                                                   
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -93,8 +95,8 @@
                                         <td>{{ $item->user->name }}</td>
                                         <td>{{ $item->user->nis }}</td>
                                         <td>{{ $item->spp_bulan }}</td>
-                                        <td>{{ $item->ajaran->tahun_ajaran }}</td>
-                                        <td>{{ $item->kelas->kelas }}</td>
+                                        <td>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran' }}</td>
+                                        <td>{{ $item->kelas ? $item->kelas->kelas : 'Tidak Punya Kelas' }}</td>
                                         <td>{{ $item->jumlah }}</td>
                                         <<td>
                                             <div class="col-md-10">

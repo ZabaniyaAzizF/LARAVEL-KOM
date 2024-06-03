@@ -147,6 +147,44 @@ class PembayaranController extends Controller
             'pembayaran' => $pembayaran
         ]);
     }
+
+    public function invoiceH(Request $request)
+    {
+        // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        
+        // Mengambil data pembayaran yang terkait dengan pengguna yang sedang login dan memiliki status lunas
+        $query = Pembayaran::where('user_id', $userId)
+            ->where('status', 'lunas')
+            ->with('ajaran'); // Eager load the related Ajaran model
+
+        $pembayaran = $query->get();
+
+        // Mengambil tahun ajaran yang tersedia
+        $academicYears = Ajaran::distinct()->pluck('tahun_ajaran');
+
+        // Mengembalikan view history beserta data pembayaran yang telah diambil
+        return view('back.history.invoiceH', compact('pembayaran', 'academicYears'));
+    }
+
+    public function invoiceT(Request $request)
+    {
+        // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        
+        // Mengambil data pembayaran yang terkait dengan pengguna yang sedang login dan memiliki status lunas
+        $query = Pembayaran::where('user_id', $userId)
+            ->where('status', 'belum lunas')
+            ->with('ajaran'); // Eager load the related Ajaran model
+    
+        $pembayaran = $query->get();
+        
+        // Mengambil tahun ajaran yang tersedia
+        $academicYears = Ajaran::distinct()->pluck('tahun_ajaran');
+    
+        // Mengembalikan view history beserta data pembayaran yang telah diambil
+        return view('back.history.invoiceT', compact('pembayaran', 'academicYears'));
+    }
     
     
 }

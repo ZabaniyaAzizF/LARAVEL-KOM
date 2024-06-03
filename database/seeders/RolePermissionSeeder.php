@@ -17,7 +17,7 @@ class RolePermissionSeeder extends Seeder
         //Permission Users (Untuk Admin)
         Permission::create(['name'=>'tambah-user']);
         Permission::create(['name'=>'edit-user']);
-        Permission::create(['name'=>'hapus-user']);
+        Permission::create(['name'=>'invoice-user']);
         Permission::create(['name'=>'lihat-user']);
 
         //Permission Setting (Untuk Admin)
@@ -38,14 +38,20 @@ class RolePermissionSeeder extends Seeder
         //Permission Kelas (Petugas dan Admin)
         Permission::create(['name'=>'tambah-kelas']);
         Permission::create(['name'=>'edit-kelas']);
-        Permission::create(['name'=>'hapus-kelas']);
+        Permission::create(['name'=>'invoice-kelas']);
         Permission::create(['name'=>'lihat-kelas']);
 
         //Permission Ajaran (Petugas dan Admin)
         Permission::create(['name'=>'tambah-ajaran']);
         Permission::create(['name'=>'edit-ajaran']);
-        Permission::create(['name'=>'hapus-ajaran']);
+        Permission::create(['name'=>'invoice-ajaran']);
         Permission::create(['name'=>'lihat-ajaran']);
+
+        //Permission Tingkat (Petugas dan Admin)
+        Permission::create(['name'=>'tambah-tingkat']);
+        Permission::create(['name'=>'edit-tingkat']);
+        Permission::create(['name'=>'invoice-tingkat']);
+        Permission::create(['name'=>'lihat-tingkat']);
 
         //Untuk Membuat Role
         Role::create(['name'=>'admin']);
@@ -56,7 +62,7 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin = Role::findByName('admin');
         $roleAdmin->givePermissionTo('tambah-user');
         $roleAdmin->givePermissionTo('edit-user');
-        $roleAdmin->givePermissionTo('hapus-user');
+        $roleAdmin->givePermissionTo('invoice-user');
         $roleAdmin->givePermissionTo('lihat-user');
         $roleAdmin->givePermissionTo('edit-setting');
         $roleAdmin->givePermissionTo('lihat-setting');
@@ -65,12 +71,16 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin->givePermissionTo('edit-bayaran');
         $roleAdmin->givePermissionTo('tambah-kelas');
         $roleAdmin->givePermissionTo('edit-kelas');
-        $roleAdmin->givePermissionTo('hapus-kelas');
+        $roleAdmin->givePermissionTo('invoice-kelas');
         $roleAdmin->givePermissionTo('lihat-kelas');
         $roleAdmin->givePermissionTo('tambah-ajaran');
         $roleAdmin->givePermissionTo('edit-ajaran');
-        $roleAdmin->givePermissionTo('hapus-ajaran');
+        $roleAdmin->givePermissionTo('invoice-ajaran');
         $roleAdmin->givePermissionTo('lihat-ajaran');
+        $roleAdmin->givePermissionTo('tambah-tingkat');
+        $roleAdmin->givePermissionTo('edit-tingkat');
+        $roleAdmin->givePermissionTo('invoice-tingkat');
+        $roleAdmin->givePermissionTo('lihat-tingkat');
 
         $roleManager = Role::findByName('petugas');
         $roleManager->givePermissionTo('lihat-bulanan');
@@ -78,12 +88,16 @@ class RolePermissionSeeder extends Seeder
         $roleManager->givePermissionTo('edit-bayaran');
         $roleManager->givePermissionTo('tambah-kelas');
         $roleManager->givePermissionTo('edit-kelas');
-        $roleManager->givePermissionTo('hapus-kelas');
+        $roleManager->givePermissionTo('invoice-kelas');
         $roleManager->givePermissionTo('lihat-kelas');
         $roleManager->givePermissionTo('tambah-ajaran');
         $roleManager->givePermissionTo('edit-ajaran');
-        $roleManager->givePermissionTo('hapus-ajaran');
+        $roleManager->givePermissionTo('invoice-ajaran');
         $roleManager->givePermissionTo('lihat-ajaran');
+        $roleManager->givePermissionTo('tambah-tingkat');
+        $roleManager->givePermissionTo('edit-tingkat');
+        $roleManager->givePermissionTo('invoice-tingkat');
+        $roleManager->givePermissionTo('lihat-tingkat');
 
         $rolePegawai = Role::findByName('siswa');
         $rolePegawai->givePermissionTo('lihat-history');

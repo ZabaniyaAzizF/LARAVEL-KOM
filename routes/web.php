@@ -47,64 +47,64 @@ Route::middleware('auth')->group(function () {
     // users
     Route::get('/Users', [UsersController::class, 'index'] )->name('Users')->middleware(['auth', 'verified', 'permission:lihat-user']);
     Route::get('/Users/create', [UsersController::class, 'create'])->name('Users.tambah')->middleware(['auth', 'verified', 'permission:tambah-user']);
-    Route::post('/Users/store', [UsersController::class, 'store'])->name('Users.store')->middleware(['auth', 'verified', 'permission:lihat-user']);
+    Route::post('/Users/store', [UsersController::class, 'store'])->name('Users.store');
     Route::get('/Users/edit/{id}', [UsersController::class, 'edit'])->name('Users.edit')->middleware(['auth', 'verified', 'permission:edit-user']);
-    Route::put('/Users/update/{id}', [UsersController::class, 'update'])->name('Users.update')->middleware(['auth', 'verified', 'permission:lihat-user']);
-    Route::delete('/Users/delete/{id}', [UsersController::class, 'delete'])->name('Users.delete')->middleware(['auth', 'verified', 'permission:lihat-user']);
-    Route::get('/Users/invoice', [UsersController::class, 'invoice'] )->name('Users.invoice');
+    Route::put('/Users/update/{id}', [UsersController::class, 'update'])->name('Users.update');
+    Route::delete('/Users/delete/{id}', [UsersController::class, 'delete'])->name('Users.delete');
+    Route::get('/Users/invoice', [UsersController::class, 'invoice'] )->name('Users.invoice')->middleware(['auth', 'verified', 'permission:invoice-user']);
 
     //Prodile
     Route::get('/Profile/{id}', [UsersController::class, 'profile'] )->name('Profile');
     Route::put('/Profile/update/{id}', [UsersController::class, 'updateProfile'])->name('Profile.update');
 
     //Tahun Ajaran
-    Route::get('/Ajaran', [AjaranController::class, 'index'])->name('Ajaran');
-    Route::get('/Ajaran/create', [AjaranController::class, 'create'])->name('Ajaran.tambah');
+    Route::get('/Ajaran', [AjaranController::class, 'index'])->name('Ajaran')->middleware(['auth', 'verified', 'permission:lihat-ajaran']);
+    Route::get('/Ajaran/create', [AjaranController::class, 'create'])->name('Ajaran.tambah')->middleware(['auth', 'verified', 'permission:tambah-ajaran']);
     Route::post('/Ajaran/store', [AjaranController::class, 'store'])->name('Ajaran.store');
-    Route::get('/Ajaran/edit/{kode_ajaran}', [AjaranController::class, 'edit'])->name('Ajaran.edit');
+    Route::get('/Ajaran/edit/{kode_ajaran}', [AjaranController::class, 'edit'])->name('Ajaran.edit')->middleware(['auth', 'verified', 'permission:edit-ajaran']);
     Route::put('/Ajaran/update/{kode_ajaran}', [AjaranController::class, 'update'])->name('Ajaran.update');
     Route::delete('/Ajaran/delete/{kode_ajaran} ', [AjaranController::class, 'delete'])->name('Ajaran.delete');
-    Route::get('/Ajaran/invoice', [AjaranController::class, 'invoice'] )->name('Ajaran.invoice');
+    Route::get('/Ajaran/invoice', [AjaranController::class, 'invoice'] )->name('Ajaran.invoice')->middleware(['auth', 'verified', 'permission:invoice-ajaran']);
 
     // Data Kelas
-    Route::get('/Data-kelas', [DataKelasController::class, 'index'] )->name('Data-kelas');
-    Route::get('/Data-kelas/create', [DataKelasController::class, 'create'])->name('Data-kelas.tambah');
+    Route::get('/Data-kelas', [DataKelasController::class, 'index'] )->name('Data-kelas')->middleware(['auth', 'verified', 'permission:lihat-kelas']);
+    Route::get('/Data-kelas/create', [DataKelasController::class, 'create'])->name('Data-kelas.tambah')->middleware(['auth', 'verified', 'permission:tambah-kelas']);
     Route::post('/Data-kelas/store', [DataKelasController::class, 'store'])->name('Data-kelas.store');
-    Route::get('/Data-kelas/edit/{id_kelas}', [DataKelasController::class, 'edit'])->name('Data-kelas.edit');
+    Route::get('/Data-kelas/edit/{id_kelas}', [DataKelasController::class, 'edit'])->name('Data-kelas.edit')->middleware(['auth', 'verified', 'permission:edit-kelas']);
     Route::put('/Data-kelas/update/{id_kelas}', [DataKelasController::class, 'update'])->name('Data-kelas.update');
     Route::delete('/Data-kelas/delete/{id_kelas}', [DataKelasController::class, 'delete'])->name('Data-kelas.delete');
-    Route::get('/Data-kelas/invoice', [DataKelasController::class, 'invoice'] )->name('Data-kelas.invoice');
+    Route::get('/Data-kelas/invoice', [DataKelasController::class, 'invoice'] )->name('Data-kelas.invoice')->middleware(['auth', 'verified', 'permission:invoice-ajaran']);
 
     // Setting
     Route::get('/Setting', [SettingController::class, 'index'] )->name('Setting')->middleware(['auth', 'verified', 'permission:lihat-setting']);
     Route::put('/Setting/update/{id_setting}', [SettingController::class, 'update'])->name('Setting.update')->middleware(['auth', 'verified', 'permission:edit-setting']);
 
     // Transaksi
-    Route::get('/Transaksi', [TransaksiController::class, 'index'] )->name('Transaksi');
+    Route::get('/Transaksi', [TransaksiController::class, 'index'] )->name('Transaksi')->middleware(['auth', 'verified', 'permission:lihat-bulanan']);
     Route::post('/Transaksi/store', [TransaksiController::class, 'store'])->name('Transaksi.store');
 
     // Pembayaran
-    Route::get('/Pembayaran', [PembayaranController::class, 'index'])->name('Pembayaran');
-    Route::get('/Pembayaran/edit/{id_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit');
+    Route::get('/Pembayaran', [PembayaranController::class, 'index'])->name('Pembayaran')->middleware(['auth', 'verified', 'permission:lihat-bayaran']);
+    Route::get('/Pembayaran/edit/{id_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit')->middleware(['auth', 'verified', 'permission:edit-bayaran']);
     Route::put('/Pembayaran/update/{id_pembayaran}', [PembayaranController::class, 'update'])->name('Pembayaran.update');
-    Route::get('/Pembayaran/invoice', [PembayaranController::class, 'invoice'] )->name('Pembayaran.invoice');
+    Route::get('/Pembayaran/invoice', [PembayaranController::class, 'invoice'] )->name('Pembayaran.invoice')->middleware(['auth', 'verified', 'permission:invoice-bayaran']);
 
     // Tingkatan
-    Route::get('/Tingkatan', [TingkatController::class, 'index'] )->name('Tingkatan');
-    Route::get('/Tingkatan/create', [TingkatController::class, 'create'] )->name('Tingkatan.tambah');
+    Route::get('/Tingkatan', [TingkatController::class, 'index'] )->name('Tingkatan')->middleware(['auth', 'verified', 'permission:lihat-tingkat']);
+    Route::get('/Tingkatan/create', [TingkatController::class, 'create'] )->name('Tingkatan.tambah')->middleware(['auth', 'verified', 'permission:tambah-tingkat']);
     Route::post('/Tingkatan/store', [TingkatController::class, 'store'] )->name('Tingkatan.store');
-    Route::get('/Tingkatan/edit/{kode_tingkat}', [TingkatController::class, 'edit'] )->name('Tingkatan.edit');
+    Route::get('/Tingkatan/edit/{kode_tingkat}', [TingkatController::class, 'edit'] )->name('Tingkatan.edit')->middleware(['auth', 'verified', 'permission:edit-tingkat']);
     Route::put('/Tingkatan/update/{kode_tingkat}', [TingkatController::class, 'update'] )->name('Tingkatan.update');
     Route::delete('/Tingkatan/delete/{kode_tingkat}', [TingkatController::class, 'delete'] )->name('Tingkatan.delete');
-    Route::get('/Tingkatan/invoice', [TingkatController::class, 'invoice'] )->name('Tingkatan.invoice');
+    Route::get('/Tingkatan/invoice', [TingkatController::class, 'invoice'] )->name('Tingkatan.invoice')->middleware(['auth', 'verified', 'permission:invoice-tingkat']);
 
     // History  Pembayaran
-    Route::get('/History', [PembayaranController::class, 'history'] )->name('History');
-    Route::get('/History/invoice', [PembayaranController::class, 'invoice'] )->name('History.invoice');
+    Route::get('/History', [PembayaranController::class, 'history'] )->name('History')->middleware(['auth', 'verified', 'permission:lihat-history']);
+    Route::get('/History/invoice', [PembayaranController::class, 'invoiceH'] )->name('History.invoice');
 
     // Tunggakan
-    Route::get('/Tunggakan', [PembayaranController::class, 'tunggakan'] )->name('Tunggakan');
-    Route::get('/Tunggkan/invoice', [PembayaranController::class, 'invoice'] )->name('Tunggakan.invoice');
+    Route::get('/Tunggakan', [PembayaranController::class, 'tunggakan'] )->name('Tunggakan')->middleware(['auth', 'verified', 'permission:lihat-tunggakan']);
+    Route::get('/Tunggkan/invoice', [PembayaranController::class, 'invoiceT'] )->name('Tunggakan.invoice');
 
 });
 

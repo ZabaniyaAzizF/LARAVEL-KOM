@@ -48,6 +48,11 @@
                             <h4 class="header-title mb-5">Table Data Pembayaran SPP Siswa</h4>
 
                             <h4>Filter Data Pembayaran Siswa</h4>
+
+                            <div>
+                                <a href="{{ route('History.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>    
+                            </div> 
+
                             <!-- Filter Form -->
                             <form method="GET" action="{{ route('History') }}" class="mb-4">
                                 <div class="row">
@@ -71,10 +76,7 @@
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                     </div>
                                 </div>
-                            </form>
-                            <div>
-                                <a href="{{ route('Users.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>    
-                            </div>                                     
+                            </form>                                    
                             <table class="table">
                                 <thead>
                                     <tr>

@@ -19,7 +19,7 @@
                             <div class="py-3 py-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <h4 class="page-title mb-3">Laporan Data Users</h4>
+                                        <h4 class="page-title mb-3">Laporan Data Pembayaran SPP</h4>
                                         <?php  $setting = App\Models\Setting::get()->first() ?>
                                         <h1>{{ $setting->nama }}</h1>
 
@@ -46,10 +46,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mt-3">
-                                                <h5 class="mb-2">Hello, Stanley Jones</h5>
-                                                <p class="text-muted">Thanks a lot because you keep purchasing our products. Our company
-                                                    promises to provide high quality products for you as well as outstanding
-                                                    customer service for every transaction. </p>
+                                                <label > Alamat </label>
+                                                <h5 class="mb-2">{{ $setting->alamat }}</h5>
+                                                <label > NO Telepon </label>
+                                                <h5 class="mb-5">{{ $setting->telepon }}</h5>
                                             </div>
                                         </div><!-- end col -->
                                     </div>
@@ -78,8 +78,8 @@
                                                         <td>{{ $item->user->name }}</td>
                                                         <td>{{ $item->user->nis }}</td>
                                                         <td>{{ $item->spp_bulan }}</td>
-                                                        <td>{{ $item->ajaran->tahun_ajaran }}</td>
-                                                        <td>{{ $item->kelas->kelas }}</td>
+                                                        <td>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran' }}</td>
+                                                        <td>{{ $item->kelas ? $item->kelas->kelas : 'Tidak Punya Kelas' }}</td>
                                                         <td>{{ $item->jumlah }}</td>
                                                         <td>{{ $item->jenis }}</td>
                                                         <td>

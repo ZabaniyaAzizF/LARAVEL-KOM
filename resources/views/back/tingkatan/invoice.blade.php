@@ -19,7 +19,7 @@
                             <div class="py-3 py-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <h4 class="page-title mb-3">Laporan Data Users</h4>
+                                        <h4 class="page-title mb-3">Laporan Data Tingkatan</h4>
                                         <?php  $setting = App\Models\Setting::get()->first() ?>
                                         <h1>{{ $setting->nama }}</h1>
 
@@ -46,10 +46,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mt-3">
-                                                <h5 class="mb-2">Hello, Stanley Jones</h5>
-                                                <p class="text-muted">Thanks a lot because you keep purchasing our products. Our company
-                                                    promises to provide high quality products for you as well as outstanding
-                                                    customer service for every transaction. </p>
+                                                <label > Alamat </label>
+                                                <h5 class="mb-2">{{ $setting->alamat }}</h5>
+                                                <label > NO Telepon </label>
+                                                <h5 class="mb-5">{{ $setting->telepon }}</h5>
                                             </div>
                                         </div><!-- end col -->
                                     </div>
@@ -57,7 +57,7 @@
                         
                                     <div class="row">
                                         <div class="col-12">
-                                            <h4 class="header-title">Table Data Users</h4>  
+                                            <h4 class="header-title">Table Data Tingkatan</h4>  
                                             <table class="table">
                                                 <thead>
                                                     <tr>
