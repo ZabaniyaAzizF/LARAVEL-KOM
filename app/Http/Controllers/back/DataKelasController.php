@@ -28,6 +28,8 @@ class DataKelasController extends Controller
             'kelas'           => 'required',
         ]);
 
+        
+
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
         $data['kode_kelas']       = $request->kode_kelas;
@@ -83,6 +85,14 @@ class DataKelasController extends Controller
     
         // Redirect ke route 'Data-kelas'
         return redirect()->route('Data-kelas');
+    }
+
+    public function invoice(){
+        $kelas = Kelas::get();
+        
+        return view('back.kelas.invoice',[
+            'kelas' => $kelas
+        ]);
     }
 
 }

@@ -17,7 +17,8 @@ class Ajaran extends Model
     public $incrementing = false;
     protected $fillable = [
         'kode_ajaran',
-        'tahun_ajaran'
+        'tahun_ajaran',
+        'status'
     ];
 
     public function pembayaran(): HasMany

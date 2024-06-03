@@ -49,6 +49,7 @@
                             <h4 class="header-title">Table Data Users</h4>
                             <div>
                                 <a href="{{ route('Users.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
+                                <a href="{{ route('Users.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
                             </div>
                             <form method="GET" action="{{ route('Users') }}">
                                 <div class="row">
@@ -81,7 +82,6 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>foto_profile</th>
                                         <th>NIS</th>
                                         <th>Email</th>
                                         <th>Telepon</th>
@@ -96,7 +96,6 @@
                                     @foreach ($users as $item)
                                     <tr>
                                         <th>{{ $item->name }}</th>
-                                        <th><img src="{{ asset('storage/foto_profile/'.$item->foto_profile) }}" width="50px" alt=""></th>
                                         <th>{{ $item->nis }}</th>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->telepon }}</td>

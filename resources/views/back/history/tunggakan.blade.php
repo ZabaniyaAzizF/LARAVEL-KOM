@@ -71,7 +71,10 @@
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                     </div>
                                 </div>
-                            </form>                                                   
+                            </form>
+                            <div>
+                                <a href="{{ route('Users.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>    
+                            </div>                                                   
                             <table class="table">
                                 <thead>
                                     <tr>

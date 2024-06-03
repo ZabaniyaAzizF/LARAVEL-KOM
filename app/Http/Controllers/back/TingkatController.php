@@ -85,4 +85,12 @@ class TingkatController extends Controller
         return redirect()->route('Tingkatan');
     }
 
+    public function invoice(){
+        $tingkat = Tingkatan::get();
+        
+        return view('back.tingkatan.invoice',[
+            'tingkatan' => $tingkat
+        ]);
+    }
+
 }

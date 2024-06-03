@@ -63,8 +63,6 @@ class UsersController extends Controller
     }
     
     
-    
-
     public function create(){
         $classes = Kelas::all();
         $academicYears = Ajaran::all();
@@ -86,30 +84,36 @@ class UsersController extends Controller
             'kelas_kode'    => 'required',
             'ajaran_kode'   => 'required',
             'role'          => 'required',
-            'foto_profile'  => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
+            'foto_profile'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar opsional
         ]);
     
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
     
-        $profile = $request->file('foto_profile');
-        $filename = date('Y-m-d').$profile->getClientOriginalName();
-        $path = 'foto_profile/'.$filename;
- 
-        Storage::disk('public')->put($path,file_get_contents($profile));
-
+        // Menginisialisasi filename dengan nilai default atau null
+        $filename = null;
+    
+        // Memproses file jika ada yang diunggah
+        if ($request->hasFile('foto_profile')) {
+            $profile = $request->file('foto_profile');
+            $filename = date('Y-m-d').$profile->getClientOriginalName();
+            $path = 'foto_profile/'.$filename;
+    
+            Storage::disk('public')->put($path, file_get_contents($profile));
+        }
+    
         // Mengambil data dari permintaan
         $data = [
-            'name'              => $request->nama,
-            'nis'              => $request->nis,
-            'email'             => $request->email,
-            'alamat'            => $request->alamat,
-            'telepon'           => $request->telepon,
-            'kelas_kode'           => $request->kelas_kode,
+            'name'                  => $request->nama,
+            'nis'                   => $request->nis,
+            'email'                 => $request->email,
+            'alamat'                => $request->alamat,
+            'telepon'               => $request->telepon,
+            'kelas_kode'            => $request->kelas_kode,
             'ajaran_kode'           => $request->ajaran_kode,
-            'foto_profile'      => $filename,
-            'password'          => Hash::make($request->password),
+            'foto_profile'          => $filename, // Dapat berupa null jika tidak ada file yang diunggah
+            'password'              => Hash::make($request->password),
         ];
     
         // Membuat pengguna baru
@@ -123,6 +127,7 @@ class UsersController extends Controller
     
         return redirect()->route('Users');
     }
+    
 
     public function edit(Request $request, $id){
         // Mengambil data pengguna
@@ -271,6 +276,27 @@ class UsersController extends Controller
         }
 
         return redirect()->route('Profile', ['id' => $data->id]);
+    }
+
+    public function invoice(Request $request) {
+        $query = User::with(['ajaran', 'kelas']);
+        
+        // Mendapatkan semua role
+        $roles = Role::all();
+        
+        //Mendapatkan data user
+        $users = $query->get();
+        
+        // Mengambil semua data kelas
+        $kelas = Kelas::all();
+        $ajaran = Ajaran::all();
+        
+        return view('back.user.invoice',[
+            'users'     => $users,
+            'roles'     => $roles,
+            'kelas'     => $kelas, // Mengirim variabel $kelas ke view
+            'ajaran'    => $ajaran
+        ]);
     }
 
 }

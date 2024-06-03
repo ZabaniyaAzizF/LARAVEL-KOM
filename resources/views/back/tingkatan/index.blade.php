@@ -50,6 +50,7 @@
                             <h4 class="header-title">Table Data Users</h4>
 
                             <a href="{{ route('Tingkatan.tambah')}}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
+                            <a href="{{ route('Tingkatan.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
 
                             <table class="table">
                                 <thead>

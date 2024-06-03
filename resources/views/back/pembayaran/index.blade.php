@@ -47,6 +47,10 @@
                         <div class="card-body">
                             <h4 class="header-title mb-5">Table Data Pembayaran SPP</h4>
 
+                            <div>
+                                <a href="{{ route('Pembayaran.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
+                            </div>
+
                             <h4>Filter Data Pembayaran Siswa</h4>
                             <!-- Filter Form -->
                             <form method="GET" action="{{ route('Pembayaran') }}" class="mb-4">

@@ -4,11 +4,11 @@
         <?php  $setting = App\Models\Setting::get()->first() ?>
         <!-- Brand Logo Light -->
         <a class='logo-light' href='{{ route('dashboard')}}'>
-            <img src="{{ asset('storage/setting/'.$setting->path_logo)}}" class="mb-3" style="" width="70px" alt="">
+            <img src="{{ asset('storage/setting/'.$setting->path_logo)}}" class="mb-3 mt-4" style="" width="70px" alt="">
         </a><br>
     </div>
 
-    <h6 style="position: relative; right: -20px;">{{ $setting->nama }}</h6>
+    <h6 style="position: relative; right: -20px;" class="mt-3">{{ $setting->nama }}</h6>
 
     <!--- Menu -->
     <div data-simplebar>

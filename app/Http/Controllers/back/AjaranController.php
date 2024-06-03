@@ -22,22 +22,29 @@ class AjaranController extends Controller
     }
 
     public function store(Request $request) {
-        
-        $validator = Validator::make($request->all(),[
-            'kode_ajaran'           => 'required',
-            'tahun_ajaran'          => 'required',
+        // Validasi data yang diterima
+        $validator = Validator::make($request->all(), [
+            'kode_ajaran' => 'required',
+            'tahun_ajaran' => 'required',
         ]);
-
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-
-        $data['kode_ajaran']       = $request->kode_ajaran;
-        $data['tahun_ajaran']      = $request->tahun_ajaran;
-
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+    
+        // Ubah status data yang aktif sebelumnya menjadi tidak aktif
+        Ajaran::where('status', 'aktif')->update(['status' => 'tidak aktif']);
+    
+        // Buat data baru dengan status aktif
+        $data['kode_ajaran'] = $request->kode_ajaran;
+        $data['tahun_ajaran'] = $request->tahun_ajaran;
+    
         Ajaran::create($data);
-
+    
+        // Redirect ke route Ajaran
         return redirect()->route('Ajaran');
-
     }
+    
 
     public function edit(Request  $request, $id){
         $data = Ajaran::find($id);
@@ -46,32 +53,36 @@ class AjaranController extends Controller
     }
 
 
-    public function update(Request $request, $id){
-    
-        // Find the instance of Kelas
+    public function update(Request $request, $id) {
+        // Temukan instance dari Ajaran
         $data = Ajaran::find($id);
     
-        // Validate the request
-        $validator = Validator::make($request->all(),[
-            'kode_ajaran'          => 'required',
-            'tahun_ajaran'         => 'required',
+        // Validasi permintaan
+        $validator = Validator::make($request->all(), [
+            'kode_ajaran' => 'required',
+            'tahun_ajaran' => 'required',
         ]);
     
-        // If validation fails, redirect back with errors
+        // Jika validasi gagal, redirect kembali dengan error
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
     
-        // Update the attributes of the Kelas instance
+        // Ubah status data yang aktif sebelumnya menjadi tidak aktif
+        Ajaran::where('status', 'aktif')->update(['status' => 'tidak aktif']);
+    
+        // Perbarui atribut dari instance Ajaran
         $data->kode_ajaran  = $request->kode_ajaran;
         $data->tahun_ajaran = $request->tahun_ajaran;
+        $data->status = 'aktif';
     
-        // Save the changes to the database
+        // Simpan perubahan ke database
         $data->save();
     
-        // Redirect to the desired route
+        // Redirect ke route yang diinginkan
         return redirect()->route('Ajaran');
     }
+    
 
     public function delete(Request $request, $id){
         // Find the instance of Kelas
@@ -84,6 +95,14 @@ class AjaranController extends Controller
     
         // Redirect ke route 'Data-kelas'
         return redirect()->route('Ajaran');
+    }
+
+    public function invoice(){
+        $ajaran = Ajaran::get();
+        
+        return view('back.ajaran.invoice',[
+            'ajaran' => $ajaran
+        ]);
     }
 
 }

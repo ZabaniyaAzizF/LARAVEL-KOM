@@ -53,12 +53,14 @@
                                         <h4 class="header-title">Table Data Users</h4>
 
                                         <a href="{{ route('Ajaran.tambah')}}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
+                                        <a href="{{ route('Ajaran.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
 
                                         <table class="table" >
                                             <thead>
                                               <tr>
                                                 <th>kode Ajaran</th>
-                                                <th >Tahun Ajaran</th>
+                                                <th>Tahun Ajaran</th>
+                                                <th>Status</th>
                                                 <th >Aksi</th>
                                               </tr>
                                             </thead>
@@ -67,6 +69,24 @@
                                               <tr>
                                                 <th>{{$item->kode_ajaran}}</th>
                                                 <th>{{$item->tahun_ajaran}}</th>
+                                                <th>                                            
+                                                    <div class="col-md-12">
+                                                    @php
+                                                    $statusColor = 'secondary'; // Default color
+                                                
+                                                    // Set color based on payment status
+                                                    if ($item->status == 'aktif') {
+                                                        $statusColor = 'success';
+                                                    } elseif ($item->status == 'tidak aktif') {
+                                                        $statusColor = 'danger';
+                                                    }
+                                                    @endphp
+                                                
+                                                    <span class="badge badge-outline rounded-pill bg-{{ $statusColor }}">
+                                                        {{ $item->status == 'aktif' ? 'Aktif' : 'Tidak Aktif' }}
+                                                    </span>
+                                                    </div>
+                                                </th>
                                                 <td>
                                                     <a href="{{ route('Ajaran.edit',$item->kode_ajaran)}}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                                     <br>

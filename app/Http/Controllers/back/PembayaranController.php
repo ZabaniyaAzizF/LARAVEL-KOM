@@ -136,6 +136,17 @@ class PembayaranController extends Controller
         // Mengembalikan view history beserta data pembayaran yang telah diambil
         return view('back.history.tunggakan', compact('pembayaran', 'academicYears'));
     }
+
+    public function invoice(Request $request)
+    {
+        $query = Pembayaran::with(['user', 'kelas']);
+    
+        $pembayaran = $query->get();
+    
+        return view('back.pembayaran.invoice', [
+            'pembayaran' => $pembayaran
+        ]);
+    }
     
     
 }
