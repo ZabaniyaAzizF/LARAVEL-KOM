@@ -50,6 +50,24 @@
                 @endrole
             </li>
 
+            <li class="menu-item">
+                @role('admin|petugas')
+                <a href="{{ route('Metode') }}"  class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-layout"></i></span>
+                    <span class="menu-text"> Metode Pembayaran </span>
+                </a>
+                @endrole
+            </li>
+
+            <li class="menu-item">
+                @role('admin|petugas')
+                <a href="{{ route('Harga') }}"  class="menu-link waves-effect waves-light">
+                    <span class="menu-icon"><i class="bx bx-layout"></i></span>
+                    <span class="menu-text"> Harga Spp </span>
+                </a>
+                @endrole
+            </li>
+
             <li class="menu-title">Transaksi</li>
 
             <li class="menu-item">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\back;
 
 use App\Models\Kelas;
+use App\Models\Tingkatan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -11,21 +12,32 @@ class DataKelasController extends Controller
 {
     public function index(){
         $kelas = Kelas::get();
+        $tingkat = Tingkatan::all();
         
         return view('back.kelas.index',[
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'tingkat' => $tingkat
         ]);
     }
 
     public function create(){
-        return view('back.kelas.create');
+
+        $kelas = Kelas::all();
+        $tingkat = Tingkatan::all();
+    
+        return view('back.kelas.create', [
+            'kelas' => $kelas,
+            'tingkat' => $tingkat // Perhatikan di sini, variabel yang diberikan adalah 'tingkat', bukan 'tingkatan'
+        ]);
     }
+    
 
     public function store(Request $request) {
         
         $validator = Validator::make($request->all(),[
             'kode_kelas'      => 'required',
             'kelas'           => 'required',
+            'tingkat_kode'    => 'required',
         ]);
 
         
@@ -34,6 +46,7 @@ class DataKelasController extends Controller
 
         $data['kode_kelas']       = $request->kode_kelas;
         $data['kelas']            = $request->kelas;
+        $data['tingkat_kode']     = $request->tingkat_kode;
 
         Kelas::create($data);
 
@@ -43,8 +56,9 @@ class DataKelasController extends Controller
 
     public function edit(Request  $request, $id){
         $data = Kelas::find($id);
+        $tingkat = Tingkatan::all();
 
-        return view('back.kelas.update',compact('data'));
+        return view('back.kelas.update',compact('data', 'tingkat'));
     }
 
     public function update(Request $request, $id){
@@ -54,8 +68,9 @@ class DataKelasController extends Controller
     
         // Validate the request
         $validator = Validator::make($request->all(),[
-            'kode_kelas'          => 'required',
-            'kelas'               => 'required',
+            'kode_kelas'      => 'required',
+            'kelas'           => 'required',
+            'tingkat_kode'    => 'required',
         ]);
     
         // If validation fails, redirect back with errors
@@ -66,6 +81,7 @@ class DataKelasController extends Controller
         // Update the attributes of the Kelas instance
         $data->kode_kelas = $request->kode_kelas;
         $data->kelas = $request->kelas;
+        $data->tingkat_kode = $request->tingkat_kode;
     
         // Save the changes to the database
         $data->save();

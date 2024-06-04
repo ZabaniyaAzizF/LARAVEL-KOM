@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
 
-<!-- Mirrored from myrathemes.com/dashtrap/tables-datatables by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 04:07:18 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,7 +86,7 @@
                                                         <small>{{ $message }}</small>
                                                     @enderror
                                                 </div>
-                                            </div>
+                                            </div>                                   
                                             <div>
                                                 <button class="btn btn-primary" type="submit"> Edit </button>
                                             </div>
@@ -109,6 +107,5 @@
         <!-- END wrapper -->        
     </body>
 
-<!-- Mirrored from myrathemes.com/dashtrap/tables-datatables by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 09 May 2024 04:07:26 GMT -->
 </html>
 @endsection

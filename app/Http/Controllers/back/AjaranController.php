@@ -53,14 +53,15 @@ class AjaranController extends Controller
     }
 
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $kode_ajaran) {
         // Temukan instance dari Ajaran
-        $data = Ajaran::find($id);
-    
+        $data = Ajaran::where('kode_ajaran', $kode_ajaran)->first();
+        
         // Validasi permintaan
         $validator = Validator::make($request->all(), [
-            'kode_ajaran' => 'required',
+            'kode_ajaran' => 'required|unique:ajaran,kode_ajaran,'.$kode_ajaran.',kode_ajaran', // Pastikan kode ajaran unik kecuali untuk kode ajaran saat ini
             'tahun_ajaran' => 'required',
+            'status' => 'required|in:aktif,tidak aktif',
         ]);
     
         // Jika validasi gagal, redirect kembali dengan error
@@ -68,14 +69,21 @@ class AjaranController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
     
-        // Ubah status data yang aktif sebelumnya menjadi tidak aktif
-        Ajaran::where('status', 'aktif')->update(['status' => 'tidak aktif']);
+        // Jika status dipilih, perbarui status
+        if ($request->has('status')) {
+            // Jika status yang baru dipilih adalah 'aktif', maka ubah semua status lain menjadi 'tidak aktif'
+            if ($request->status == 'aktif') {
+                Ajaran::where('kode_ajaran', '!=', $kode_ajaran)->update(['status' => 'tidak aktif']);
+            }
+    
+            // Set status yang baru dipilih
+            $data->status = $request->status;
+        }
     
         // Perbarui atribut dari instance Ajaran
-        $data->kode_ajaran  = $request->kode_ajaran;
+        $data->kode_ajaran = $request->kode_ajaran;
         $data->tahun_ajaran = $request->tahun_ajaran;
-        $data->status = 'aktif';
-    
+        
         // Simpan perubahan ke database
         $data->save();
     
@@ -83,7 +91,8 @@ class AjaranController extends Controller
         return redirect()->route('Ajaran');
     }
     
-
+    
+        
     public function delete(Request $request, $id){
         // Find the instance of Kelas
         $data = Ajaran::find($id);

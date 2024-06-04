@@ -80,7 +80,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->kelas }}</b>?</p>
+                                                    <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->tingkatan }}</b>?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route('Tingkatan.delete', $item->kode_tingkat) }}" method="POST">

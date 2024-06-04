@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Dashboard')
+@section('title', Auth::user()->name . ' - Edit Data Metode')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -32,14 +32,14 @@
                         <div class="py-3 py-lg-4">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h4 class="page-title mb-0">Edit Data Users</h4>
+                                    <h4 class="page-title mb-0">Edit Data Metode</h4>
                                 </div>
                                 <div class="col-lg-6">
                                    <div class="d-none d-lg-block">
                                     <ol class="breadcrumb m-0 float-end">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Users</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Metode</a></li>
                                         <li class="breadcrumb-item active">Datatables</li>
-                                        <li class="breadcrumb-item active">Edit Data Users</li>
+                                        <li class="breadcrumb-item active">Edit Data Metode</li>
                                     </ol>
                                    </div>
                                 </div>
@@ -58,42 +58,29 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="p-2">
-                                                    <form class="form-horizontal" action="{{route('Data-kelas.store') }}" method="post" enctype="multipart/form-data" >
+                                                    <form class="form-horizontal" action="{{route('Metode.update', $data->kode_metode) }}" method="post" >
                                                         @csrf
+                                                        @method('PUT')
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="simpleinput">Kode Kelas</label>
+                                                            <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
                                                             <div class="col-md-10">
-                                                            <?php
-                                                                $kodekelas = autonumber('kelas', 'kode_kelas', 3, 'KLS');
-                                                            ?>
-                                                                <input class="form-control" name="kode_kelas" readonly id="kode_kelas" type="text" value="<?= $kodekelas ?>">
-                                                                @error('kode_kelas')
+                                                                <input type="text" class="form-control" name="kode_metode" value="{{ $data->kode_metode}}" readonly>
+                                                                @error('nama')
                                                                     <small>{{ $message }}</small>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Nama Kelas</label>
+                                                            <label class="col-md-2 col-form-label" for="example-email">Nama metode</label>
                                                             <div class="col-md-10">
-                                                                <input type="text" name="kelas" class="form-control"  placeholder="Isi Nama Kelas">
-                                                                @error('kelas')
+                                                                <input type="text" name="metode_pembayaran" class="form-control" value="{{ $data->metode_pembayaran}}"  placeholder="Isi Nama metode">
+                                                                @error('metode_pembayaran')
                                                                 <small>{{ $message }}</small>
                                                             @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="ajaran">Tingkatan</label>
-                                                            <div class="col-md-10">
-                                                                <select class="form-control br-style" id="tingkat_kode" name="tingkat_kode">
-                                                                    <option value="">Pilih Tingkatan</option>
-                                                                    @foreach($tingkat as $year)
-                                                                        <option value="{{ $year->kode_tingkat }}">{{ $year->tingkatan }}</option>
-                                                                    @endforeach
-                                                                </select>                                                                
-                                                            </div>
-                                                        </div>
                                                         <div>
-                                                            <button class="btn btn-primary" type="submit"> Tambah </button>
+                                                            <button class="btn btn-primary" type="submit"> Edit </button>
                                                         </div>
                                                     </form>
                                                 </div>

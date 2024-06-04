@@ -60,6 +60,7 @@
                                               <tr>
                                                 <th>kode Kelas</th>
                                                 <th >Kelas</th>
+                                                <th>Tingkatan</th>
                                                 <th >Aksi</th>
                                               </tr>
                                             </thead>
@@ -68,6 +69,7 @@
                                               <tr>
                                                 <th>{{$item->kode_kelas}}</th>
                                                 <th>{{$item->kelas}}</th>
+                                                <th>{{$item->tingkatan->tingkatan}}</th>
                                                 <td>
                                                     <a href="{{ route('Data-kelas.edit',$item->kode_kelas)}}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                                     <br>

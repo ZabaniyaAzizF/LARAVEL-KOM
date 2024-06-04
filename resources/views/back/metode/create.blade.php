@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Dashboard')
+@section('title', Auth::user()->name . ' - Tambah Data Metode')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -32,14 +32,14 @@
                         <div class="py-3 py-lg-4">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h4 class="page-title mb-0">Edit Data Users</h4>
+                                    <h4 class="page-title mb-0">Tambah Data Metode</h4>
                                 </div>
                                 <div class="col-lg-6">
                                    <div class="d-none d-lg-block">
                                     <ol class="breadcrumb m-0 float-end">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Users</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Metode</a></li>
                                         <li class="breadcrumb-item active">Datatables</li>
-                                        <li class="breadcrumb-item active">Edit Data Users</li>
+                                        <li class="breadcrumb-item active">Tambah Data Metode</li>
                                     </ol>
                                    </div>
                                 </div>
@@ -58,38 +58,27 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="p-2">
-                                                    <form class="form-horizontal" action="{{route('Data-kelas.store') }}" method="post" enctype="multipart/form-data" >
+                                                    <form class="form-horizontal" action="{{route('Metode.store') }}" method="post" enctype="multipart/form-data" >
                                                         @csrf
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="simpleinput">Kode Kelas</label>
+                                                            <label class="col-md-2 col-form-label" for="simpleinput">Kode Metode</label>
                                                             <div class="col-md-10">
                                                             <?php
-                                                                $kodekelas = autonumber('kelas', 'kode_kelas', 3, 'KLS');
+                                                                $kodemetode = autonumber('metode', 'kode_metode', 3, 'MTD');
                                                             ?>
-                                                                <input class="form-control" name="kode_kelas" readonly id="kode_kelas" type="text" value="<?= $kodekelas ?>">
-                                                                @error('kode_kelas')
+                                                                <input class="form-control" name="kode_metode" readonly id="kode_metode" type="text" value="<?= $kodemetode ?>">
+                                                                @error('kode_metode')
                                                                     <small>{{ $message }}</small>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Nama Kelas</label>
+                                                            <label class="col-md-2 col-form-label" for="example-email">Metode Pembayaran</label>
                                                             <div class="col-md-10">
-                                                                <input type="text" name="kelas" class="form-control"  placeholder="Isi Nama Kelas">
+                                                                <input type="text" name="metode_pembayaran" class="form-control"  placeholder="Isi Metode Pembayaran">
                                                                 @error('kelas')
                                                                 <small>{{ $message }}</small>
                                                             @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="ajaran">Tingkatan</label>
-                                                            <div class="col-md-10">
-                                                                <select class="form-control br-style" id="tingkat_kode" name="tingkat_kode">
-                                                                    <option value="">Pilih Tingkatan</option>
-                                                                    @foreach($tingkat as $year)
-                                                                        <option value="{{ $year->kode_tingkat }}">{{ $year->tingkatan }}</option>
-                                                                    @endforeach
-                                                                </select>                                                                
                                                             </div>
                                                         </div>
                                                         <div>

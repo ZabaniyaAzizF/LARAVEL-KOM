@@ -17,7 +17,8 @@ class Kelas extends Model
     public $incrementing = false;
     protected $fillable = [
         'kode_kelas',
-        'kelas'
+        'kelas',
+        'tingkat_kode'
     ];
 
      // Define relationship with Pembayaran
@@ -29,6 +30,18 @@ class Kelas extends Model
     public function user()
     {
         return $this->hasMany(User::class, 'kelas_kode', 'kode_kelas');
+    }
+
+    // Relation to Ajaran
+    public function ajaran()
+    {
+        return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
+    // Relation to Ajaran
+    public function tingkatan()
+    {
+        return $this->belongsTo(Tingkatan::class, 'tingkat_kode', 'kode_tingkat');
     }
 
 }

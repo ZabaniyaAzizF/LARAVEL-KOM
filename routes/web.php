@@ -5,6 +5,8 @@ use App\Http\Controllers\back\AuthController;
 use App\Http\Controllers\back\AjaranController;
 use App\Http\Controllers\back\UsersController;
 use App\Http\Controllers\back\TingkatController;
+use App\Http\Controllers\back\HargaController;
+use App\Http\Controllers\back\MetodeController;
 use App\Http\Controllers\back\DataKelasController;
 use App\Http\Controllers\back\PembayaranController;
 use App\Http\Controllers\back\DataSiswaController;
@@ -97,6 +99,25 @@ Route::middleware('auth')->group(function () {
     Route::put('/Tingkatan/update/{kode_tingkat}', [TingkatController::class, 'update'] )->name('Tingkatan.update');
     Route::delete('/Tingkatan/delete/{kode_tingkat}', [TingkatController::class, 'delete'] )->name('Tingkatan.delete');
     Route::get('/Tingkatan/invoice', [TingkatController::class, 'invoice'] )->name('Tingkatan.invoice')->middleware(['auth', 'verified', 'permission:invoice-tingkat']);
+
+    // Metode Pembayaran
+    Route::get('/Metode', [MetodeController::class, 'index'] )->name('Metode');
+    Route::get('/Metode/create', [MetodeController::class, 'create'] )->name('Metode.tambah');
+    Route::post('/Metode/store', [MetodeController::class, 'store'] )->name('Metode.store');
+    Route::get('/Metode/edit/{id_spp}', [MetodeController::class, 'edit'])->name('Metode.edit');
+    Route::put('/Metode/update/{id_spp}', [MetodeController::class, 'update'])->name('Metode.update');    
+    Route::delete('/Metode/delete/{id_spp}', [MetodeController::class, 'delete'] )->name('Metode.delete');
+    Route::get('/Metode/invoice', [MetodeController::class, 'invoice'] )->name('Metode.invoice');
+
+    // Harga Spp
+    Route::get('/Harga', [HargaController::class, 'index'] )->name('Harga');
+    Route::get('/Harga/create', [HargaController::class, 'create'] )->name('Harga.tambah');
+    Route::post('/Harga/store', [HargaController::class, 'store'] )->name('Harga.store');
+    Route::get('/Harga/edit/{id_spp}', [HargaController::class, 'edit'])->name('Harga.edit');
+    Route::put('/Harga/update/{id_spp}', [HargaController::class, 'update'])->name('Harga.update');    
+    Route::delete('/Harga/delete/{id_spp}', [HargaController::class, 'delete'] )->name('Harga.delete');
+    Route::get('/Harga/invoice', [HargaController::class, 'invoice'] )->name('Harga.invoice');
+
 
     // History  Pembayaran
     Route::get('/History', [PembayaranController::class, 'history'] )->name('History')->middleware(['auth', 'verified', 'permission:lihat-history']);

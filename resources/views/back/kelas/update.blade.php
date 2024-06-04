@@ -79,6 +79,17 @@
                                                             @enderror
                                                             </div>
                                                         </div>
+                                                        <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="ajaran">Tingkatan</label>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control br-style" id="tingkat_kode" name="tingkat_kode">
+                                                                    <option value="">Pilih Tingkatan</option>
+                                                                    @foreach($tingkat as $year)
+                                                                        <option value="{{ $year->kode_tingkat }}">{{ $year->tingkatan }}</option>
+                                                                    @endforeach
+                                                                </select>                                                                
+                                                            </div>
+                                                        </div>
                                                         <div>
                                                             <button class="btn btn-primary" type="submit"> Edit </button>
                                                         </div>

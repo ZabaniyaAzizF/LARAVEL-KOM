@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tingkatan extends Model
 {
@@ -18,4 +19,11 @@ class Tingkatan extends Model
         'kode_tingkat',
         'tingkatan'
     ];
+
+    // Define relationship with Pembayaran
+    public function kelas(): HasMany
+    {
+        return $this->hasMany(Kelas::class, 'kelas_tingkat', 'kode_tingkat');
+    }
+
 }

@@ -32,4 +32,9 @@ class Ajaran extends Model
         return $this->hasMany(User::class, 'ajaran_kode', 'kode_ajaran');
     }
 
+    public function harga(): HasMany
+    {
+        return $this->hasMany(HargaSpp::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
 }

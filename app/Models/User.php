@@ -24,11 +24,8 @@ class User extends Authenticatable
         'foto_profile',
         'telepon',
         'alamat',
-        'ajaran_kode',
-        'kelas_kode',
         'email',
-        'password',
-        'status',
+        'password', 
     ];
 
     /**
