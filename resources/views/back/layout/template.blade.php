@@ -25,7 +25,7 @@
 <body>
 
     <!-- Begin page -->
-
+    <div>
         <!-- ========== Left Sidebar ========== -->
         
 

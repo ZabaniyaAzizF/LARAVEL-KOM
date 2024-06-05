@@ -37,4 +37,9 @@ class Ajaran extends Model
         return $this->hasMany(HargaSpp::class, 'ajaran_kode', 'kode_ajaran');
     }
 
+    public function kelas(): HasMany
+    {
+        return $this->hasMany(Kelas::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
 }

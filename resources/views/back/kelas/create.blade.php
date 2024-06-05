@@ -81,7 +81,7 @@
                                                             @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="mb-2 row">
+                                                        <div class="mb-2 row"> 
                                                             <label class="col-md-2 col-form-label" for="ajaran">Tingkatan</label>
                                                             <div class="col-md-10">
                                                                 <select class="form-control br-style" id="tingkat_kode" name="tingkat_kode">
@@ -92,7 +92,19 @@
                                                                 </select>                                                                
                                                             </div>
                                                         </div>
-                                                        <div>
+
+                                                        <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control br-style" id="ajaran" name="ajaran_kode">
+                                                                    @foreach($ajaran as $year)
+                                                                        <option value="{{ $year->kode_ajaran }}" {{ $loop->first ? 'selected' : '' }}>{{ $year->tahun_ajaran }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div>   
                                                             <button class="btn btn-primary" type="submit"> Tambah </button>
                                                         </div>
                                                     </form>

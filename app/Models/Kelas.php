@@ -18,7 +18,8 @@ class Kelas extends Model
     protected $fillable = [
         'kode_kelas',
         'kelas',
-        'tingkat_kode'
+        'tingkat_kode',
+        'ajaran_kode'
     ];
 
      // Define relationship with Pembayaran

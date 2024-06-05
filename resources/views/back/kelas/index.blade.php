@@ -50,7 +50,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="header-title">Table Data Users</h4>
+                                        <h4 class="header-title">Table Data Kelas</h4>
 
                                         <a href="{{ route('Data-kelas.tambah')}}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
                                         <a href="{{ route('Data-kelas.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
@@ -60,7 +60,7 @@
                                               <tr>
                                                 <th>kode Kelas</th>
                                                 <th >Kelas</th>
-                                                <th>Tingkatan</th>
+                                                <th >Tahun Ajaran</th>                                              
                                                 <th >Aksi</th>
                                               </tr>
                                             </thead>
@@ -68,8 +68,8 @@
                                                 @foreach ($kelas as $item)
                                               <tr>
                                                 <th>{{$item->kode_kelas}}</th>
-                                                <th>{{$item->kelas}}</th>
-                                                <th>{{$item->tingkatan->tingkatan}}</th>
+                                                <th>{{$item->tingkatan->tingkatan ?? '' }} - {{$item->kelas}}</th>
+                                                <th>{{$item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran'}}</th>
                                                 <td>
                                                     <a href="{{ route('Data-kelas.edit',$item->kode_kelas)}}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                                     <br>

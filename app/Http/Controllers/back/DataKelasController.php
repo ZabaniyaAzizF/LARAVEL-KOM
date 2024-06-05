@@ -4,6 +4,7 @@ namespace App\Http\Controllers\back;
 
 use App\Models\Kelas;
 use App\Models\Tingkatan;
+use App\Models\Ajaran;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -13,21 +14,25 @@ class DataKelasController extends Controller
     public function index(){
         $kelas = Kelas::get();
         $tingkat = Tingkatan::all();
+        $ajaran = Ajaran::all();
         
         return view('back.kelas.index',[
             'kelas' => $kelas,
-            'tingkat' => $tingkat
+            'tingkat' => $tingkat,
+            'ajaran'   => $ajaran
         ]);
     }
 
     public function create(){
 
         $kelas = Kelas::all();
+        $ajaran = Ajaran::where('status', 'aktif')->get();
         $tingkat = Tingkatan::all();
     
         return view('back.kelas.create', [
             'kelas' => $kelas,
-            'tingkat' => $tingkat // Perhatikan di sini, variabel yang diberikan adalah 'tingkat', bukan 'tingkatan'
+            'tingkat' => $tingkat, // Perhatikan di sini, variabel yang diberikan adalah 'tingkat', bukan 'tingkatan'
+            'ajaran'   => $ajaran
         ]);
     }
     
@@ -38,6 +43,7 @@ class DataKelasController extends Controller
             'kode_kelas'      => 'required',
             'kelas'           => 'required',
             'tingkat_kode'    => 'required',
+            'ajaran_kode'     => 'required',
         ]);
 
         
@@ -47,6 +53,7 @@ class DataKelasController extends Controller
         $data['kode_kelas']       = $request->kode_kelas;
         $data['kelas']            = $request->kelas;
         $data['tingkat_kode']     = $request->tingkat_kode;
+        $data['ajaran_kode']      = $request->ajaran_kode;
 
         Kelas::create($data);
 
@@ -57,8 +64,9 @@ class DataKelasController extends Controller
     public function edit(Request  $request, $id){
         $data = Kelas::find($id);
         $tingkat = Tingkatan::all();
+        $ajaran = Ajaran::where('status', 'aktif')->get();
 
-        return view('back.kelas.update',compact('data', 'tingkat'));
+        return view('back.kelas.update',compact('data', 'tingkat', 'ajaran'));
     }
 
     public function update(Request $request, $id){
@@ -71,6 +79,7 @@ class DataKelasController extends Controller
             'kode_kelas'      => 'required',
             'kelas'           => 'required',
             'tingkat_kode'    => 'required',
+            'ajaran_kode'     => 'required',
         ]);
     
         // If validation fails, redirect back with errors
@@ -82,6 +91,7 @@ class DataKelasController extends Controller
         $data->kode_kelas = $request->kode_kelas;
         $data->kelas = $request->kelas;
         $data->tingkat_kode = $request->tingkat_kode;
+        $data->ajaran_kode = $request->ajaran_kode;
     
         // Save the changes to the database
         $data->save();

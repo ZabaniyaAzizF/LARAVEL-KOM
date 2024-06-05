@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('kode_kelas', 6)->primary();
             $table->string('kelas');
             $table->string('tingkat_kode')->index();
+            $table->string('ajaran_kode')->index();
             $table->timestamps();
         });
     }

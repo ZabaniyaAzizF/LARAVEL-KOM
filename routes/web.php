@@ -77,6 +77,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/Data-kelas/delete/{id_kelas}', [DataKelasController::class, 'delete'])->name('Data-kelas.delete');
     Route::get('/Data-kelas/invoice', [DataKelasController::class, 'invoice'] )->name('Data-kelas.invoice')->middleware(['auth', 'verified', 'permission:invoice-ajaran']);
 
+    // Data Siswa
+    Route::get('/Data-siswa', [DataSiswaController::class, 'index'] )->name('Data-siswa');
+    Route::get('/Data-siswa/create', [DataSiswaController::class, 'create'])->name('Data-siswa.tambah');
+    Route::post('/Data-siswa/store', [DataSiswaController::class, 'store'])->name('Data-siswa.store');
+    Route::get('/Data-siswa/edit/{nis}', [DataSiswaController::class, 'edit'])->name('Data-siswa.edit');
+    Route::put('/Data-siswa/update/{nis}', [DataSiswaController::class, 'update'])->name('Data-siswa.update');
+    Route::delete('/Data-siswa/delete/{nis}', [DataSiswaController::class, 'delete'])->name('Data-siswa.delete');
+
     // Setting
     Route::get('/Setting', [SettingController::class, 'index'] )->name('Setting')->middleware(['auth', 'verified', 'permission:lihat-setting']);
     Route::put('/Setting/update/{id_setting}', [SettingController::class, 'update'])->name('Setting.update')->middleware(['auth', 'verified', 'permission:edit-setting']);
@@ -128,14 +136,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/Tunggkan/invoice', [PembayaranController::class, 'invoiceT'] )->name('Tunggakan.invoice');
 
 });
-
-    // // Data Siswa
-    // Route::get('/Data-siswa', [UsersController::class, 'siswa'] )->name('Data-siswa');
-    // Route::get('/Data-siswa/create', [DataSiswaController::class, 'create'])->name('Data-siswa.tambah');
-    // Route::post('/Data-siswa/store', [DataSiswaController::class, 'store'])->name('Data-siswa.store');
-    // Route::get('/Data-siswa/edit/{nis}', [DataSiswaController::class, 'edit'])->name('Data-siswa.edit');
-    // Route::put('/Data-siswa/update/{nis}', [DataSiswaController::class, 'update'])->name('Data-siswa.update');
-    // Route::delete('/Data-siswa/delete/{nis}', [DataSiswaController::class, 'delete'])->name('Data-siswa.delete');
 
     // // Data Petugas
     // Route::get('/Data-petugas', [UsersController::class, 'petugas'] )->name('Data-petugas');

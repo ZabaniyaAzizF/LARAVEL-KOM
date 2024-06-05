@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Dashboard')
+@section('title', Auth::user()->name . ' - Edit Data Kelas')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -83,11 +83,20 @@
                                                             <label class="col-md-2 col-form-label" for="ajaran">Tingkatan</label>
                                                             <div class="col-md-10">
                                                                 <select class="form-control br-style" id="tingkat_kode" name="tingkat_kode">
-                                                                    <option value="">Pilih Tingkatan</option>
                                                                     @foreach($tingkat as $year)
                                                                         <option value="{{ $year->kode_tingkat }}">{{ $year->tingkatan }}</option>
                                                                     @endforeach
                                                                 </select>                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control br-style" id="ajaran" name="ajaran_kode">
+                                                                    @foreach($ajaran as $year)
+                                                                        <option value="{{ $year->kode_ajaran }}" {{ $loop->first ? 'selected' : '' }}>{{ $year->tahun_ajaran }}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div>
