@@ -114,32 +114,19 @@
                                                             @enderror
                                                             </div>
                                                         </div>
-                                                            <div class="mb-2 row">
-                                                                <label class="col-md-2 col-form-label" for="kelas">Kelas</label>
-                                                                <div class="col-md-10">
-                                                                    <select class="form-control" id="kelas" name="kelas_kode">
-                                                                        <option value="">Pilih Kelas</option>
-                                                                        @foreach($classes as $class)
-                                                                            <option value="{{ $class->kode_kelas }}" {{ old('kelas_kode', $selectedClass) == $class->kode_kelas ? 'selected' : '' }}>
-                                                                                {{ $class->kelas }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
+                                                        <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label" for="kelas">Kelas</label>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control br-style" id="kelas" name="kelas_kode">
+                                                                    <option value="">Pilih Kelas</option>
+                                                                    @foreach($classes as $class)
+                                                                        <option value="{{ $class->kode_kelas }}" {{ old('kelas_kode', $selectedClass) == $class->kode_kelas ? 'selected' : '' }}>
+                                                                            {{$class->tingkatan->tingkatan ?? '' }} - {{$class->kelas}} - {{$class->ajaran->tahun_ajaran}}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
-                                                            <div class="mb-2 row">
-                                                                <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
-                                                                <div class="col-md-10">
-                                                                    <select class="form-control" id="ajaran" name="ajaran_kode">
-                                                                        <option value="">Pilih Tahun Ajaran</option>
-                                                                        @foreach($academicYears as $year)
-                                                                            <option value="{{ $year->kode_ajaran }}" {{ old('ajaran_kode', $selectedYear) == $year->kode_ajaran ? 'selected' : '' }}>
-                                                                                {{ $year->tahun_ajaran }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                                        </div>                                                                                                                
                                                             <div class="mb-2 row">
                                                                 <label class="col-md-2 col-form-label" for="example-email">Role</label>
                                                                 <div class="col-md-10">

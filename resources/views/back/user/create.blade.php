@@ -125,19 +125,7 @@
                                                                     <select class="form-control br-style " id="kelas" name="kelas_kode">
                                                                         <option value="">Pilih Kelas</option>
                                                                         @foreach($classes as $class)
-                                                                            <option value="{{ $class->kode_kelas }}">{{ $class->kelas }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-2 row">
-                                                                <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
-                                                                <div class="col-md-10">
-                                                                    <select class="form-control br-style" id="ajaran" name="ajaran_kode">
-                                                                        <option value="">Pilih Tahun Ajaran</option>
-                                                                        @foreach($academicYears as $year)
-                                                                            <option value="{{ $year->kode_ajaran }}">{{ $year->tahun_ajaran }}</option>
+                                                                            <option value="{{ $class->kode_kelas }}">{{$class->tingkatan->tingkatan ?? '' }} - {{$class->kelas}} - {{$class->ajaran->tahun_ajaran}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -147,7 +135,7 @@
                                                                 <label class="col-md-2 col-form-label" for="example-email">Role</label>
                                                                 <div class="col-md-10">
                                                                     <select class="form-control br-style" id="role" name="role">
-                                                                        <option value="">Pilih Kelas</option>
+                                                                        <option value="">Pilih Role</option>
                                                                         @foreach($roles as $role)
                                                                             <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                                         @endforeach

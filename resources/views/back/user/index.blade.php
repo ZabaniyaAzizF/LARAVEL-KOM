@@ -60,15 +60,7 @@
                                         <select name="kelas_kode" class="form-control">
                                             <option value="">Pilih Kelas</option>
                                             @foreach($kelas as $kelas)
-                                                <option value="{{ $kelas->kode_kelas }}">{{ $kelas->kelas }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select name="ajaran_kode" class="form-control">
-                                            <option value="">Pilih Tahun Ajaran</option>
-                                            @foreach($ajaran as $ajaran)
-                                                <option value="{{ $ajaran->kode_ajaran }}">{{ $ajaran->tahun_ajaran }}</option>
+                                                <option value="{{ $kelas->kode_kelas }}">{{$kelas->tingkatan->tingkatan ?? '' }} - {{$kelas->kelas}} - {{$kelas->ajaran->tahun_ajaran}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -97,12 +89,24 @@
                                     <tr>
                                         <th>{{ $item->name }}</th>
                                         <th>{{ $item->nis }}</th>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->telepon }}</td>
-                                        <td>{{ $item->alamat }}</td>
-                                        <td>{{ $item->kelas ? $item->kelas->kelas : 'Tidak Punya Kelas' }}</td>
-                                        <td>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran' }}</td>
-                                        <td>
+                                        <th>{{ $item->email }}</th>
+                                        <th>{{ $item->telepon }}</th>
+                                        <th>{{ $item->alamat }}</th>
+                                        <th>
+                                            @if($item->kelas)
+                                                {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}
+                                            @else
+                                                Tidak Punya Kelas
+                                            @endif
+                                        </th>
+                                        <th>
+                                            @if($item->kelas && $item->kelas->ajaran)
+                                                {{ $item->kelas->ajaran->tahun_ajaran }}
+                                            @else
+                                                Tidak Ada Ajaran
+                                            @endif
+                                        </th>
+                                        <th>
                                             <div class="col-md-10">
                                                 @php
                                                 $roleColor = 'secondary'; // Default color
@@ -121,12 +125,12 @@
                                                     {{ $item->getRoleNames()->isNotEmpty() ? $item->getRoleNames()->first() : 'Undefined Role' }}
                                                 </span>
                                             </div>
-                                        </td>
-                                        <td>
+                                        </th>
+                                        <th>
                                             <a href="{{ route('Users.edit', $item->id) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                             <br>
                                             <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->id }}" class="btn btn-danger shadow btn-xs sharp me-1">Hapus</a>
-                                        </td>
+                                        </th>
                                     </tr>
                                     <!-- Modal -->
                                     <div class="modal fade" id="staticBackdrop{{ $item->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

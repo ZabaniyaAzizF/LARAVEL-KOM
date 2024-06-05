@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'nis',
         'foto_profile',
+        'kelas_kode',
         'telepon',
         'alamat',
         'email',

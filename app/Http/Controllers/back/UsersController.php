@@ -35,7 +35,6 @@ class UsersController extends Controller
         // Mengambil nilai filter dari request
         $name = $request->input('name');
         $kelas_kode = $request->input('kelas_kode');
-        $ajaran_kode = $request->input('ajaran_kode');
     
         // Menambahkan kondisi filter ke dalam query
         if ($name) {
@@ -44,10 +43,6 @@ class UsersController extends Controller
         if ($kelas_kode) {
             $query->where('kelas_kode', $kelas_kode);
         }
-        if ($ajaran_kode) {
-            $query->where('ajaran_kode', $ajaran_kode);
-        }
-    
         $users = $query->get();
         
         // Mengambil semua data kelas
@@ -82,7 +77,6 @@ class UsersController extends Controller
             'telepon'       => 'required',
             'alamat'        => 'required',
             'kelas_kode'    => 'required',
-            'ajaran_kode'   => 'required',
             'role'          => 'required',
             'foto_profile'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar opsional
         ]);
@@ -111,7 +105,6 @@ class UsersController extends Controller
             'alamat'                => $request->alamat,
             'telepon'               => $request->telepon,
             'kelas_kode'            => $request->kelas_kode,
-            'ajaran_kode'           => $request->ajaran_kode,
             'foto_profile'          => $filename, // Dapat berupa null jika tidak ada file yang diunggah
             'password'              => Hash::make($request->password),
         ];
@@ -164,7 +157,6 @@ class UsersController extends Controller
         $data->alamat = $request->alamat;
         $data->telepon = $request->telepon;
         $data->kelas_kode = $request->kelas_kode;
-        $data->ajaran_kode = $request->ajaran_kode;
 
 
         // Jika kata sandi tidak kosong, update juga kata sandi

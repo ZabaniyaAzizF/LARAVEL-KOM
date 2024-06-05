@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('foto_profile', 100)->nullable();
             $table->string('telepon', 13)->nullable();
             $table->string('alamat', 80)->nullable();
+            $table->string('kelas_kode')->nullable()->index();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
