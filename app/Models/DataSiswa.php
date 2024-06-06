@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Traits\HasRoles;
 
 class DataSiswa extends Model
 {
-    use HasFactory, HasRoles;
+    use HasFactory;
 
     protected $table = 'data_siswa';
     protected $primaryKey = 'id_siswa';
@@ -16,10 +15,20 @@ class DataSiswa extends Model
         'id_siswa',
         'nama_siswa',
         'nis',
+        'alamat',
+        'telepon',
         'kelas_kode',
+        'status',
     ];
 
-    // Menetapkan guard yang digunakan
-    protected $guard_name = 'web';
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_kode', 'kode_kelas');
+    }
+
+    public function ajaran()
+    {
+        return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran');
+    }
 
 }

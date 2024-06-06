@@ -12,17 +12,23 @@ use Illuminate\Http\Request;
 class DataKelasController extends Controller
 {
     public function index(){
-        $kelas = Kelas::get();
+        $ajaranAktif = Ajaran::where('status', 'aktif')->get();
+        $kelas = collect();
+    
+        foreach ($ajaranAktif as $ajaran) {
+            $kelas = $kelas->merge($ajaran->kelas);
+        }
+    
         $tingkat = Tingkatan::all();
-        $ajaran = Ajaran::all();
         
         return view('back.kelas.index',[
             'kelas' => $kelas,
             'tingkat' => $tingkat,
-            'ajaran'   => $ajaran
+            'ajaran'   => $ajaranAktif
         ]);
     }
-
+    
+    
     public function create(){
 
         $kelas = Kelas::all();

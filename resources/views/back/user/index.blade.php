@@ -61,14 +61,14 @@
                                     <div class="col-md-4">
                                         <input type="text" name="name" class="form-control" placeholder="Nama">
                                     </div>
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <select name="kelas_kode" class="form-control">
                                             <option value="">Pilih Kelas</option>
                                             @foreach($kelas as $kelas)
                                                 <option value="{{ $kelas->kode_kelas }}">{{$kelas->tingkatan->tingkatan ?? '' }} - {{$kelas->kelas}} - {{$kelas->ajaran->tahun_ajaran}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
                                     <p> </p>
                                     <div class="col-md-4 mt-4 mb-3">
                                         <button type="submit" class="btn btn-primary">Filter</button>
@@ -80,12 +80,12 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>NIS</th>
+                                        {{-- <th>NIS</th> --}}
                                         <th>Email</th>
                                         <th>Telepon</th>
                                         <th>Alamat</th>
-                                        <th>Kelas</th>
-                                        <th>Tahun Ajaran</th>
+                                        {{-- <th>Kelas</th>
+                                        <th>Tahun Ajaran</th> --}}
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -95,11 +95,11 @@
                                     @foreach ($users as $item)
                                     <tr>
                                         <th>{{ $item->name }}</th>
-                                        <th>{{ $item->nis }}</th>
+                                        {{-- <th>{{ $item->nis }}</th> --}}
                                         <th>{{ $item->email }}</th>
                                         <th>{{ $item->telepon }}</th>
                                         <th>{{ $item->alamat }}</th>
-                                        <th>
+                                        {{-- <th>
                                             @if($item->kelas)
                                                 {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}
                                             @else
@@ -112,7 +112,7 @@
                                             @else
                                                 Tidak Ada Ajaran
                                             @endif
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             <div class="col-md-10">
                                                 @php

@@ -81,6 +81,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/Data-siswa', [DataSiswaController::class, 'index'] )->name('Data-siswa');
     Route::get('/Data-siswa/create', [DataSiswaController::class, 'create'] )->name('Data-siswa.create');
     Route::post('/Data-siswa/store', [DataSiswaController::class, 'store'] )->name('Data-siswa.store');
+    Route::get('/data-siswa/{id_siswa}/edit', [DataSiswaController::class, 'edit'])->name('Data-siswa.edit');
+    Route::put('/data-siswa/{id_siswa}', [DataSiswaController::class, 'update'])->name('Data-siswa.update');
+    Route::delete('/Data-siswa/delete/{nis}', [DataSiswaController::class, 'delete'])->name('Data-siswa.delete');
     Route::get('/Data-siswa/invoice', [DataSiswaController::class, 'invoice'] )->name('Data-siswa.invoice');
     Route::get('/Data-siswa/{kode_kelas}', [DataSiswaController::class, 'view'] )->name('Data-siswa.view');
 
@@ -139,9 +142,6 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('/Data-siswa/create', [DataSiswaController::class, 'create'])->name('Data-siswa.tambah');
     // Route::post('/Data-siswa/store', [DataSiswaController::class, 'store'])->name('Data-siswa.store');
-    // Route::get('/Data-siswa/edit/{nis}', [DataSiswaController::class, 'edit'])->name('Data-siswa.edit');
-    // Route::put('/Data-siswa/update/{nis}', [DataSiswaController::class, 'update'])->name('Data-siswa.update');
-    // Route::delete('/Data-siswa/delete/{nis}', [DataSiswaController::class, 'delete'])->name('Data-siswa.delete');
 
     // // Data Petugas
     // Route::get('/Data-petugas', [UsersController::class, 'petugas'] )->name('Data-petugas');

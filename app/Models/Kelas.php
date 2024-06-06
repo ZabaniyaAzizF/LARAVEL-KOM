@@ -45,4 +45,9 @@ class Kelas extends Model
         return $this->belongsTo(Tingkatan::class, 'tingkat_kode', 'kode_tingkat');
     }
 
+    public function siswa()
+    {
+        return $this->hasMany(DataSiswa::class, 'kelas_kode', 'kode_kelas');
+    }
+
 }

@@ -32,7 +32,6 @@ class UserSeeder extends Seeder
             'name'      => 'siswa',
             'email'     => 'siswa@gmail.com',
             'password'  => Hash::make('123456'),
-            'nis'       => '1234567898',
         ]);
         $siswa->assignRole('siswa');
     }

@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id('id_siswa');
             $table->string('nama_siswa');
             $table->string('nis');
+            $table->string('alamat');
+            $table->string('telepon');
             $table->string('kelas_kode')->index();
+            $table->enum('status', ['aktif', 'dikeluarkan', 'keluar', 'pindah', 'lulus'])->default('aktif');
             $table->timestamps();
         });
     }

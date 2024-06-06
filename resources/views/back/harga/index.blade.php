@@ -34,7 +34,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Table Data Users</h4>
+                            <h4 class="header-title">Table Data Harga</h4>
                             <a href="{{ route('Harga.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
                             <a href="{{ route('Harga.invoice') }}" class="btn btn-primary mb-4 mt-2">Invoice</a>
                             <p></p>

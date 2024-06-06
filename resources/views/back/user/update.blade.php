@@ -77,7 +77,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="mb-2 row">
+                                                        {{-- <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="simpleinput">NIS</label>
                                                             <div class="col-md-10">
                                                                 <input type="text" class="form-control" name="nis" value="{{ $data->nis }}" placeholder="Isi NIS Anda ">
@@ -86,7 +86,7 @@
                                                                     <small>{{ $message }}</small>
                                                                 @enderror
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-email">Email</label>
                                                             <div class="col-md-10">
@@ -114,7 +114,7 @@
                                                             @enderror
                                                             </div>
                                                         </div>
-                                                        <div class="mb-2 row">
+                                                        {{-- <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="kelas">Kelas</label>
                                                             <div class="col-md-10">
                                                                 <select class="form-control br-style" id="kelas" name="kelas_kode">
@@ -126,7 +126,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                        </div>                                                                                                                
+                                                        </div>                                                                                                                 --}}
                                                             <div class="mb-2 row">
                                                                 <label class="col-md-2 col-form-label" for="example-email">Role</label>
                                                                 <div class="col-md-10">
@@ -140,7 +140,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="mb-2 row">
+                                                            {{-- <div class="mb-2 row">
                                                                 <label class="col-md-2 col-form-label" for="example-status">Status</label>
                                                                 <div class="col-md-10">
                                                                     <select class="form-control" id="status" name="status">
@@ -152,7 +152,7 @@
                                                                         <option value="pindah" {{ old('status', $data->status) == 'lulus' ? 'selected' : '' }}>Lulus</option>
                                                                     </select>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                             
 
                                                         <div class="mb-2 row">

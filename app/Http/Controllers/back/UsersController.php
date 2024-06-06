@@ -71,12 +71,12 @@ class UsersController extends Controller
         // Validasi input termasuk file
         $validator = Validator::make($request->all(), [
             'nama'          => 'required',
-            'nis'           => 'nullable',
+            // 'nis'           => 'nullable',
             'email'         => 'required|email',
             'password'      => 'required',
             'telepon'       => 'required',
             'alamat'        => 'required',
-            'kelas_kode'    => 'required',
+            // 'kelas_kode'    => 'required',
             'role'          => 'required',
             'foto_profile'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar opsional
         ]);
@@ -100,11 +100,11 @@ class UsersController extends Controller
         // Mengambil data dari permintaan
         $data = [
             'name'                  => $request->nama,
-            'nis'                   => $request->nis,
+            // 'nis'                   => $request->nis,
             'email'                 => $request->email,
             'alamat'                => $request->alamat,
             'telepon'               => $request->telepon,
-            'kelas_kode'            => $request->kelas_kode,
+            // 'kelas_kode'            => $request->kelas_kode,
             'foto_profile'          => $filename, // Dapat berupa null jika tidak ada file yang diunggah
             'password'              => Hash::make($request->password),
         ];
@@ -153,24 +153,24 @@ class UsersController extends Controller
         // Validasi input
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nis' => 'nullable|string|max:10',
+            // 'nis' => 'nullable|string|max:10',
             'email' => 'required|string|email|max:255|unique:users,email,' . $data->id,
             'alamat' => 'nullable|string|max:80',
             'telepon' => 'nullable|string|max:13',
-            'kelas_kode' => 'nullable|string|max:255',
+            // 'kelas_kode' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8|confirmed',
-            'status' => 'required|in:aktif,dikeluarkan,keluar,pindah','lulus',
+            // 'status' => 'required|in:aktif,dikeluarkan,keluar,pindah','lulus',
             'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
         // Memperbarui data pengguna
         $data->name = $request->nama;
-        $data->nis = $request->nis;
+        // $data->nis = $request->nis;
         $data->email = $request->email;
         $data->alamat = $request->alamat;
         $data->telepon = $request->telepon;
-        $data->kelas_kode = $request->kelas_kode;
-        $data->status = $request->status;
+        // $data->kelas_kode = $request->kelas_kode;
+        // $data->status = $request->status;
     
         // Jika kata sandi tidak kosong, update juga kata sandi
         if (!empty($request->password)) {

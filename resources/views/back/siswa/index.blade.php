@@ -50,7 +50,7 @@
                             <div class="col-md-4 mt-4 mb-3">
                                 <a href="{{ route('Data-siswa.create') }}" class="btn btn-primary" >Tambah</a>
                             </div>
-                            <form method="GET" action="{{ route('Data-siswa') }}">
+                            {{-- <form method="GET" action="{{ route('Data-siswa') }}">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <select name="kelas_kode" class="form-control">
@@ -66,7 +66,7 @@
                                         <a href="{{ route('Data-siswa.invoice') }}" class="btn btn-primary" >Invoice</a>
                                     </div>
                                 </div>
-                            </form>
+                            </form> --}}
                             
                             <table class="table">
                                 <thead>
@@ -77,32 +77,62 @@
                                         <th>Alamat</th>
                                         <th>Kelas</th>
                                         <th>Tahun Ajaran</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $item)
-                            <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->nis }}</td>
-                                <td>{{ $item->telepon }}</td>
-                                <td>{{ $item->alamat }}</td>
-                                <td>
-                                    @if($item->kelas)
-                                        {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}
-                                    @else
-                                        Tidak Punya Kelas
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($item->kelas && $item->kelas->ajaran)
-                                        {{ $item->kelas->ajaran->tahun_ajaran }}
-                                    @else
-                                        Tidak Ada Ajaran
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                                </tbody>
+                                    @foreach ($data_siswa as $item)
+                                        <tr>
+                                            <td>{{ $item->nama_siswa }}</td>
+                                            <td>{{ $item->nis }}</td>
+                                            <td>{{ $item->telepon }}</td>
+                                            <td>{{ $item->alamat }}</td>
+                                            <td>
+                                                @if($item->kelas)
+                                                    {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}
+                                                @else
+                                                    Tidak Punya Kelas
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($item->kelas && $item->kelas->ajaran)
+                                                    {{ $item->kelas->ajaran->tahun_ajaran }}
+                                                @else
+                                                    Tidak Ada Ajaran
+                                                @endif
+                                            </td>
+                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                <a href="{{ route('Data-siswa.edit', $item->id_siswa) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
+                                                <br>
+                                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->id_siswa }}" class="btn btn-danger shadow btn-xs sharp me-1">Hapus</a>
+                                            </td>
+                                        </tr>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop{{ $item->id_siswa }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi Delete data</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->nama_siswa }}</b>?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="{{ route('Data-siswa.delete', $item->id_siswa) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </tbody>                                
                             </table>
                         </div> <!-- end card body-->
                     </div> <!-- end card -->

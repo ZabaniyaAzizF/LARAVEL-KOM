@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Data Users')
+@section('title', Auth::user()->name . ' - Data Siswa')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -46,32 +46,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            @foreach ($users as $item)
-                            <h4 class="header-title">Table Data Siswa | {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}</h4>
+                            @foreach ($data_siswa as $item)
+                            <h4 class="header-title mb-4">Table Data Siswa | {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}</h4>
                             @endforeach
-                            <form method="GET" action="{{ route('Data-siswa.view', ['kode_kelas' => $item->kelas->kode_kelas ?? '']) }}">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <select name="kelas_kode" class="form-control">
-                                            <option value="">Pilih Kelas</option>
-                                            @foreach($kelas as $kls)
-                                                <option value="{{ $kls->kode_kelas }}">{{ $kls->tingkatan->tingkatan ?? '' }} - {{ $kls->kelas }} - {{ $kls->ajaran->tahun_ajaran }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <p></p>
-                                    <div class="col-md-4 mt-4 mb-3">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-                                        <a href="{{ route('Users.invoice') }}" class="btn btn-primary">Invoice</a>
-                                    </div>
-                                </div>
-                            </form>
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>NIS</th>
-                                        <th>Email</th>
                                         <th>Telepon</th>
                                         <th>Alamat</th>
                                         <th>Kelas</th>
@@ -80,31 +62,52 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $item)
-                            <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->nis }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->telepon }}</td>
-                                <td>{{ $item->alamat }}</td>
-                                <td>
-                                    @if($item->kelas)
-                                        {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}
-                                    @else
-                                        Tidak Punya Kelas
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($item->kelas && $item->kelas->ajaran)
-                                        {{ $item->kelas->ajaran->tahun_ajaran }}
-                                    @else
-                                        Tidak Ada Ajaran
-                                    @endif
-                                </td>
-                                <td>{{ $item->status }}</td>
-                            </tr>
-                            @endforeach
-                                </tbody>
+                                    @foreach ($data_siswa as $item)
+                                        <tr>
+                                            <td>{{ $item->nama_siswa }}</td>
+                                            <td>{{ $item->nis }}</td>
+                                            <td>{{ $item->telepon }}</td>
+                                            <td>{{ $item->alamat }}</td>
+                                            <td>
+                                                @if($item->kelas)
+                                                    {{ $item->kelas->tingkatan->tingkatan ?? '' }} - {{ $item->kelas->kelas }}
+                                                @else
+                                                    Tidak Punya Kelas
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($item->kelas && $item->kelas->ajaran)
+                                                    {{ $item->kelas->ajaran->tahun_ajaran }}
+                                                @else
+                                                    Tidak Ada Ajaran
+                                                @endif
+                                            </td>
+                                            <td>{{ $item->status }}</td>
+                                        </tr>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop{{ $item->id_siswa }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi Delete data</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Apakah Anda Yakin Ingin Menghapus Data <b style="color: rgb(0, 17, 255);">{{ $item->nama_siswa }}</b>?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="{{ route('Data-siswa.delete', $item->id_siswa) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </tbody>                                
                             </table>
                         </div> <!-- end card body-->
                     </div> <!-- end card -->
@@ -113,7 +116,7 @@
             <!-- end row-->
             <!-- Footer Start -->
             @include('back.layout.footer')
-            <!-- end Footer --> 
+            <!-- end Footer -->
         </div>
         <!-- END wrapper -->
 
