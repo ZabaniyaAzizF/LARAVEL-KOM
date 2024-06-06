@@ -79,6 +79,9 @@ Route::middleware('auth')->group(function () {
 
     // Data Siswa
     Route::get('/Data-siswa', [DataSiswaController::class, 'index'] )->name('Data-siswa');
+    Route::get('/Data-siswa/create', [DataSiswaController::class, 'create'] )->name('Data-siswa.create');
+    Route::post('/Data-siswa/store', [DataSiswaController::class, 'store'] )->name('Data-siswa.store');
+    Route::get('/Data-siswa/invoice', [DataSiswaController::class, 'invoice'] )->name('Data-siswa.invoice');
     Route::get('/Data-siswa/{kode_kelas}', [DataSiswaController::class, 'view'] )->name('Data-siswa.view');
 
 

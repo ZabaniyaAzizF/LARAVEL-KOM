@@ -34,7 +34,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Table Data Users</h4>
+                            <h4 class="header-title">Table Data Pembayaran</h4>
                             <a href="{{ route('Metode.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
                             <a href="{{ route('Metode.invoice') }}" class="btn btn-primary mb-4 mt-2">Invoice</a>
                             <p></p>
@@ -46,8 +46,9 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Kode Metode</th>
-                                        <th>Metode Pembayaran</th>
+                                        <th>Kode</th>
+                                        <th>Pembayaran</th>
+                                        <th>Jenis </th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -56,6 +57,7 @@
                                         <tr>
                                             <th>{{ $item->kode_metode }}</th>
                                             <th>{{ $item->metode_pembayaran }}</th>
+                                            <th>{{ $item->jenis }}</th>
                                             <td>
                                                 <a href="{{ route('Metode.edit', $item->kode_metode) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                                 <br>

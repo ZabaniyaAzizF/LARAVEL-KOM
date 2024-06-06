@@ -149,7 +149,20 @@ class UsersController extends Controller
         if (!$data) {
             return redirect()->back()->with('error', 'User not found');
         }
-
+    
+        // Validasi input
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nis' => 'nullable|string|max:10',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $data->id,
+            'alamat' => 'nullable|string|max:80',
+            'telepon' => 'nullable|string|max:13',
+            'kelas_kode' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+            'status' => 'required|in:aktif,dikeluarkan,keluar,pindah','lulus',
+            'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+    
         // Memperbarui data pengguna
         $data->name = $request->nama;
         $data->nis = $request->nis;
@@ -157,43 +170,43 @@ class UsersController extends Controller
         $data->alamat = $request->alamat;
         $data->telepon = $request->telepon;
         $data->kelas_kode = $request->kelas_kode;
-
-
+        $data->status = $request->status;
+    
         // Jika kata sandi tidak kosong, update juga kata sandi
         if (!empty($request->password)) {
             $data->password = Hash::make($request->password);
         }
-
+    
         // Menyimpan foto profil jika diunggah
         $profile = $request->file('foto_profile');
         if ($profile) {
-        // Delete previous photo if it exists
-        if ($data->foto_profile) {
-            Storage::disk('public')->delete('foto_profile/' . $data->foto_profile);
+            // Hapus foto profil sebelumnya jika ada
+            if ($data->foto_profile) {
+                Storage::disk('public')->delete('foto_profile/' . $data->foto_profile);
+            }
+    
+            $filename = date('Y-m-d') . '-' . $profile->getClientOriginalName();
+            $path = 'foto_profile/' . $filename;
+    
+            Storage::disk('public')->put($path, file_get_contents($profile));
+    
+            $data->foto_profile = $filename;
         }
     
-        $filename = date('Y-m-d') . $profile->getClientOriginalName();
-        $path = 'foto_profile/' . $filename;
-
-        Storage::disk('public')->put($path, file_get_contents($profile));
-
-        $data->foto_profile = $filename;
-        }
-
-        // Save updated user data
+        // Menyimpan data pengguna yang diperbarui
         $data->save();
-
+    
         // Menetapkan peran jika ada perubahan peran
         if ($request->has('role')) {
-        $role = Role::where('name', $request->role)->first();
-        if ($role) {
-            $data->syncRoles([$role->name]); // Menghapus semua peran sebelumnya dan menetapkan peran baru
+            $role = Role::where('name', $request->role)->first();
+            if ($role) {
+                $data->syncRoles([$role->name]); // Menghapus semua peran sebelumnya dan menetapkan peran baru
             }
         }
-
-        return redirect()->route('Users');
-
+    
+        return redirect()->route('Users')->with('success', 'Data user berhasil diperbarui');
     }
+    
 
     public function delete(Request $request, $id){
         $data = User::find($id);

@@ -47,6 +47,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">Table Data Users</h4>
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                             <div>
                                 <a href="{{ route('Users.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
                                 <a href="{{ route('Users.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
@@ -64,6 +69,7 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <p> </p>
                                     <div class="col-md-4 mt-4 mb-3">
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                     </div>
@@ -81,6 +87,7 @@
                                         <th>Kelas</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Role</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -126,6 +133,7 @@
                                                 </span>
                                             </div>
                                         </th>
+                                        <th>{{ $item->status }}</th>
                                         <th>
                                             <a href="{{ route('Users.edit', $item->id) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                             <br>

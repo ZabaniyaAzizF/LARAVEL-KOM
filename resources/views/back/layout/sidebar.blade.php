@@ -63,7 +63,7 @@
                 @role('admin|petugas')
                 <a href="{{ route('Metode') }}"  class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-layout"></i></span>
-                    <span class="menu-text"> Metode Pembayaran </span>
+                    <span class="menu-text"> Jenis Pembayaran </span>
                 </a>
                 @endrole
             </li>
@@ -90,7 +90,7 @@
                 @role('admin|petugas')
                 <a href="{{ route('Pembayaran') }}" class="menu-link waves-effect waves-light">
                     <span class="menu-icon"><i class="bx bx-cookie"></i></span>
-                    <span class="menu-text"> Pembayaran </span>
+                    <span class="menu-text"> Transaksi </span>
                 </a>
                 @endrole
             </li>

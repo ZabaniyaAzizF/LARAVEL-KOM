@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Data Users')
+@section('title', Auth::user()->name . ' - Data Siswa')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -47,9 +47,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">Table Data Siswa</h4>
-                            <div>
-                                <a href="{{ route('Users.tambah') }}" class="btn btn-primary mb-4 mt-2">Tambah Data</a>
-                                <a href="{{ route('Users.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
+                            <div class="col-md-4 mt-4 mb-3">
+                                <a href="{{ route('Data-siswa.create') }}" class="btn btn-primary" >Tambah</a>
                             </div>
                             <form method="GET" action="{{ route('Data-siswa') }}">
                                 <div class="row">
@@ -64,6 +63,7 @@
                                     <p></p>
                                     <div class="col-md-4 mt-4 mb-3">
                                         <button type="submit" class="btn btn-primary">Filter</button>
+                                        <a href="{{ route('Data-siswa.invoice') }}" class="btn btn-primary" >Invoice</a>
                                     </div>
                                 </div>
                             </form>
@@ -73,7 +73,6 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>NIS</th>
-                                        <th>Email</th>
                                         <th>Telepon</th>
                                         <th>Alamat</th>
                                         <th>Kelas</th>
@@ -85,7 +84,6 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->nis }}</td>
-                                <td>{{ $item->email }}</td>
                                 <td>{{ $item->telepon }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td>

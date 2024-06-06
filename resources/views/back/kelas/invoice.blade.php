@@ -62,14 +62,16 @@
                                                 <thead>
                                                   <tr>
                                                     <th>kode Kelas</th>
-                                                    <th >Kelas</th>
+                                                    <th>Kelas</th>
+                                                    <th> Tahun Ajaran</th>
                                                   </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($kelas as $item)
                                                   <tr>
                                                     <th>{{$item->kode_kelas}}</th>
-                                                    <th>{{$item->kelas}}</th>
+                                                    <th>{{$item->tingkatan->tingkatan ?? '' }} - {{$item->kelas}}</th>
+                                                    <th>{{$item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran'}}</th>
                                                   </tr>
                                                   @endforeach
                                                 </tbody>

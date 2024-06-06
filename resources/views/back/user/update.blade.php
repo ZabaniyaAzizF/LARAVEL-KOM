@@ -140,6 +140,20 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            <div class="mb-2 row">
+                                                                <label class="col-md-2 col-form-label" for="example-status">Status</label>
+                                                                <div class="col-md-10">
+                                                                    <select class="form-control" id="status" name="status">
+                                                                        <option value="">Pilih Status</option>
+                                                                        <option value="aktif" {{ old('status', $data->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                                                        <option value="dikeluarkan" {{ old('status', $data->status) == 'dikeluarkan' ? 'selected' : '' }}>Dikeluarkan</option>
+                                                                        <option value="keluar" {{ old('status', $data->status) == 'keluar' ? 'selected' : '' }}>Keluar</option>
+                                                                        <option value="pindah" {{ old('status', $data->status) == 'pindah' ? 'selected' : '' }}>Pindah</option>
+                                                                        <option value="pindah" {{ old('status', $data->status) == 'lulus' ? 'selected' : '' }}>Lulus</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            
 
                                                         <div class="mb-2 row">
                                                             <label class="col-md-2 col-form-label" for="example-password">Password</label>

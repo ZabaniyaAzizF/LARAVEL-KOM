@@ -62,25 +62,44 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="simpleinput">Nama</label>
+                                                            <label class="col-md-2 col-form-label" for="simpleinput">Kode Metode</label>
                                                             <div class="col-md-10">
-                                                                <input type="text" class="form-control" name="kode_metode" value="{{ $data->kode_metode}}" readonly>
-                                                                @error('nama')
+                                                                <input class="form-control" name="kode_metode" readonly id="kode_metode" type="text" value="{{ $data->kode_metode }}">
+                                                                @error('kode_metode')
                                                                     <small>{{ $message }}</small>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                         <div class="mb-2 row">
-                                                            <label class="col-md-2 col-form-label" for="example-email">Nama metode</label>
+                                                            <label class="col-md-2 col-form-label" for="example-email">Metode Pembayaran</label>
                                                             <div class="col-md-10">
-                                                                <input type="text" name="metode_pembayaran" class="form-control" value="{{ $data->metode_pembayaran}}"  placeholder="Isi Nama metode">
+                                                                <input type="text" name="metode_pembayaran" class="form-control" placeholder="Isi Metode Pembayaran" value="{{ $data->metode_pembayaran }}">
                                                                 @error('metode_pembayaran')
-                                                                <small>{{ $message }}</small>
-                                                            @enderror
+                                                                    <small>{{ $message }}</small>
+                                                                @enderror
                                                             </div>
                                                         </div>
+                                                        <div class="mb-2 row">
+                                                            <label class="col-md-2 col-form-label">Tipe Pembayaran</label>
+                                                            <div class="col-md-10">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="bulanan" value="Bulanan" {{ $data->jenis == 'Bulanan' ? 'checked' : '' }}>
+                                                                    <label class="form-check-label" for="bulanan">
+                                                                        Bulanan
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="non_bulanan" value="Non Bulanan" {{ $data->jenis == 'Non Bulanan' ? 'checked' : '' }}>
+                                                                    <label class="form-check-label" for="non_bulanan">
+                                                                        Non Bulanan
+                                                                    </label>
+                                                                </div>
+                                                                @error('tipe_pembayaran')
+                                                                    <small>{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
                                                         <div>
-                                                            <button class="btn btn-primary" type="submit"> Edit </button>
+                                                            <button class="btn btn-primary" type="submit"> Update </button>
                                                         </div>
                                                     </form>
                                                 </div>

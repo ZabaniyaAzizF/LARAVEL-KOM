@@ -17,6 +17,14 @@ class MetodeController extends Controller
         ]);
     }
 
+    public function invoice(){
+        $metode = Metode::get();
+        
+        return view('back.metode.invoice',[
+            'metode' => $metode
+        ]);
+    }
+
     public function create(){
         $metode = Metode::get();
 
@@ -26,24 +34,25 @@ class MetodeController extends Controller
     }
 
     public function store(Request $request) {
-        
         $validator = Validator::make($request->all(),[
-            'kode_metode'                   => 'required',
-            'metode_pembayaran'             => 'required',
+            'kode_metode'       => 'required',
+            'metode_pembayaran' => 'required',
+            'tipe_pembayaran'   => 'required', // Add validation rule for the new field
         ]);
-
-        
-
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-
-        $data['kode_metode']                    = $request->kode_metode;
-        $data['metode_pembayaran']              = $request->metode_pembayaran;
-
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+    
+        $data['kode_metode']       = $request->kode_metode;
+        $data['metode_pembayaran'] = $request->metode_pembayaran;
+        $data['jenis']   = $request->tipe_pembayaran; // Save the new field
+    
         Metode::create($data);
-
-        return redirect()->route('Metode')->with('success', 'Data successfully Created.');
-
+    
+        return redirect()->route('Metode')->with('success', 'Data successfully created.');
     }
+    
 
     public function edit(Request  $request, $id){
         $data = Metode::find($id);
@@ -51,15 +60,15 @@ class MetodeController extends Controller
         return view('back.metode.update',compact('data'));
     }
 
-    public function update(Request $request, $id){
-    
-        // Find the instance of Kelas
+    public function update(Request $request, $id) {
+        // Find the instance of Metode
         $data = Metode::find($id);
     
         // Validate the request
-        $validator = Validator::make($request->all(),[
-            'kode_metode'                   => 'required',
-            'metode_pembayaran'             => 'required',
+        $validator = Validator::make($request->all(), [
+            'kode_metode'       => 'required',
+            'metode_pembayaran' => 'required',
+            'tipe_pembayaran'   => 'required', // Add validation rule for the new field
         ]);
     
         // If validation fails, redirect back with errors
@@ -67,16 +76,18 @@ class MetodeController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
     
-        // Update the attributes of the Kelas instance
+        // Update the attributes of the Metode instance
         $data->kode_metode = $request->kode_metode;
         $data->metode_pembayaran = $request->metode_pembayaran;
+        $data->jenis = $request->tipe_pembayaran; // Save the new field
     
         // Save the changes to the database
         $data->save();
     
         // Redirect to the desired route
-        return redirect()->route('Metode')->with('success', 'Data successfully Updated.');
+        return redirect()->route('Metode')->with('success', 'Data successfully updated.');
     }
+    
 
     public function delete(Request $request, $id){
         // Find the instance of Kelas

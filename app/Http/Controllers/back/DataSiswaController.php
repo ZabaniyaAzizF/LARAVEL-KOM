@@ -42,6 +42,30 @@ class DataSiswaController extends Controller
         'kelas' => $kelas,
     ]);
 }
+    public function create()
+    {
+        return view('back.siswa.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_siswa' => 'required',
+            'nis' => 'required',
+            'kelas_kode' => 'required',
+        ]);
+
+        $siswa = DataSiswa::create([
+            'nama_siswa' => $request->nama_siswa,
+            'nis' => $request->nis,
+            'kelas_kode' => $request->kelas_kode,
+        ]);
+
+        // Tetapkan role default 'siswa'
+        $siswa->assignRole('siswa');
+
+        return redirect()->route('Data-siswa')->with('success', 'Siswa berhasil ditambahkan dan role telah ditetapkan');
+    }
 
 public function view(Request $request, $kelasKode = null){
     // Prepare the query to get users with role 'siswa'
@@ -57,6 +81,12 @@ public function view(Request $request, $kelasKode = null){
     // Retrieve filtered students
     $siswa = $query->get();
 
+    // Check if the filtered students are empty
+    if ($siswa->isEmpty()) {
+        // Redirect to the desired URL if no students are found
+        return redirect()->route('Data-siswa.view', ['kode_kelas' => $kelasKode ]);
+    }
+
     // Retrieve all classes, ajaran, and tingkatan
     $kelas = Kelas::all();
     $ajaran = Ajaran::all();
@@ -71,21 +101,30 @@ public function view(Request $request, $kelasKode = null){
     ]);
 }
 
+public function invoice(Request $request)
+{
+    // Prepare the query to get users with role 'siswa'
+    $query = User::with(['ajaran', 'kelas'])->role('siswa');
 
-    // public function store(){
-        
-    // }
+    // Retrieve filter values from the request
+    $kelasKode = $request->input('kelas_kode');
 
-    // public function edit(){
-        
-    // }
+    // Retrieve filtered students
+    $siswa = $query->get();
 
-    // public function update(){
-        
-    // }
+    // Retrieve all classes, ajaran, and tingkatan
+    $kelas = Kelas::all();
+    $ajaran = Ajaran::all();
+    $tingkatan = Tingkatan::all();
 
-    // public function delete(){
-        
-    // }
+    // Return the view with the retrieved data
+    return view('back.siswa.invoice', [
+        'users' => $siswa,
+        'ajaran' => $ajaran,
+        'tingkatan' => $tingkatan,
+        'kelas' => $kelas,
+    ]);
+}
+
 
 }

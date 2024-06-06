@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('metode', function (Blueprint $table) {
             $table->string('kode_metode', 6)->primary();
             $table->string('metode_pembayaran');
+            $table->string('jenis', 50);
             $table->timestamps();
         });
     }

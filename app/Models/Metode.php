@@ -16,7 +16,8 @@ class Metode extends Model
     public $incrementing = false;
     protected $fillable = [
         'kode_metode',
-        'metode_pembayaran'
+        'metode_pembayaran',
+        'jenis'
     ];
 
 }

@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Tingkatan Invoice')
+@section('title', Auth::user()->name . ' - Kelas Invoice')
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
                             <div class="py-3 py-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <h4 class="page-title mb-3">Laporan Data Tingkatan</h4>
+                                        <h4 class="page-title mb-3">Laporan Data Users</h4>
                                         <?php  $setting = App\Models\Setting::get()->first() ?>
                                         <h1>{{ $setting->nama }}</h1>
 
@@ -57,23 +57,25 @@
                         
                                     <div class="row">
                                         <div class="col-12">
-                                            <h4 class="header-title">Table Data Tingkatan</h4>  
-                                            <table class="table">
+                                            <h4 class="header-title">Table Data Jenis Pembayaran </h4>
+                                            <table class="table" >
                                                 <thead>
-                                                    <tr>
-                                                        <th>kode Tingkat</th>
-                                                        <th>Tingkatan</th>
-                                                    </tr>
+                                                  <tr>
+                                                    <th>kode Kelas</th>
+                                                    <th >Kelas</th>
+                                                    <th>Jenis</th>
+                                                  </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($tingkatan as $item)
-                                                    <tr>
-                                                        <th>{{ $item->kode_tingkat }}</th>
-                                                        <th>{{ $item->tingkatan }}</th>
-                                                    </tr>
-                                                    @endforeach
+                                                    @foreach ($metode as $item)
+                                                <tr>
+                                                    <th>{{ $item->kode_metode }}</th>
+                                                    <th>{{ $item->metode_pembayaran }}</th>
+                                                    <th>{{ $item->jenis }}</th>
+                                                </tr>
+                                                  @endforeach
                                                 </tbody>
-                                            </table>
+                                              </table>
                                         </div><!-- end col-->
                                     </div>
         
