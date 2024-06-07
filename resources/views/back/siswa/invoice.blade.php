@@ -61,18 +61,19 @@
                                             <table class="table" >
                                                 <thead>
                                                   <tr>
-                                                    <th>Nama Siswa</th>
-                                                    <th>NIS Siswa</th>
-                                                    <th>No Telepon</th>
+                                                    <th>Name</th>
+                                                    <th>NIS</th>
+                                                    <th>Telepon</th>
                                                     <th>Alamat</th>
                                                     <th>Kelas</th>
                                                     <th>Tahun Ajaran</th>
+                                                    <th>Status</th>
                                                   </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($users as $item)
+                                                    @foreach ($data_siswa as $item)
                                                     <tr>
-                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->nama_siswa }}</td>
                                                         <td>{{ $item->nis }}</td>
                                                         <td>{{ $item->telepon }}</td>
                                                         <td>{{ $item->alamat }}</td>
@@ -90,6 +91,7 @@
                                                                 Tidak Ada Ajaran
                                                             @endif
                                                         </td>
+                                                        <td>{{ $item->status }}</td>
                                                    </tr>
                                                   @endforeach
                                                 </tbody>

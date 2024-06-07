@@ -95,6 +95,19 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <div class="mb-2 row">
+                                                <label class="col-md-2 col-form-label" for="example-status">Status</label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control" id="status" name="status">
+                                                        <option value="">Pilih Status</option>
+                                                        <option value="aktif" {{ old('status', $siswa->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                                        <option value="dikeluarkan" {{ old('status', $siswa->status) == 'dikeluarkan' ? 'selected' : '' }}>Dikeluarkan</option>
+                                                        <option value="keluar" {{ old('status', $siswa->status) == 'keluar' ? 'selected' : '' }}>Keluar</option>
+                                                        <option value="pindah" {{ old('status', $siswa->status) == 'pindah' ? 'selected' : '' }}>Pindah</option>
+                                                        <option value="pindah" {{ old('status', $siswa->status) == 'lulus' ? 'selected' : '' }}>Lulus</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div>
                                                 <button class="btn btn-primary" type="submit">Update</button>
                                             </div>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_spp');
             $table->string('nominal');
             $table->string('ajaran_kode')->index();
+            $table->string('metode_kode')->index();
             $table->timestamps();
         });
     }

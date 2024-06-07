@@ -4,6 +4,7 @@ namespace App\Http\Controllers\back;
 
 use App\Models\HargaSpp;
 use App\Models\Ajaran;
+use App\Models\Metode;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -11,55 +12,75 @@ use Illuminate\Http\Request;
 class HargaController extends Controller
 {
     public function index(){
-        $harga = HargaSpp::get();
-        $academicYears = Ajaran::all();
+        $harga = HargaSpp::all();
+        $ajaran = Ajaran::where('status', 'aktif')->get();
+        $metode = Metode::all();
         
         return view('back.harga.index', [
             'harga_spp' => $harga,
-            'ajaran' => $academicYears
+            'ajaran' => $ajaran
         ]);
     }
 
     public function create(){
-        $academicYears = Ajaran::where('status', 'aktif')->get();
+        $harga = HargaSpp::all();
+        $metode = Metode::all();
+        $ajaran = Ajaran::where('status', 'aktif')->get();
 
-        return view('back.harga.create', compact('academicYears'));
+        return view('back.harga.create', compact('ajaran', 'metode', 'harga'));
     }
 
     
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nominal'       => 'required|numeric|min:0',
-            // 'ajaran_kode'   => 'required'
+        // Validasi data yang dikirim dari form
+        $request->validate([
+            'nominal' => 'required|numeric',
+            'ajaran_kode' => 'required',
+            'metode_pembayaran' => 'required',
         ]);
 
-        HargaSpp::create($data);
+        // Buat instance HargaSpp dan simpan data ke database
+        HargaSpp::create([
+            'nominal' => $request->nominal,
+            'ajaran_kode' => $request->ajaran_kode,
+            'metode_kode' => $request->metode_pembayaran,
+        ]);
 
-        // Redirect back to the create form with a success message
-        return redirect()->route('Harga')->with('success', 'Data successfully added.');
+        // Redirect dengan pesan sukses
+        return redirect()->route('Harga')->with('success', 'Data Harga SPP berhasil ditambahkan.');
     }
 
+    // Menampilkan form edit
     public function edit($id_spp)
     {
-        $spp = HargaSpp::findOrFail($id_spp);
-        // $academicYears = Ajaran::where('status', 'aktif')->get();
-        return view('back.harga.update', compact('spp', 'academicYears'));
+        $harga = HargaSpp::findOrFail($id_spp);
+        $ajaran = Ajaran::where('status', 'aktif')->get();
+        $metode = Metode::all();
+        
+        return view('back.harga.update', compact('harga', 'ajaran', 'metode'));
     }
 
+    // Memperbarui data yang ada
     public function update(Request $request, $id_spp)
     {
+        // Validasi data yang dikirim dari form
         $request->validate([
-            'nominal' => 'required|string|max:255',
-            // 'ajaran_kode' => 'required|string|max:255',
+            'nominal' => 'required|numeric',
+            'ajaran_kode' => 'required|exists:ajaran,kode_ajaran',
+            'metode_pembayaran' => 'required|exists:metode,kode_metode',
         ]);
 
-        $spp = HargaSpp::findOrFail($id_spp);
-        $spp->nominal = $request->nominal;
-        // $spp->ajaran_kode = $request->ajaran_kode;
-        $spp->save();
+        // Temukan data berdasarkan ID dan update
+        $harga = HargaSpp::findOrFail($id_spp);
+        $harga->update([
+            'nominal' => $request->nominal,
+            'ajaran_kode' => $request->ajaran_kode,
+            'metode_kode' => $request->metode_pembayaran,
+        ]);
 
-        return redirect()->route('Harga')->with('success', 'Data successfully updated.');
+        // Redirect dengan pesan sukses
+        return redirect()->route('Harga')->with('success', 'Data Harga SPP berhasil diperbarui.');
     }
 
     
@@ -71,5 +92,15 @@ class HargaController extends Controller
         return redirect()->route('Harga')->with('success', 'Data successfully deleted.');
     }
 
+    public function invoice(){
+        $harga = HargaSpp::all();
+        $ajaran = Ajaran::where('status', 'aktif')->get();
+        $metode = Metode::all();
+        
+        return view('back.harga.invoice', [
+            'harga_spp' => $harga,
+            'ajaran' => $ajaran
+        ]);
+    }
     
 }

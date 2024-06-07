@@ -49,25 +49,37 @@
                             <h4 class="header-title">Table Data Siswa</h4>
                             <div class="col-md-4 mt-4 mb-3">
                                 <a href="{{ route('Data-siswa.create') }}" class="btn btn-primary" >Tambah</a>
-                            </div>
-                            {{-- <form method="GET" action="{{ route('Data-siswa') }}">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <select name="kelas_kode" class="form-control">
-                                            <option value="">Pilih Kelas</option>
-                                            @foreach($kelas as $kls)
-                                                <option value="{{ $kls->kode_kelas }}">{{ $kls->tingkatan->tingkatan ?? '' }} - {{ $kls->kelas }} - {{ $kls->ajaran->tahun_ajaran }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <p></p>
-                                    <div class="col-md-4 mt-4 mb-3">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-                                        <a href="{{ route('Data-siswa.invoice') }}" class="btn btn-primary" >Invoice</a>
+                                <!-- Tombol Invoice -->
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">Invoice</a>
+
+                                <!-- Modal Filter -->
+                                <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="filterModalLabel">Filter Data Berdasarkan Kelas</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ route('Data-siswa.invoice') }}" method="GET">
+                                                    <div class="mb-3">
+                                                        <label for="kelas" class="form-label">Kelas</label>
+                                                        <select class="form-control" id="kelas" name="kelas_kode">
+                                                            <option value="">Semua Kelas</option> <!-- Option to show all classes -->
+                                                            @foreach($classes as $class)
+                                                                @if($class->ajaran->status == 'aktif')
+                                                                    <option value="{{ $class->kode_kelas }}">{{ $class->tingkatan->tingkatan ?? '' }} - {{ $class->kelas }} - {{ $class->ajaran->tahun_ajaran }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form> --}}
-                            
+                            </div>
                             <table class="table">
                                 <thead>
                                     <tr>

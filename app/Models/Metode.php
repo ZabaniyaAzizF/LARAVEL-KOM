@@ -20,4 +20,9 @@ class Metode extends Model
         'jenis'
     ];
 
+    public function harga(): HasMany
+    {
+        return $this->hasMany(HargaSpp::class, 'metode_kode', 'kode_metode');
+    }
+
 }

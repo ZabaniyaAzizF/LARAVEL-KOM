@@ -51,15 +51,27 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            {{-- <div class="mb-2 row">
+                                            <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" name="ajaran_kode" class="form-control" value="{{ $academicYears->first()->kode_ajaran ?? '' }}" placeholder="Isi Tahun Ajaran" readonly>
-                                                    @error('ajaran_kode')
-                                                        <small>{{ $message }}</small>
-                                                    @enderror
+                                                    <select class="form-control br-style" id="ajaran" name="ajaran_kode">
+                                                        @foreach($ajaran as $year)
+                                                            <option value="{{ $year->kode_ajaran }}" {{ $loop->first ? 'selected' : '' }}>{{ $year->tahun_ajaran }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                            <div class="mb-2 row">
+                                                <label class="col-md-2 col-form-label" for="metode_pembayaran">Jenis Pembayaran</label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control br-style" id="metode_pembayaran" name="metode_pembayaran">
+                                                        <option value="">Pilih Jenis Pembayaran</option>
+                                                        @foreach($metode as $m)
+                                                            <option value="{{ $m->kode_metode }}">{{ $m->metode_pembayaran }} - {{ $m->jenis }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div>
                                                 <button class="btn btn-primary" type="submit">Tambah</button>
                                             </div>

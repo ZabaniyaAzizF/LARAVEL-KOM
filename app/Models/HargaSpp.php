@@ -16,12 +16,19 @@ class HargaSpp extends Model
     protected $fillable = [
         'nominal',
         'ajaran_kode',
+        'metode_kode',
     ];
 
     // Relation to Ajaran
     public function ajaran()
     {
         return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
+    // Relation to Ajaran
+    public function metode()
+    {
+        return $this->belongsTo(Metode::class, 'metode_kode', 'kode_metode');
     }
 
 }

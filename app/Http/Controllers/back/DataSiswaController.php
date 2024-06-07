@@ -13,32 +13,32 @@ use Illuminate\Http\Request;
 class DataSiswaController extends Controller
 {
     public function index(Request $request)
-    {
-        // Ambil ajaran yang memiliki status 'aktif'
-        $ajaranAktif = Ajaran::where('status', 'aktif')->first();
+        {
+            // Ambil ajaran yang memiliki status 'aktif'
+            $ajaranAktif = Ajaran::where('status', 'aktif')->first();
 
-        // Jika ada ajaran aktif, ambil data siswa yang terkait dengan ajaran aktif tersebut
-        if ($ajaranAktif) {
-            $siswa = DataSiswa::whereHas('kelas', function($query) use ($ajaranAktif) {
-                $query->where('ajaran_kode', $ajaranAktif->kode_ajaran);
-            })->get();
-        } else {
-            // Jika tidak ada ajaran aktif, kembalikan data siswa kosong
-            $siswa = collect();
+            // Jika ada ajaran aktif, ambil data siswa yang terkait dengan ajaran aktif tersebut
+            if ($ajaranAktif) {
+                $siswa = DataSiswa::whereHas('kelas', function($query) use ($ajaranAktif) {
+                    $query->where('ajaran_kode', $ajaranAktif->kode_ajaran);
+                })->get();
+            } else {
+                // Jika tidak ada ajaran aktif, kembalikan data siswa kosong
+                $siswa = collect();
+            }
+
+            // Ambil semua data kelas dan ajaran
+            $kelas = Kelas::all();
+            $ajaran = Ajaran::all();
+
+            // Kembalikan data ke view
+            return view('back.siswa.index', [
+                'data_siswa' => $siswa,
+                'kelas' => $kelas,
+                'ajaran' => $ajaran,
+                'classes' => $kelas // Ensure 'classes' is passed
+            ]);
         }
-
-        // Ambil semua data kelas dan ajaran
-        $kelas = Kelas::all();
-        $ajaran = Ajaran::all();
-
-        // Kembalikan data ke view
-        return view('back.siswa.index', [
-            'data_siswa' => $siswa,
-            'kelas' => $kelas,
-            'ajaran' => $ajaran
-        ]);
-    }
-
 
     public function create()
     {
@@ -55,15 +55,15 @@ class DataSiswaController extends Controller
         // Validasi input
         $validator = Validator::make($request->all(),[
             'nama'      => 'required',
-            'nis'             => 'required',
-            'kelas_kode'      => 'required',
-            'telepon'         => 'required',
-            'alamat'          => 'required',
+            'nis'       => 'required|unique:data_siswa,nis',
+            'kelas_kode'=> 'required',
+            'telepon'   => 'required',
+            'alamat'    => 'required',
         ]);
-    
+
         // Jika validasi gagal, kembali dengan input dan error
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-    
+
         // Menyimpan data siswa
         $data = [
             'nama_siswa'   => $request->nama,
@@ -72,16 +72,16 @@ class DataSiswaController extends Controller
             'alamat'       => $request->alamat,
             'kelas_kode'   => $request->kelas_kode,
         ];
-    
+
         DataSiswa::create($data);
-    
+
         // Redirect ke halaman data siswa dengan pesan sukses
         return redirect()->route('Data-siswa')->with('success', 'Siswa berhasil ditambahkan');
     }
 
-    public function edit($id)
+    public function edit($id_siswa)
     {
-        $siswa = DataSiswa::findOrFail($id);
+        $siswa = DataSiswa::findOrFail($id_siswa);
         $classes = Kelas::whereHas('ajaran', function($query) {
             $query->where('status', 'aktif');
         })->get();
@@ -92,26 +92,25 @@ class DataSiswaController extends Controller
         ]);
     }
 
-    // Method untuk memperbarui data siswa
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id_siswa) {
         // Validasi input
         $validator = Validator::make($request->all(), [
             'nama_siswa' => 'required',
-            'nis' => 'required',
+            'nis' => 'required|unique:data_siswa,nis,' . $id_siswa . ',id_siswa',
             'kelas_kode' => 'required',
             'telepon' => 'required',
             'alamat' => 'required',
+            'status' => 'required|in:aktif,dikeluarkan,keluar,pindah,lulus',
         ]);
-
+    
         // Jika validasi gagal, kembali dengan input dan error
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
+    
         // Temukan data siswa berdasarkan ID
-        $siswa = DataSiswa::findOrFail($id);
-
+        $siswa = DataSiswa::findOrFail($id_siswa);
+    
         // Update data siswa
         $siswa->update([
             'nama_siswa' => $request->nama_siswa,
@@ -119,11 +118,12 @@ class DataSiswaController extends Controller
             'telepon' => $request->telepon,
             'alamat' => $request->alamat,
             'kelas_kode' => $request->kelas_kode,
+            'status' => $request->status,
         ]);
-
+    
         // Redirect ke halaman data siswa dengan pesan sukses
         return redirect()->route('Data-siswa')->with('success', 'Data siswa berhasil diperbarui');
-    }
+    }    
 
     public function delete(Request $request, $id){
         // Find the instance of Kelas
@@ -174,8 +174,37 @@ class DataSiswaController extends Controller
 
     public function invoice(Request $request)
     {
-        
-    }
+        // Ambil ajaran yang memiliki status 'aktif'
+        $ajaranAktif = Ajaran::where('status', 'aktif')->first();
 
+        // Jika ada ajaran aktif, ambil data siswa yang terkait dengan ajaran aktif tersebut
+        if ($ajaranAktif) {
+            $query = DataSiswa::whereHas('kelas', function($query) use ($ajaranAktif) {
+                $query->where('ajaran_kode', $ajaranAktif->kode_ajaran);
+            });
+
+            // Filter berdasarkan kelas jika ada
+            if ($request->has('kelas_kode') && !empty($request->kelas_kode)) {
+                $query->where('kelas_kode', $request->kelas_kode);
+            }
+
+            $siswa = $query->get();
+        } else {
+            // Jika tidak ada ajaran aktif, kembalikan data siswa kosong
+            $siswa = collect();
+        }
+
+        // Ambil semua data kelas dan ajaran
+        $kelas = Kelas::all();
+        $ajaran = Ajaran::all();
+
+        // Kembalikan data ke view
+        return view('back.siswa.invoice', [
+            'data_siswa' => $siswa,
+            'kelas' => $kelas,
+            'ajaran' => $ajaran,
+            'classes' => $kelas // Ensure 'classes' is passed
+        ]);
+    }
 
 }

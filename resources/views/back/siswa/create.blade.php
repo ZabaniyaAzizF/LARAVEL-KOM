@@ -56,7 +56,7 @@
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nis" placeholder="Isi NIS Anda">
                                             @error('nis')
-                                                <small>{{ $message }}</small>
+                                                <small style="color: red">{{ $message }}</small>
                                             @enderror
                                         </div>
                                     </div>

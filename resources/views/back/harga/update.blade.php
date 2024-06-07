@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', Auth::user()->name . ' - Form Edit Harga Spp')
+@section('title', Auth::user()->name . ' - Form Tambah Harga Spp')
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -18,13 +18,14 @@
             <div class="py-3 py-lg-4">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h4 class="page-title mb-0">Edit Data SPP</h4>
+                        <h4 class="page-title mb-0">Edit Data Users</h4>
                     </div>
                     <div class="col-lg-6">
                         <div class="d-none d-lg-block">
                             <ol class="breadcrumb m-0 float-end">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">SPP</a></li>
-                                <li class="breadcrumb-item active">Edit Data SPP</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Users</a></li>
+                                <li class="breadcrumb-item active">Datatables</li>
+                                <li class="breadcrumb-item active">Edit Data Users</li>
                             </ol>
                         </div>
                     </div>
@@ -34,37 +35,43 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Form Edit Data</h4>
+                            <h4 class="header-title">Form Tambah Data</h4>
                             <p></p>
-                            @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
                             <div class="row">
                                 <div class="col-12">
                                     <div class="p-2">
-                                        <form class="form-horizontal" action="{{ route('Harga.update', $spp->id_spp) }}" method="post" enctype="multipart/form-data">
+                                        <form class="form-horizontal" action="{{ route('Harga.update', $harga->id_spp) }}" method="post" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="nominal">Nominal</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" name="nominal" class="form-control" value="{{ $spp->nominal }}" placeholder="Isi Nominal">
+                                                    <input type="text" name="nominal" class="form-control" value="{{ $harga->nominal }}" placeholder="Isi Nominal">
                                                     @error('nominal')
                                                         <small>{{ $message }}</small>
                                                     @enderror
                                                 </div>
                                             </div>
-                                            {{-- <div class="mb-2 row">
+                                            <div class="mb-2 row">
                                                 <label class="col-md-2 col-form-label" for="ajaran">Tahun Ajaran</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" name="ajaran_kode" class="form-control" value="{{ $academicYears->first()->kode_ajaran ?? '' }}" placeholder="Isi Tahun Ajaran" readonly>
-                                                    @error('ajaran_kode')
-                                                        <small>{{ $message }}</small>
-                                                    @enderror
+                                                    <select class="form-control br-style" id="ajaran" name="ajaran_kode">
+                                                        @foreach($ajaran as $year)
+                                                            <option value="{{ $year->kode_ajaran }}" {{ $harga->ajaran_kode == $year->kode_ajaran ? 'selected' : '' }}>{{ $year->tahun_ajaran }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                            <div class="mb-2 row">
+                                                <label class="col-md-2 col-form-label" for="metode_pembayaran">Jenis Pembayaran</label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control br-style" id="metode_pembayaran" name="metode_pembayaran">
+                                                        @foreach($metode as $m)
+                                                            <option value="{{ $m->kode_metode }}" {{ $harga->metode_pembayaran == $m->kode_metode ? 'selected' : '' }}>{{ $m->metode_pembayaran }} - {{ $m->jenis }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div>
                                                 <button class="btn btn-primary" type="submit">Update</button>
                                             </div>

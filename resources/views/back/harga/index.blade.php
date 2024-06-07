@@ -47,7 +47,8 @@
                                 <thead>
                                     <tr>
                                         <th>Nominal</th>
-                                        {{-- <th>Tahun Ajaran</th> --}}
+                                        <th>Tahun Ajaran</th>
+                                        <th>Jenis</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -55,7 +56,8 @@
                                     @foreach ($harga_spp as $item)
                                         <tr>
                                             <th>{{ $item->nominal }}</th>
-                                            {{-- <th>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Punya Ajaran' }}</th> --}}
+                                            <th>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Punya Ajaran' }}</th>
+                                            <th>{{ $item->metode ? $item->metode->metode_pembayaran : 'Tidak Punya Jenis' }}</th>
                                             <td>
                                                 <a href="{{ route('Harga.edit', $item->id_spp) }}" class="btn btn-primary shadow btn-xs sharp me-1 mb-1">Edit</a>
                                                 <br>
