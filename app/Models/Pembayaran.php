@@ -10,17 +10,19 @@ class Pembayaran extends Model
     use HasFactory;
 
     protected $table = 'pembayaran';
-    protected $primaryKey = 'id_pembayaran';
+
+    protected $primaryKey = 'kode_pembayaran';
+    protected $keyType = 'string'; // Tipe data primary key adalah string
+    public $incrementing = false;
     protected $fillable = [
-        'id_pembayaran',
-        'spp_bulan',
-        'ajaran_kode',
-        'user_id',
+        'kode_pembayaran',
+        'bulan',
+        'nama_siswa',
         'nis',
-        'kelas_kode',
-        'jumlah',
-        'jenis',
+        'kelas',
+        'metode_kode',
         'bukti',
+        'nominal',
         'status',
         'petugas',
     ];
@@ -38,5 +40,15 @@ class Pembayaran extends Model
     public function ajaran()
     {
         return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran'); // Update 'kode' to 'kode_ajaran' or your actual column name
+    }
+
+    public function metode()
+    {
+        return $this->belongsTo(Metode::class, 'metode_kode', 'kode_metode');
+    }
+
+    public function siswa()
+    {
+        return $this->belongsTo(DataSiswa::class, 'siswa_id', 'id_siswa');
     }
 }

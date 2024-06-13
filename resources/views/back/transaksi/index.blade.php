@@ -26,7 +26,7 @@
                         <div class="d-none d-lg-block">
                             <ol class="breadcrumb m-0 float-end">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Pembayaran</a></li>
-                                <li class="breadcrumb-item active">Forms</li>
+                                <li class="breadcrumb-item active">Form Pembuatan</li>
                                 <li class="breadcrumb-item active">Pembayaran SPP</li>
                             </ol>
                         </div>
@@ -46,69 +46,61 @@
                                             @csrf
                                             <div class="mb-2 row">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-2 col-form-label" for="siswa">Nama Siswa</label>
-                                                    <select class="form-control br-style" id="siswa" name="siswa">
-                                                        <option value="">Pilih Nama Siswa</option>
-                                                        @foreach($siswas as $siswa)
-                                                            <option value="{{ $siswa->id }}" data-nis="{{ $siswa->nis }}">{{ $siswa->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('siswa')
-                                                        <small>{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="col-md-2 col-form-label" for="nis">NIS</label>
-                                                    <input type="text" class="form-control" id="nis" name="nis" value="" readonly placeholder="Isi NIS Anda">
-                                                </div>
-                                            </div>
-                                            <div class="mb-2 row">
-                                                <div class="col-md-6 mt-5">
-                                                    <label class="col-md-2 col-form-label" for="jenis">Pembayaran</label>
-                                                    <select class="form-control br-style" id="jenis" name="jenis">
-                                                        <option value="">Pilih Metode Pembayaran</option>
-                                                        <option value="Transfer">Transfer</option>
-                                                        <option value="Cash">Cash</option>
-                                                    </select>
-                                                    @error('jenis')
-                                                        <small>{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-md-6 mt-5">
-                                                    <label class="col-md-2 col-form-label" for="ajaran_kode">Tahun Ajaran</label>
-                                                    <select class="form-control br-style" id="ajaran_kode" name="ajaran_kode">
-                                                        <option value="">Pilih Tahun Ajaran</option>
-                                                        @foreach($ajaranList as $ajaran)
-                                                            <option value="{{ $ajaran->kode_ajaran }}">{{ $ajaran->tahun_ajaran }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('ajaran_kode')
-                                                        <small>{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="mb-2 row">
-                                                <div class="col-md-6 mt-4">
-                                                    <label class="col-md-2 col-form-label" for="kelas">Kelas</label>
-                                                    <select class="form-control br-style" id="kelas" name="kelas">
-                                                        <option value="">Pilih Kelas</option>
-                                                        @foreach($kelasList as $kelas)
-                                                            <option value="{{ $kelas->kode_kelas }}">{{ $kelas->kelas }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('kelas')
-                                                        <small>{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-md-6 mt-4">
-                                                    <label class="col-md-2 col-form-label" for="nominal">Nominal</label>
-                                                    <input type="text" class="form-control" name="nominal" value="" placeholder="Isi Nominal Pembayaran">
-                                                    @error('nominal')
+                                                    <label class="col-md-2 col-form-label" for="simpleinput">Kode Pembayaran</label>
+                                                    <?php
+                                                    $kodepembayaran = autonumber('pembayaran', 'kode_pembayaran', 6, 'KPS');
+                                                    ?>
+                                                    <input class="form-control" name="kode_pembayaran" readonly id="kode_pembayaran" type="text" value="<?= $kodepembayaran ?>">
+                                                @error('kode_kelas')
                                                     <small>{{ $message }}</small>
                                                 @enderror
                                                 </div>
                                             </div>
                                             <div class="mb-2 row">
+                                                <div class="col-md-6">
+                                                    <label class="col-md-2 col-form-label" for="nis">NIS</label>
+                                                    <input type="text" class="form-control" id="nis" name="nis" placeholder="Masukkan NIS">
+                                                    @error('nis')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-md-2 col-form-label" for="nama_siswa">Nama Siswa</label>
+                                                    <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" readonly>
+                                                    @error('nama_siswa')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-2 row">
+                                                <div class="col-md-6 mt-5">
+                                                    <label class="col-md-2 col-form-label" for="kelas">Kelas</label>
+                                                    <input type="text" class="form-control" id="kelas" name="kelas" readonly>
+                                                    @error('kelas')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6 mt-5">
+                                                    <label class="col-md-2 col-form-label" for="jenis"> Jenis Pembayaran</label>
+                                                    <select class="form-control br-style" id="jenis" name="jenis">
+                                                        <option value="">Pilih Jenis Pembayaran</option>
+                                                        @foreach($metodeList as $metode)
+                                                            <option value="{{ $metode->kode_metode }}">{{ $metode->metode_pembayaran }} - {{ $metode->jenis }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('jenis')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-2 row">
+                                                <div class="col-md-6 mt-4">
+                                                    <label class="col-md-2 col-form-label" for="nominal">Nominal</label>
+                                                    <input type="text" class="form-control" name="nominal" placeholder="Isi Nominal Pembayaran">
+                                                    @error('nominal')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
                                                 <div class="col-md-6 mt-4">
                                                     <label class="col-md-2 col-form-label" for="bulan">Bulan</label>
                                                     <select class="form-control br-style" id="bulan" name="bulan">
@@ -131,7 +123,19 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            
+
+                                            <!-- Di bagian form -->
+                                            <div class="mb-2 row">
+                                                <div class="col-md-6">
+                                                    <label class="col-md-2 col-form-label" for="petugas">Petugas</label>
+                                                    <input type="text" class="form-control" id="petugas" name="petugas" value="{{ Auth::user()->name }}" readonly>
+                                                    <!-- Anda bisa menggunakan Auth::user()->name atau informasi lain sesuai kebutuhan -->
+                                                    @error('petugas')
+                                                        <small>{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
                                             <div class="mt-5">
                                                 <button class="btn btn-primary" type="submit"> Tambah </button>
                                             </div>
@@ -148,14 +152,48 @@
     </div>
 
     <script>
-        $(document).ready(function(){
-            $('#siswa').change(function(){
-                var selectedOption = $(this).find('option:selected');
-                var nis = selectedOption.data('nis');
-                $('#nis').val(nis);
+        $(document).ready(function() {
+        // // Data nominal berdasarkan kode metode
+        // var nominalByMetode = @json($nominalByMetode);
+
+        // // Ketika jenis pembayaran dipilih
+        // $('#jenis').on('change', function() {
+        //     var metode_kode = $(this).val();
+        //     if (metode_kode) {
+        //         var nominal = nominalByMetode[metode_kode];
+        //         if (nominal) {
+        //             $('#nominal').val(nominal);
+        //         } else {
+        //             alert('Nominal tidak ditemukan');
+        //             $('#nominal').val('');
+        //         }
+        //     } else {
+        //         $('#nominal').val('');
+        //     }
+        // });
+
+            // Ketika NIS siswa dipilih
+            $('#nis').on('change', function() {
+                var nis = $(this).val();
+                if (nis) {
+                    var siswas = @json($siswas);
+                    var siswa = siswas.find(siswa => siswa.nis === nis);
+                    if (siswa) {
+                        $('#nama_siswa').val(siswa.nama_siswa);
+                        $('#kelas').val(siswa.kelas.kelas + ' (' + siswa.kelas.tingkatan.tingkatan + ' - ' + siswa.kelas.ajaran.tahun_ajaran + ')');
+                    } else {
+                        alert('Data siswa tidak ditemukan');
+                        $('#nama_siswa').val('');
+                        $('#kelas').val('');
+                    }
+                } else {
+                    $('#nama_siswa').val('');
+                    $('#kelas').val('');
+                }
             });
         });
     </script>
+    
 </body>
 </html>
 @endsection

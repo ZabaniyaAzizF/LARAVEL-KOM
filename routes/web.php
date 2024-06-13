@@ -95,11 +95,13 @@ Route::middleware('auth')->group(function () {
     // Transaksi
     Route::get('/Transaksi', [TransaksiController::class, 'index'] )->name('Transaksi')->middleware(['auth', 'verified', 'permission:lihat-bulanan']);
     Route::post('/Transaksi/store', [TransaksiController::class, 'store'])->name('Transaksi.store');
+    Route::get('/get-nominal', 'TransaksiController@getNominal')->name('getNominal');
+
 
     // Pembayaran
     Route::get('/Pembayaran', [PembayaranController::class, 'index'])->name('Pembayaran')->middleware(['auth', 'verified', 'permission:lihat-bayaran']);
-    Route::get('/Pembayaran/edit/{id_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit')->middleware(['auth', 'verified', 'permission:edit-bayaran']);
-    Route::put('/Pembayaran/update/{id_pembayaran}', [PembayaranController::class, 'update'])->name('Pembayaran.update');
+    Route::get('/Pembayaran/edit/{kode_pembayaran}', [PembayaranController::class, 'edit'])->name('Pembayaran.edit')->middleware(['auth', 'verified', 'permission:edit-bayaran']);
+    Route::put('/Pembayaran/update/{kode_pembayaran}', [PembayaranController::class, 'update'])->name('Pembayaran.update');
     Route::get('/Pembayaran/invoice', [PembayaranController::class, 'invoice'] )->name('Pembayaran.invoice')->middleware(['auth', 'verified', 'permission:invoice-bayaran']);
 
     // Tingkatan

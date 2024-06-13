@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DataSiswa extends Model
 {
@@ -29,6 +30,11 @@ class DataSiswa extends Model
     public function ajaran()
     {
         return $this->belongsTo(Ajaran::class, 'ajaran_kode', 'kode_ajaran');
+    }
+
+    public function siswa(): HasMany
+    {
+        return $this->hasMany(DataSiswa::class, 'siswa_id', 'id_siswa');
     }
 
 }

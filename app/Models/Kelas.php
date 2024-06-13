@@ -28,10 +28,6 @@ class Kelas extends Model
         return $this->hasMany(Pembayaran::class, 'kelas_kode', 'kode_kelas');
     }
 
-    public function user()
-    {
-        return $this->hasMany(User::class, 'kelas_kode', 'kode_kelas');
-    }
 
     // Relation to Ajaran
     public function ajaran()

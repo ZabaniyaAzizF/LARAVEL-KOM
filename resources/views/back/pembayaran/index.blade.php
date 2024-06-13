@@ -51,12 +51,12 @@
                                 <a href="{{ route('Pembayaran.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
                             </div>
 
-                            <h4>Filter Data Pembayaran Siswa</h4>
+                            <h4>Filter Data Pembayaran Siswa <small style="color: red">(Berdasarkan NIS)</small></h4>
                             <!-- Filter Form -->
                             <form method="GET" action="{{ route('Pembayaran') }}" class="mb-4">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <input type="text" name="name" class="form-control" placeholder="Filter by User Name" value="{{ request('name') }}">
+                                        <input type="text" name="nis" class="form-control" placeholder="Filter by NIS" value="{{ request('nis') }}">
                                     </div>
                                     <div class="col-md-2">
                                         <button type="submit" class="btn btn-primary">Filter</button>
@@ -70,10 +70,9 @@
                                         <th>Nama Siswa</th>
                                         <th>NIS</th>
                                         <th>Spp Bulan</th>
-                                        <th>Tahun Ajaran</th>
                                         <th>Kelas</th>
                                         <th>Nominal</th>
-                                        <th>Metode Bayar</th>
+                                        <th>Jenis Pembayaran</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -81,13 +80,18 @@
                                 <tbody>
                                     @foreach ($pembayaran as $item)
                                     <tr>
-                                        <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->user->nis }}</td>
-                                        <td>{{ $item->spp_bulan }}</td>
-                                        <td>{{ $item->ajaran ? $item->ajaran->tahun_ajaran : 'Tidak Ada Ajaran' }}</td>
-                                        <td>{{ $item->kelas ? $item->kelas->kelas : 'Tidak Punya Kelas' }}</td>
-                                        <td>{{ $item->jumlah }}</td>
-                                        <td>{{ $item->jenis }}</td>
+                                        <td>{{ $item->nama_siswa }}</td>
+                                        <td>{{ $item->nis }}</td>
+                                        <td>{{ $item->bulan }}</td>
+                                        <td>{{ $item->kelas}}</td>
+                                        <td>{{ $item->nominal }}</td>
+                                        <td>
+                                            @if($item->metode)
+                                                {{ $item->metode->metode_pembayaran ?? '' }}
+                                            @else
+                                                Tidak Punya Pembayaran
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="col-md-10">
                                                 @php
@@ -109,9 +113,65 @@
                                         <td>
                                             <!-- Hide the button when status is "lunas" -->
                                             @if($item->status != 'lunas')
-                                                <a href="{{ route('Pembayaran.edit', $item->id_pembayaran) }}" class="btn btn-success">Bayar</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $item->kode_pembayaran }}" class="btn btn-success">Bayar</a>
                                             @endif
                                         </td>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop{{ $item->kode_pembayaran }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ $item->kode_pembayaran }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel{{ $item->kode_pembayaran }}">Konfirmasi Pembayaran Spp</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('Pembayaran.update', $item->kode_pembayaran) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="spp_bulan" class="form-label">Nama Siswa</label>
+                                                                <input type="text" class="form-control" name="nama_siswa" id="nama_siswa{{ $item->kode_pembayaran }}" value="{{ old('nama_siswa', $item->nama_siswa) }}" readonly>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="spp_bulan" class="form-label">Nis</label>
+                                                                <input type="text" class="form-control" name="nis" id="nis{{ $item->kode_pembayaran }}" value="{{ old('nis', $item->nis) }}" readonly>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="spp_bulan" class="form-label">Spp Bulan</label>
+                                                                <input type="text" class="form-control" name="spp_bulan" id="spp_bulan{{ $item->kode_pembayaran }}" value="{{ old('spp_bulan', $item->bulan) }}" readonly>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="jumlah" class="form-label">Nominal</label>
+                                                                <input type="text" class="form-control" name="jumlah" id="jumlah{{ $item->kode_pembayaran }}" value="{{ old('jumlah', $item->nominal) }}" readonly>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="jenis" class="form-label">Metode Pembayaran</label>
+                                                                <select class="form-control" id="jenis{{ $item->kode_pembayaran }}" name="jenis">
+                                                                    <option value="Cash" {{ old('jenis', $item->jenis) == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                                                    <option value="Transfer" {{ old('jenis', $item->jenis) == 'Transfer' ? 'selected' : '' }}>Transfer</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="status" class="form-label">Status</label>
+                                                                <select class="form-control" name="status" id="status{{ $item->kode_pembayaran }}">
+                                                                    <option value="lunas" {{ old('status', $item->status) == 'lunas' ? 'selected' : '' }}>Lunas</option>
+                                                                    <option value="belum lunas" {{ old('status', $item->status) == 'belum lunas' ? 'selected' : '' }}>Belum Lunas</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="petugas" class="form-label">Nama Petugas</label>
+                                                                <input type="text" class="form-control" name="petugas" id="petugas{{ $item->kode_pembayaran }}" value="{{ old('petugas', $loggedInUser->name) }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Update</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Modal -->
                                     </tr>
                                     @endforeach
                                 </tbody>

@@ -1,5 +1,5 @@
 @extends('back.layout.template')
-@section('title', 'Edit Pembayaran - ' . $pembayaran->user->name)
+@section('title', 'Edit Pembayaran - ' . $pembayaran->nama_siswa)
 @section('content')
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
@@ -47,51 +47,41 @@
                         <div class="card-body">
                             <h4 class="header-title">Edit Data Pembayaran</h4>
 
-                            <form method="POST" action="{{ route('Pembayaran.update', $pembayaran->id_pembayaran) }}">
+                            <form method="POST" action="{{ route('Pembayaran.update', $pembayaran->kode_pembayaran) }}">
                                 @csrf
                                 @method('PUT') <!-- Ensure the form uses POST method -->
                                 <input type="hidden" name="_method" value="PUT"> <!-- Spoof the PUT method -->
 
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Nama</label>
-                                    <input type="text" class="form-control" id="name" value="{{ $pembayaran->user->name }}" disabled>
+                                    <label for="nama_siswa" class="form-label">Nama Siswa</label>
+                                    <input type="text" class="form-control" id="nama_siswa" value="{{ $pembayaran->nama_siswa }}" disabled>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="nis" class="form-label">NIS</label>
-                                    <input type="text" class="form-control" id="nis" value="{{ $pembayaran->user->nis }}" disabled>
+                                    <input type="text" class="form-control" id="nis" value="{{ $pembayaran->nis }}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kelas" class="form-label">Kelas</label>
+                                    <input type="text" class="form-control" id="kelas" value="{{ $pembayaran->kelas }}" disabled>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="spp_bulan" class="form-label">Spp Bulan</label>
-                                    <input type="text" class="form-control" name="spp_bulan" id="spp_bulan" value="{{ old('spp_bulan', $pembayaran->spp_bulan) }}">
+                                    <input type="text" class="form-control" name="spp_bulan" id="spp_bulan" value="{{ old('spp_bulan', $pembayaran->bulan) }}" disabled>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="ajaran_kode" class="form-label">Tahun Ajaran</label>
-                                    <input type="text" class="form-control" name="ajaran_kode" id="ajaran_kode" value="{{ $pembayaran->ajaran->tahun_ajaran }}" disabled>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="kelas_kode" class="form-label">Kelas</label>
-                                    <input type="text" class="form-control" name="kelas_kode" id="kelas_kode" value="{{ $pembayaran->kelas->kelas }}" disabled>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="jumlah" class="form-label">Nominal</label>
-                                    <input type="text" class="form-control" name="jumlah" id="jumlah" value="{{ old('jumlah', $pembayaran->jumlah) }}">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="petugas" class="form-label">Nama Petugas</label>
-                                    <input type="text" class="form-control" name="petugas" id="petugas" value="{{ old('petugas', $loggedInUser->name) }}" readonly>
+                                    <label for="nominal" class="form-label">Nominal</label>
+                                    <input type="text" class="form-control" name="nominal" id="nominal" value="{{ old('nominal', $pembayaran->nominal) }}" disabled>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="jenis" class="form-label">Metode Pembayaran</label>
                                     <select class="form-control" id="jenis" name="jenis">
-                                        <option value="Transfer" {{ old('jenis', $pembayaran->jenis) == 'Transfer' ? 'selected' : '' }}>Transfer</option>
                                         <option value="Cash" {{ old('jenis', $pembayaran->jenis) == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                        <option value="Transfer" {{ old('jenis', $pembayaran->jenis) == 'Transfer' ? 'selected' : '' }}>Transfer</option>
                                     </select>
                                 </div>
 
@@ -101,6 +91,11 @@
                                         <option value="lunas" {{ old('status', $pembayaran->status) == 'lunas' ? 'selected' : '' }}>Lunas</option>
                                         <option value="belum lunas" {{ old('status', $pembayaran->status) == 'belum lunas' ? 'selected' : '' }}>Belum Lunas</option>
                                     </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="petugas" class="form-label">Nama Petugas</label>
+                                    <input type="text" class="form-control" name="petugas" id="petugas" value="{{ old('petugas', $loggedInUser->name) }}" readonly>
                                 </div>
 
                                 <div class="mb-3">

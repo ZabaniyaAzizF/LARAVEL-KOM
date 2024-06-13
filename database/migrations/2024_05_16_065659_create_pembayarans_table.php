@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembayaran', function (Blueprint $table) {
-            $table->id('id_pembayaran');
-            $table->string('spp_bulan');
-            $table->string('ajaran_kode')->index();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key to users table
-            $table->string('nis', 10);
-            $table->string('kelas_kode')->index();
-            $table->foreign('kelas_kode')->references('kode_kelas')->on('kelas')->onDelete('cascade'); // Foreign key to kelas table
-            $table->string('jumlah');
-            $table->string('jenis', 10)->nullable();
+            $table->string('kode_pembayaran')->primary();
+            $table->string('siswa_id')->nullable()->index();
+            $table->string('nama_siswa');
+            $table->string('nis');
+            $table->string('kelas');
+            $table->string('metode_kode')->nullable()->index();
+            $table->string('nominal');
+            $table->string('bulan');
             $table->string('bukti')->nullable();
             $table->enum('status', ['lunas', 'belum lunas'])->default('lunas');
             $table->string('petugas')->nullable();

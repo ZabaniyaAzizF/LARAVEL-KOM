@@ -5,6 +5,7 @@ namespace App\Http\Controllers\back;
 use App\Http\Controllers\Controller;
 use App\Models\Ajaran;
 use App\Models\Kelas;
+use App\Models\Metode;
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
 use App\Models\Siswa;
@@ -16,24 +17,28 @@ class PembayaranController extends Controller
     public function index(Request $request)
     {
         $query = Pembayaran::with(['user', 'kelas']);
-        
-        if ($request->has('name')) {
-            $query->whereHas('user', function($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->input('name') . '%');
-            });
+        $metode = Metode::all();
+
+        if ($request->has('nis')) {
+            $query->where('nis', 'like', '%' . $request->input('nis') . '%');
         }
-    
+
+        // Get the logged-in user
+        $loggedInUser = Auth::user();
+
         $pembayaran = $query->get();
-    
+
         return view('back.pembayaran.index', [
-            'pembayaran' => $pembayaran
+            'pembayaran' => $pembayaran,
+            'metode' => $metode,
+            'loggedInUser' => $loggedInUser // Make sure to pass the variable to the view
         ]);
     }
 
     // Display the edit form
-    public function edit($id_pembayaran)
+    public function edit($kode_pembayaran)
     {
-        $pembayaran = Pembayaran::with(['user', 'kelas'])->findOrFail($id_pembayaran);
+        $pembayaran = Pembayaran::with(['user', 'kelas'])->findOrFail($kode_pembayaran);
 
         // Get the logged-in user
         $loggedInUser = Auth::user();
@@ -45,36 +50,31 @@ class PembayaranController extends Controller
     }
 
 
-    // Handle the update request
-    public function update(Request $request, $id_pembayaran)
+    public function update(Request $request, $kode_pembayaran)
     {
-        // Debugging: Check request data
-        // dd($request->all());
-    
         $request->validate([
             'spp_bulan' => 'required|string|max:255',
             'jumlah' => 'required|string|max:255',
             'status' => 'required|in:lunas,belum lunas',
-            'jenis' => 'required|string|max:255'
+            'jenis' => 'required|string|max:255',
+            'petugas' => 'required|string|max:255',
         ]);
-    
-        // Debugging: Check if the record is found
-        $pembayaran = Pembayaran::findOrFail($id_pembayaran);
-        // dd($pembayaran);
-    
-        $pembayaran->spp_bulan = $request->input('spp_bulan');
-        $pembayaran->jumlah = $request->input('jumlah');
+
+        $pembayaran = Pembayaran::findOrFail($kode_pembayaran);
+        $pembayaran->bulan = $request->input('spp_bulan');
+        $pembayaran->nominal = $request->input('jumlah');
         $pembayaran->status = $request->input('status');
         $pembayaran->jenis = $request->input('jenis');
-        $pembayaran->petugas = $request->input('petugas'); // Include this line to update the "petugas" field
-    
-        // Debugging: Check the updated model before saving
-        // dd($pembayaran);
-    
+        $pembayaran->petugas = $request->input('petugas');
+
         $pembayaran->save();
-    
+
         return redirect()->route('Pembayaran')->with('success', 'Pembayaran updated successfully');
     }
+
+
+
+
     
 
     public function history(Request $request)
