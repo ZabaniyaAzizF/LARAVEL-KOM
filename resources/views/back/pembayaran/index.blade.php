@@ -46,11 +46,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title mb-5">Table Data Pembayaran SPP</h4>
-
+            
                             <div>
-                                <a href="{{ route('Pembayaran.invoice') }}" class="btn btn-primary mb-4 mt-2" >Invoice</a>
+                                <a href="{{ route('Pembayaran.invoice') }}" class="btn btn-primary mb-4 mt-2">Invoice</a>
                             </div>
-
+            
                             <h4>Filter Data Pembayaran Siswa <small style="color: red">(Berdasarkan NIS)</small></h4>
                             <!-- Filter Form -->
                             <form method="GET" action="{{ route('Pembayaran') }}" class="mb-4">
@@ -63,7 +63,9 @@
                                     </div>
                                 </div>
                             </form>
-
+            
+                            <!-- Tampilkan tabel hanya jika NIS sudah diisi -->
+                            @if(!empty(request('nis')))
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -176,7 +178,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-
+                            @else
+                            <div class="alert alert-info">Silakan isi NIS untuk menampilkan data.</div>
+                            @endif
+            
                         </div> <!-- end card body-->
                     </div> <!-- end card -->
                 </div><!-- end col-->

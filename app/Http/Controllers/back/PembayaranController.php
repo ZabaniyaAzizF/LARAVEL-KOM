@@ -8,6 +8,7 @@ use App\Models\Kelas;
 use App\Models\Metode;
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -19,8 +20,16 @@ class PembayaranController extends Controller
         $query = Pembayaran::with(['user', 'kelas']);
         $metode = Metode::all();
 
+        // Check if NIS parameter is provided
         if ($request->has('nis')) {
             $query->where('nis', 'like', '%' . $request->input('nis') . '%');
+        } else {
+            // If NIS parameter is not provided, return an empty collection
+            return view('back.pembayaran.index', [
+                'pembayaran' => collect(), // Return an empty collection
+                'metode' => $metode,
+                'loggedInUser' => Auth::user()
+            ]);
         }
 
         // Get the logged-in user
@@ -31,9 +40,10 @@ class PembayaranController extends Controller
         return view('back.pembayaran.index', [
             'pembayaran' => $pembayaran,
             'metode' => $metode,
-            'loggedInUser' => $loggedInUser // Make sure to pass the variable to the view
+            'loggedInUser' => $loggedInUser
         ]);
     }
+
 
     // Display the edit form
     public function edit($kode_pembayaran)
@@ -69,13 +79,11 @@ class PembayaranController extends Controller
 
         $pembayaran->save();
 
-        return redirect()->route('Pembayaran')->with('success', 'Pembayaran updated successfully');
+        // Mendapatkan NIS dari filter
+        $nis = $request->input('nis');
+
+        return Redirect::route('Pembayaran', ['nis' => $nis])->with('success', 'Pembayaran updated successfully');
     }
-
-
-
-
-    
 
     public function history(Request $request)
     {
